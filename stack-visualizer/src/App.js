@@ -1,5 +1,7 @@
 import React from 'react';
-import Stack from './Components/Stack';
+import RegisterFile from './Components/RegisterFile';
+import Grid from '@material-ui/core/Grid';
+import AppBar from '@material-ui/core/AppBar';
 import './App.css';
 
 function App() {
@@ -7,19 +9,21 @@ function App() {
     <div>
       <div className="App">
         <h1>
-          Hey Hey Welcome to the Stack Visualizer
+          <AppBar>Stack Visualizer</AppBar>
         </h1>
       </div>
 
       <br></br>
       <br></br>
       <br></br>
-      <br></br>
-      <br></br>
-      
-      <div>
-        <Stack/>
-      </div>
+
+      <Grid container className="AppContainer" spacing={10}>
+        <Grid item>
+          <RegisterFile/>
+        </Grid>
+
+      </Grid>
+    
     </div>
   );
 }
