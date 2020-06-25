@@ -2,7 +2,7 @@
   "name": "stack-visualizer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://stackvisualizer.com",
+  "homepage": "https://harrissteven.github.io/stack-visualizer",
   "dependencies": {
     "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
