@@ -1,13 +1,11 @@
 import React from 'react';
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import Highlight from 'react-highlighter';
-import Stepper from './Stepper.js';
-import Timer from './Timer.js';
-import Slider from './Slider.js';
 import RunOptions from './RunOptions.js';
+import ArmInfo from './../ArmInfo.js';
 import './../../App.css';
 
 class Parser extends React.Component {
@@ -19,12 +17,14 @@ class Parser extends React.Component {
             status: 0,
             step: false,
             visualize: false,
-            speed: 0,
+            speed: 3,
             lines: [],
             debugCode: "",
             nextInstruction: "",
+            compile: false,
             error: false,
-            errorInfo: null
+            errorInfo: [],
+            instructionCount: 0
         }
     }
 
@@ -32,6 +32,19 @@ class Parser extends React.Component {
         this.setState({
             [e.target.id]: e.target.value
         })
+    }
+
+    hexToInt = (hex) => {
+        console.log("HEXNUM: " + hex);
+        while(hex.length < 8) {
+            hex = "0" + hex;
+        }
+        var num = parseInt(hex, 16);
+        var maxVal = Math.pow(2, hex.length / 2 * 8);
+        if (num > maxVal / 2 - 1) {
+            num = num - maxVal;
+        }
+        return num;
     }
 
     startStep = ()  => {
@@ -68,24 +81,34 @@ class Parser extends React.Component {
         this.pointCurInstruction();
     }
 
-    toggleVisualize = () => {
+    handleCompile = () => {
         this.setState({
-            visualDisplay: (!this.state.visualDisplay)
+            compile: true
         })
+        this.checkErrors();
     }
 
     handleReset = () => {
         console.log("RESETTING");
+        let errorInfo;
+        if(this.state.compile) {
+            errorInfo = this.state.errorInfo;
+        }
+        else {
+            errorInfo = [];
+        }
         this.setState({
             line: 0,
             status: 0,
             step: false,
+            speed: 3,
             lines: [],
             error: false,
-            errorInfo: null,
+            errorInfo: errorInfo,
             visualize: false,
             visualDisplay: false,
-            nextInstruction: ""
+            nextInstruction: "",
+            instructionCount: 0
         })
         this.props.clear();
     }
@@ -93,6 +116,25 @@ class Parser extends React.Component {
     changeSpeed = (newSpeed) => {
         this.setState({
             speed: newSpeed
+        })
+    }
+
+    checkErrors = () => {
+        let lines = this.getLines();
+        let instructionData = this.getInstructions(lines).instructions;
+        let newInfo = this.state.errorInfo;
+
+        for(const instruction of instructionData) {
+            if(instruction.instruction !== null) {
+                let type = instruction.instruction;
+                if(type !== "MOV" && type !== "ADD" && type !== "SUB" && type !== "MUL" && type !== "LDR" && type !== "STR" && type !== "push" && type !== "pop" && type !== "B" && type !== "BNE" && type !== "BEQ" && type !== "BGT" && type !== "BLT" && type !== "BGE" && type !== "BLE" && type !== "CMP" && type !== "BX" && type !== "BL") {
+                    newInfo.push({instruction: type, line: instruction.line+1});
+                }
+            }
+        }
+        this.setState({
+            error: true,
+            errorInfo: newInfo
         })
     }
 
@@ -116,6 +158,8 @@ class Parser extends React.Component {
                 }
             }
         }
+        console.log(branchData[0]);
+        console.log(instructionData.labels);
 
         // If the instruction is a branch, we must highlight where it will branch to
         let instruction = branchData[0].instruction;
@@ -124,11 +168,9 @@ class Parser extends React.Component {
             let line;
             if(instruction === "BX") {
                 line = this.bx(branchData[0].arg1) - 1;
-                
             }
             else {
                 line = this.branch(branchData, instructionData.labels);
-
             }
             console.log(line);
             for(let i = 0; i < lines.length; i++) {
@@ -143,8 +185,6 @@ class Parser extends React.Component {
             }
         }
 
-        
-        
         if(!(this.state.line === lines.length - 1) && !branch) {
             for(let i = 0; i < lines.length; i++) {
                 let curLine = lines[i];
@@ -169,7 +209,6 @@ class Parser extends React.Component {
             debugCode: debugCode,
             nextInstruction: nextInstruction
         })
-
     }
 
     getRegister = (reg) => {
@@ -205,19 +244,17 @@ class Parser extends React.Component {
         console.log(this.state.code);
         let begin = 0;
 
-
-
         for(let i = 0; i < code.length; i++) {
             if(code.substring(i, i+1) === '\n') {
-                lines.push(code.substring(begin, i)+" ");
+                lines.push(code.substring(begin, i) + " ");
                 begin = i+1;
             }
         }
-
-        lines.push(code.substring(begin, code.length)+" ");
+        lines.push(code.substring(begin, code.length) + " ");
+        
         for(let i = 0; i < lines.length; i++) {
             let line = lines[i];
-            if(line === " ") {
+            if(!(/\S/.test(line))) {
                 lines.splice(i, 1);
                 i--;
             }
@@ -242,7 +279,12 @@ class Parser extends React.Component {
             instructionCount = 0;
             let line = lines[i];
             for(let j = 0; j < line.length; j++) {
-                if(line.substring(j, j+1) === ' ') {
+                //console.log(line.substring(j, j+1));
+                //if(line.substring(j, j+1) === ' ') {
+                if(/\s/.test(line.substring(j, j+1))) {
+                    //console.log(line.substring(begin, j));
+                    //console.log("begin: " + begin + " end: " + j);
+                    //console.log(line.substring(j-1, j));
                     switch(instructionCount) {
                         case 0: {
                             if(line.substring(j-1, j) === ",") {
@@ -252,56 +294,119 @@ class Parser extends React.Component {
                                 break;
                             }
                             else if(line.substring(j-1, j) === ":") {
-                                instructions.push({line: i, arg1: null, arg2: null, arg3: null, instruction: null, label: line.substring(begin, j-1).replace(/\s/g, "")});
+                                instructions.push({line: i, arg1: null, arg2: null, arg3: null, arg4: null, arg5: null, arg6: null, instruction: null, label: line.substring(begin, j-1).replace(/\s/g, "")});
                                 begin = j+1;
                                 break;
                             }
-                            else {
-                                instructions.push({line: i, arg1: null, arg2: null, arg3: null, instruction: line.substring(begin, j).replace(/\s/g, ""), label: null});
+                            else if(line.substring(begin, j).replace(/\s/g, "") !== "") {
+                                instructions.push({line: i, arg1: null, arg2: null, arg3: null, arg4: null, arg5: null, arg6: null, instruction: line.substring(begin, j).replace(/\s/g, ""), label: null});
                                 begin = j+1;
                                 instructionCount++;
+                                break;
+                            }
+                            else {
                                 break;
                             }
                         }
                         case 1: {
                             if(line.substring(j-1, j) === ",") {
-                                instructions.push({line: i, arg1: line.substring(begin, j-1).replace(/\s/g, ""), arg2: null, arg3: null, instruction: null, label: null});
+                                instructions.push({line: i, arg1: line.substring(begin, j-1).replace(/\s/g, ""), arg2: null, arg3: null, arg4: null, arg5: null, arg6: null, instruction: null, label: null});
+                                begin = j+1;
+                                instructionCount++;
+                                break;
+                            }
+                            else if(line.substring(begin, j).replace(/\s/g, "") !== "") {
+                                instructions.push({line: i, arg1: line.substring(begin, j).replace(/\s/g, ""), arg2: null, arg3: null, arg4: null, arg5: null, arg6: null, instruction: null, label: null});
                                 begin = j+1;
                                 instructionCount++;
                                 break;
                             }
                             else {
-                                instructions.push({line: i, arg1: line.substring(begin, j).replace(/\s/g, ""), arg2: null, arg3: null, instruction: null, label: null});
-                                begin = j+1;
-                                instructionCount++;
                                 break;
                             }
                         }
                         case 2: {
                             if(line.substring(j-1, j) === ",") {
-                                instructions.push({line: i, arg1: null, arg2: line.substring(begin, j-1).replace(/\s/g, ""), arg3: null, instruction: null, label: null});
+                                instructions.push({line: i, arg1: null, arg2: line.substring(begin, j-1).replace(/\s/g, ""), arg3: null, arg4: null, arg5: null, arg6: null, instruction: null, label: null});
+                                begin = j+1;
+                                instructionCount++;
+                                break;
+                            }
+                            else if(line.substring(begin, j).replace(/\s/g, "") !== "") {
+                                instructions.push({line: i, arg1: null, arg2: line.substring(begin, j).replace(/\s/g, ""), arg3: null, arg4: null, arg5: null, arg6: null, instruction: null, label: null});
                                 begin = j+1;
                                 instructionCount++;
                                 break;
                             }
                             else {
-                                instructions.push({line: i, arg1: null, arg2: line.substring(begin, j).replace(/\s/g, ""), arg3: null, instruction: null, label: null});
-                                begin = j+1;
-                                instructionCount++;
                                 break;
                             }
                         }
                         case 3: {
                             if(line.substring(j-1, j) === ",") {
-                                instructions.push({line: i, arg1: null, arg2: null, arg3: line.substring(begin, j-1).replace(/\s/g, ""), instruction: null, label: null});
+                                instructions.push({line: i, arg1: null, arg2: null, arg3: line.substring(begin, j-1).replace(/\s/g, ""), arg4: null, arg5: null, arg6: null, instruction: null, label: null});
+                                begin = j+1;
+                                instructionCount++;
+                                break;
+                            }
+                            else if(line.substring(begin, j).replace(/\s/g, "") !== "") {
+                                instructions.push({line: i, arg1: null, arg2: null, arg3: line.substring(begin, j).replace(/\s/g, ""), arg4: null, arg5: null, arg6: null, instruction: null, label: null});
                                 begin = j+1;
                                 instructionCount++;
                                 break;
                             }
                             else {
-                                instructions.push({line: i, arg1: null, arg2: null, arg3: line.substring(begin, j).replace(/\s/g, ""), instruction: null, label: null});
+                                break;
+                            }
+                        }
+                        case 4: {
+                            if(line.substring(j-1, j) === ",") {
+                                instructions.push({line: i, arg1: null, arg2: null, arg3: null, arg4: line.substring(begin, j-1).replace(/\s/g, ""), arg5: null, arg6: null, instruction: null, label: null});
                                 begin = j+1;
                                 instructionCount++;
+                                break;
+                            }
+                            else if(line.substring(begin, j).replace(/\s/g, "") !== "") {
+                                instructions.push({line: i, arg1: null, arg2: null, arg3: null, arg4: line.substring(begin, j).replace(/\s/g, ""), arg5: null, arg6: null, instruction: null, label: null});
+                                begin = j+1;
+                                instructionCount++;
+                                break;
+                            }
+                            else {
+                                break;
+                            }
+                        }
+                        case 5: {
+                            if(line.substring(j-1, j) === ",") {
+                                instructions.push({line: i, arg1: null, arg2: null, arg3: null, arg4: null, arg5: line.substring(begin, j-1).replace(/\s/g, ""), arg6: null, instruction: null, label: null});
+                                begin = j+1;
+                                instructionCount++;
+                                break;
+                            }
+                            else if(line.substring(begin, j).replace(/\s/g, "") !== "") {
+                                instructions.push({line: i, arg1: null, arg2: null, arg3: null, arg4: null, arg5: line.substring(begin, j).replace(/\s/g, ""), arg6: null, instruction: null, label: null});
+                                begin = j+1;
+                                instructionCount++;
+                                break;
+                            }
+                            else {
+                                break;
+                            }
+                        }
+                        case 6: {
+                            if(line.substring(j-1, j) === ",") {
+                                instructions.push({line: i, arg1: null, arg2: null, arg3: null, arg4: null, arg5: null, arg6: line.substring(begin, j-1).replace(/\s/g, ""), instruction: null, label: null});
+                                begin = j+1;
+                                instructionCount++;
+                                break;
+                            }
+                            else if(line.substring(begin, j).replace(/\s/g, "") !== "") {
+                                instructions.push({line: i, arg1: null, arg2: null, arg3: null, arg4: null, arg5: null, arg6: line.substring(begin, j).replace(/\s/g, ""), instruction: null, label: null});
+                                begin = j+1;
+                                instructionCount++;
+                                break;
+                            }
+                            else {
                                 break;
                             }
                         }
@@ -325,7 +430,7 @@ class Parser extends React.Component {
         }
 
         console.log(labels);
-        console.log(instructionLines);
+        //console.log(instructionLines);
         console.log(instructions);
 
         let returnData = {instructions: instructions, instructionLines: instructionLines, labels: labels};
@@ -362,6 +467,11 @@ class Parser extends React.Component {
                 if(i === instructions.length - 1) {
                     i++;
                     console.log("Incrementing i");
+                }
+        
+                // When stepping/visualizing, if there is a label on a line by itself, move to the next line
+                if(type === "") {
+                    line++;
                 }
                 switch(type) {
                     case "ADD": {
@@ -549,16 +659,58 @@ class Parser extends React.Component {
                         break;
                     }
                     case "push": {
-                        this.push(instructions.slice(begin, i))
+                        this.push(instructions.slice(begin, i));
                         this.props.setPc(line+3);
                         begin = i;
                         line++;
                         break;
                     }
                     case "pop": {
-                        this.pop(instructions.slice(begin, i))
+                        this.pop(instructions.slice(begin, i));
                         this.props.setPc(line+3);
                         begin = i;
+                        line++;
+                        break;
+                    }
+                    case "AND": {
+                        this.bitwise(instructions.slice(begin, i), "AND");
+                        this.props.setPc(line+3);
+                        begin = i; 
+                        line++;
+                        break;
+                    }
+                    case "ORR": {
+                        this.bitwise(instructions.slice(begin, i), "ORR");
+                        this.props.setPc(line+3);
+                        begin = i; 
+                        line++;
+                        break;
+                    }
+                    case "EOR": {
+                        this.bitwise(instructions.slice(begin, i), "EOR");
+                        this.props.setPc(line+3);
+                        begin = i; 
+                        line++;
+                        break;
+                    }
+                    case "ASR": {
+                        this.bitwise(instructions.slice(begin, i), "ASR");
+                        this.props.setPc(line+3);
+                        begin = i; 
+                        line++;
+                        break;
+                    }
+                    case "LSR": {
+                        this.bitwise(instructions.slice(begin, i), "LSR");
+                        this.props.setPc(line+3);
+                        begin = i; 
+                        line++;
+                        break;
+                    }
+                    case "LSL": {
+                        this.bitwise(instructions.slice(begin, i), "LSL");
+                        this.props.setPc(line+3);
+                        begin = i; 
                         line++;
                         break;
                     }
@@ -566,21 +718,29 @@ class Parser extends React.Component {
             }
 
             this.setState({
-                line: line
+                line: line,
+                instructionCount: this.state.instructionCount++
             })
+            console.log("TOTALINSTRUCTIONS: " + this.state.instructionCount)
+            if(this.state.instructionCount > 50000) {
+                this.handleReset();
+                alert("Infinite loop or running took too long");
+                break;
+            }
 
             if(i <= instructions.length - 1) {
                 elem = instructions[i];
             }
 
+            // When running, if there is a label on a line by itself, meaning the next instruction is a label/instruction, move to the next line
+            if(elem.label !== null && !(i === instructions.length) && !(this.state.step) && !(this.state.visualize) && i+1 < instructions.length && instructions[i+1].arg1 === null) {
+                console.log("SETTING TYPE TO NULL");
+                type = "";
+            }
+
             if(elem.instruction !== null) {
+                console.log("SETTING TYPE TO: " + elem.instruction);
                 type = elem.instruction;
-                if(!(this.state.step) && type !== "MOV" && type !== "ADD" && type !== "SUB" && type !== "MUL" && type !== "LDR" && type !== "STR" && type !== "push" && type !== "pop" && type !== "B" && type !== "BNE" && type !== "BEQ" && type !== "BGT" && type !== "BLT" && type !== "BGE" && type !== "BLE" && type !== "CMP" && type !== "BX" && type !== "BL") {
-                    this.setState({
-                        error: true,
-                        errorInfo: {instruction: type, line: line+1}
-                    })
-                }
             }
         }
         
@@ -594,6 +754,9 @@ class Parser extends React.Component {
     }
 
     mov = (data) => {
+        if(this.state.compile) {
+            return;
+        }
         console.log("move");
         let arg1 = "";
         let arg2 = "";
@@ -606,8 +769,14 @@ class Parser extends React.Component {
             }
         }
         if(arg2.substring(0, 1) === "#") {
-            arg2 = parseInt(arg2.substring(1, arg2.length));
+            if (arg2.substring(1, 3) === "0x") {
+                arg2 = this.hexToInt(arg2.substring(3, arg2.length));
+            }
+            else { 
+                arg2 = parseInt(arg2.substring(1, arg2.length));
+            }
         }
+        console.log(arg2);
 
         let movData = {arg1: arg1, arg2: arg2, handleSp: false};
 
@@ -619,6 +788,9 @@ class Parser extends React.Component {
     }
 
     add = (data) => {
+        if(this.state.compile) {
+            return;
+        }
         let arg1 = "";
         let arg2 = "";
         let arg3 = "";
@@ -634,7 +806,12 @@ class Parser extends React.Component {
             }
         }    
         if(arg3.substring(0, 1) === "#") {
-            arg3 = parseInt(arg3.substring(1, arg3.length));
+            if (arg3.substring(1, 3) === "0x") {
+                arg3 = this.hexToInt(arg3.substring(3, arg3.length));
+            }
+            else { 
+                arg3 = parseInt(arg3.substring(1, arg3.length));
+            }
         }
 
         let addData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
@@ -647,6 +824,9 @@ class Parser extends React.Component {
     }
 
     sub = (data) => {
+        if(this.state.compile) {
+            return;
+        }
         console.log("sub");
         let arg1 = "";
         let arg2 = "";
@@ -663,8 +843,14 @@ class Parser extends React.Component {
             }
         }    
         if(arg3.substring(0, 1) === "#") {
-            arg3 = parseInt(arg3.substring(1, arg3.length));
+            if (arg3.substring(1, 3) === "0x") {
+                arg3 = this.hexToInt(arg3.substring(3, arg3.length));
+            }
+            else { 
+                arg3 = parseInt(arg3.substring(1, arg3.length));
+            }
         }
+        console.log(arg3);
 
         let subData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
 
@@ -677,6 +863,9 @@ class Parser extends React.Component {
     }
 
     mul = (data) => {
+        if(this.state.compile) {
+            return;
+        }
         console.log("mul");
         let arg1 = "";
         let arg2 = "";
@@ -693,7 +882,12 @@ class Parser extends React.Component {
             }
         }    
         if(arg3.substring(0, 1) === "#") {
-            arg3 = parseInt(arg3.substring(1, arg3.length));
+            if (arg3.substring(1, 3) === "0x") {
+                arg3 = this.hexToInt(arg3.substring(3, arg3.length));
+            }
+            else { 
+                arg3 = parseInt(arg3.substring(1, arg3.length));
+            }
         }
         let multData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
 
@@ -716,7 +910,12 @@ class Parser extends React.Component {
             }
         }    
         if(arg2.substring(0, 1) === "#") {
-            arg2 = parseInt(arg2.substring(1, arg2.length));
+            if (arg2.substring(1, 3) === "0x") {
+                arg2 = this.hexToInt(arg2.substring(3, arg2.length));
+            }
+            else { 
+                arg2 = parseInt(arg2.substring(1, arg2.length));
+            }
         }
         else {
             arg2 = this.getRegister(arg2);
@@ -750,6 +949,8 @@ class Parser extends React.Component {
                 name = data[j].arg1;
             }
         }
+        console.log(name);
+        console.log(labels);
 
         if(isNaN(name)) {
             for(const label of labels) {
@@ -775,6 +976,9 @@ class Parser extends React.Component {
     }
 
     bl = (line) => {
+        if(this.state.compile) {
+            return;
+        }
         this.props.bl(line);
     }
     
@@ -783,39 +987,97 @@ class Parser extends React.Component {
     }
 
     push = (data) => {
+        if(this.state.compile) {
+            return;
+        }
         let arg1 = "";
         let arg2 = "";
         let arg3 = "";
+        let arg4 = "";
+        let arg5 = "";
+        let arg6 = "";
         console.log(data);
+
         for(const elem of data) {
-            if(elem.arg1 !== null) {
+            if(typeof elem.arg1 === 'string' || data.arg1 instanceof String) {
                 arg1 = elem.arg1;
+                arg1 = arg1.replace("{", "");
+                arg1 = arg1.replace("}", "");
             }
-            if(elem.arg2 !== null) {
+            if(typeof elem.arg2 === 'string' || data.arg1 instanceof String) {
                 arg2 = elem.arg2;
+                arg2 = arg2.replace("}", "");
             }
-            if(elem.arg3 !== null) {
+            if(typeof elem.arg3 === 'string' || data.arg1 instanceof String) {
                 arg3 = elem.arg3;
+                arg3 = arg3.replace("}", "");
+            }
+            if(typeof elem.arg4 === 'string' || data.arg1 instanceof String) {
+                arg4 = elem.arg4;
+                arg4 = arg4.replace("}", "");
+            }
+            if(typeof elem.arg5 === 'string' || data.arg1 instanceof String) {
+                arg5 = elem.arg5;
+                arg5 = arg5.replace("}", "");
+            }
+            if(typeof elem.arg6 === 'string' || data.arg1 instanceof String) {
+                arg6 = elem.arg6;
+                arg6 = arg6.replace("}", "");
             }
         }
-        arg1 = arg1.substring(1, arg1.length-1);
-        let pushData = {arg1: arg1};
+        let pushData = {arg1: arg1, arg2: arg2, arg3: arg3, arg4: arg4, arg5: arg5, arg6: arg6};
+
         this.props.push(pushData);
     }
 
     pop = (data) => {
+        if(this.state.compile) {
+            return;
+        }
         let arg1 = "";
+        let arg2 = "";
+        let arg3 = "";
+        let arg4 = "";
+        let arg5 = "";
+        let arg6 = "";
+        console.log(data);
+
         for(const elem of data) {
-            if(elem.arg1 !== null) {
+            if(typeof elem.arg1 === 'string' || data.arg1 instanceof String) {
                 arg1 = elem.arg1;
+                arg1 = arg1.replace("{", "");
+                arg1 = arg1.replace("}", "");
+            }
+            if(typeof elem.arg2 === 'string' || data.arg1 instanceof String) {
+                arg2 = elem.arg2;
+                arg2 = arg2.replace("}", "");
+            }
+            if(typeof elem.arg3 === 'string' || data.arg1 instanceof String) {
+                arg3 = elem.arg3;
+                arg3 = arg3.replace("}", "");
+            }
+            if(typeof elem.arg4 === 'string' || data.arg1 instanceof String) {
+                arg4 = elem.arg4;
+                arg4 = arg4.replace("}", "");
+            }
+            if(typeof elem.arg5 === 'string' || data.arg1 instanceof String) {
+                arg5 = elem.arg5;
+                arg5 = arg5.replace("}", "");
+            }
+            if(typeof elem.arg6 === 'string' || data.arg1 instanceof String) {
+                arg6 = elem.arg6;
+                arg6 = arg6.replace("}", "");
             }
         }
-        arg1 = arg1.substring(1, arg1.length-1);
-        let popData = {arg1: arg1};
+        let popData = {arg1: arg1, arg2: arg2, arg3: arg3, arg4: arg4, arg5: arg5, arg6: arg6};
+        
         this.props.pop(popData);
     }
 
     ldr = (data) => {
+        if(this.state.compile) {
+            return;
+        }
         console.log("load");
         let arg1 = "";
         let arg2 = "";
@@ -841,13 +1103,32 @@ class Parser extends React.Component {
             offset = offset.substring(0, offset.length - 1);
         }
         if(offset.substring(0, 1) === "#") {
-            offset = parseInt(offset.substring(1, offset.length));
+            if (offset.substring(1, 3) === "0x") {
+                offset = this.hexToInt(offset.substring(3, offset.length));
+            }
+            else { 
+                offset = parseInt(offset.substring(1, offset.length));
+            }
+        }
+        if(arg2.substring(0, 1) === "#") {
+            if (arg2.substring(1, 3) === "0x") {
+                arg2 = this.hexToInt(arg2.substring(3, arg2.length));
+            }
+            else { 
+                arg2 = parseInt(arg2.substring(1, arg2.length));
+            }
+        }
+        if(offset === "") {
+            offset = null;
         }
         let ldrData = {arg1: arg1, arg2: arg2, arg3: offset};
         this.props.ldr(ldrData);    
     }
 
     str = (data) => {
+        if(this.state.compile) {
+            return;
+        }
         let arg1 = "";
         let arg2 = "";
         let offset = "";
@@ -872,76 +1153,92 @@ class Parser extends React.Component {
             offset = offset.substring(0, offset.length - 1);
         }
         if(offset.substring(0, 1) === "#") {
-            offset = parseInt(offset.substring(1, offset.length));
+            if (offset.substring(1, 3) === "0x") {
+                offset = this.hexToInt(offset.substring(3, offset.length));
+            }
+            else { 
+                offset = parseInt(offset.substring(1, offset.length));
+            }
+        }
+        if(arg2.substring(0, 1) === "#") {
+            if (arg2.substring(1, 3) === "0x") {
+                arg2 = this.hexToInt(arg2.substring(3, arg2.length));
+            }
+            else { 
+                arg2 = parseInt(arg2.substring(1, arg2.length));
+            }
+        }
+        if(offset === "") {
+            offset = null;
         }
         let strData = {arg1: arg1, arg2: arg2, arg3: offset};
         this.props.str(strData);        
     }
 
+    bitwise = (data, func) => {
+        if(this.state.compile) {
+            return;
+        }
+        let arg1 = "";
+        let arg2 = "";
+        let arg3 = "";
+        for(const elem of data) {
+            if(elem.arg1 !== null) {
+                arg1 = elem.arg1;
+            }
+            if(elem.arg2 !== null) {
+                arg2 = elem.arg2;
+            }
+            if(elem.arg3 !== null) {
+                arg3 = elem.arg3;
+            }
+        }    
+        if(arg3.substring(0, 1) === "#") {
+            if (arg3.substring(1, 3) === "0x") {
+                arg3 = this.hexToInt(arg3.substring(3, arg3.length));
+            }
+            else { 
+                arg3 = parseInt(arg3.substring(1, arg3.length));
+            }
+        }
+
+        let bitData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
+        this.props.bitwise(bitData, func);
+    }
+
     render() {
         return (
-            <Grid container spacing={5} className="Debug">
+            <Grid container spacing={2} className="Debug">
 
-                    {/* <Grid item>
-                        {this.state.step === true  ? 
-                        <Stepper lines={this.state.lines} line={this.state.line} step={this.handleStep} type={"Step"}/>
-                        // : 
-                        // this.state.visualize === true ? 
-                        // <Stepper lines={this.state.lines} line={this.state.line} step={this.handleStep} type={""}/>
-                        : null}
-                    </Grid> */}
+                <Grid item>
+                    {this.state.step || this.state.visualize ? null: <ArmInfo/>}
+                </Grid>
 
                 <Grid item>
 
-                <form noValidate autoComplete = "off" onChange = {this.handleChange}>
-                    <div className="ArmText">
-                        {this.state.visualize || this.state.step ? 
-                        <h3>
-                        <pre>
-                            <Highlight search={this.state.nextInstruction}>{this.state.debugCode}</Highlight>
-                        </pre></h3>
-                        :
-                        <TextField InputProps={{
-                            startAdornment: <InputAdornment position="start"><pre>1     <br></br>2<br></br>3<br></br>4<br></br>5<br></br>6<br></br>7<br></br>8<br></br>9<br></br>10<br></br>11<br></br>12<br></br>13<br></br>14<br></br>15<br></br>16<br></br>17<br></br>18<br></br>19<br></br>20<br></br>21<br></br>22<br></br>23<br></br>24<br></br>25<br></br>26<br></br>27<br></br>28<br></br>29<br></br>30<br></br>31<br></br>32<br></br>33<br></br>34<br></br>35<br></br>36<br></br>37<br></br>38<br></br>39<br></br>40<br></br>41<br></br>42<br></br>43<br></br>44<br></br>45<br></br>46<br></br>47<br></br>48<br></br>49<br></br>50</pre></InputAdornment>,  
-                        }} defaultValue={this.state.code} fullWidth="true" id="code" label="Insert ARM Assembly Code" variant="outlined" multiline rows={52} rowsMax={52}></TextField>}
-                    </div>
+                    <form noValidate autoComplete = "off" onChange = {this.handleChange}>
+                        <div className="ArmText">
+                            {this.state.visualize || this.state.step ? 
+                            <h3>
+                            <pre>
+                                <Highlight search={this.state.nextInstruction}>{this.state.debugCode}</Highlight>
+                            </pre></h3>
+                            :
+                            <TextField InputProps={{
+                                // startAdornment: <InputAdornment position="start"><pre>1     <br></br>2<br></br>3<br></br>4<br></br>5<br></br>6<br></br>7<br></br>8<br></br>9<br></br>10<br></br>11<br></br>12<br></br>13<br></br>14<br></br>15<br></br>16<br></br>17<br></br>18<br></br>19<br></br>20<br></br>21<br></br>22<br></br>23<br></br>24<br></br>25<br></br>26<br></br>27<br></br>28<br></br>29<br></br>30<br></br>31<br></br>32<br></br>33<br></br>34<br></br>35<br></br>36<br></br>37<br></br>38<br></br>39<br></br>40<br></br>41<br></br>42<br></br>43<br></br>44<br></br>45<br></br>46<br></br>47<br></br>48<br></br>49<br></br>50</pre></InputAdornment>,  
+                            }} defaultValue={this.state.code} fullWidth="true" id="code" label="Insert ARM Assembly Code" variant="outlined" multiline rows={10} rowsMax={100}></TextField>}
+                        </div>
 
+                        {/* {this.state.error ? <h3>Compile Error: Instruction: {this.state.errorInfo.instruction}, line: {this.state.errorInfo.line}</h3> : null} */}
+                    </form>
 
-
-                    
-                    {/* {this.state.step || this.state.visualize || this.state.visualDisplay ? null : 
-                    <Button variant="outlined" color="primary" onClick={this.handleRun}>Run</Button>}
-                    {this.state.step || this.state.visualize ? null :
-                    <Button variant="outlined" color="primary" onClick={this.toggleVisualize}>Visualize</Button>}
-                    
-
-                    {this.state.step ? 
-                    <Button variant="outlined" color="primary" onClick={this.handleStep}>Step</Button>
-                    :
-                    this.state.visualize || this.state.visualDisplay ? null 
-                    :
-                    <Button variant="outlined" color="primary" onClick={this.startStep}>Step</Button>} */}
-
-
-                    {this.state.error ?
-                        <h3>Compile Error: Instruction: {this.state.errorInfo.instruction}, line: {this.state.errorInfo.line}</h3> : null
-                    }
-                </form>
                 </Grid>
+                {/* <Button onClick={this.handleCompile}>Check for Errors</Button>
+                {this.state.compile ? this.state.errorInfo.map(error =>
+                    <h4>Do not recognize: '{error.instruction}' on line: {error.line}</h4>): null}
+                {this.state.compile ? this.state.errorInfo.length === 0 ? <h4>No errors</h4>: null: null} */}
 
                 <RunOptions handleRun={this.handleRun} visualize={this.state.visualize} startVisualize={this.startVisualize} handleReset={this.handleReset} handleVisualize={this.handleVisualize} speed={this.state.speed} changeSpeed={this.changeSpeed} handleStep={this.handleStep} startStep={this.startStep} step={this.state.step}/>
-
-
-                {/* {this.state.visualDisplay && (!this.state.visualize) ? <Button variant="contained" color="primary" onClick={this.startVisualize}>Start</Button>: null}
-                {this.state.visualize || this.state.step ? <Button variant="contained" color="primary" onClick={this.handleReset}>Terminate</Button>: null}
-
-                <Grid item>
-                    {this.state.visualize ? <Timer startTimeInSeconds="0" step={this.handleVisualize} speed={this.state.speed} run={this.state.visualize}/> : null}
-                </Grid>
-
-                <Grid item>
-                    {this.state.visualDisplay && (!this.state.visualize) ? <Slider changeSpeed={this.changeSpeed}/> : null}
-                </Grid> */}
 
             </Grid>
     

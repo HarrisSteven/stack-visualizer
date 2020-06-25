@@ -27,7 +27,7 @@ class Frame extends React.Component {
                     <Grid item className="StackItem">
                         <Container>
                             <Typography className={this.props.params.address <= this.props.register.fp ? "RegisterOutline" : "Register"}>
-                                <h2>Register <br></br> {this.props.params.data.reg} = {this.props.params.data.value} </h2>
+                                <h2>Register: {this.props.params.data.reg} = {this.props.params.data.value} </h2>
                             </Typography>
                         </Container>
                     </Grid>
@@ -37,9 +37,9 @@ class Frame extends React.Component {
                         <Container>
                             <Typography className={this.props.params.address <= this.props.register.fp ? "VariableOutline" : "Variable"}>
                                 {this.props.params.address - this.props.register.fp > 0 ? 
-                                <h2> Local Variable  (fp + {this.props.params.address - this.props.register.fp}) <br></br> {this.props.params.data.value} </h2> 
+                                <h2> Local Variable: (fp + {this.props.params.address - this.props.register.fp}) &nbsp; value: {this.props.params.data.value} </h2> 
                                 : 
-                                <h2> Local Variable  (fp - {Math.abs(this.props.params.address - this.props.register.fp)}) <br></br> {this.props.params.data.value} </h2>}
+                                <h2> Local Variable: (fp - {Math.abs(this.props.params.address - this.props.register.fp)}) &nbsp; value: {this.props.params.data.value} </h2>}
                             </Typography>
                         </Container>
                     </Grid>
@@ -49,9 +49,9 @@ class Frame extends React.Component {
                         <Container>
                             <Typography className={this.props.params.address <= this.props.register.fp ? "OutParameterOutline" : "OutParameter"}>
                                 {this.props.params.address - this.props.register.fp > 0 ? 
-                                    <h2> Outgoing Parameter (arg {this.props.params.data.arg})  fp + {this.props.params.address - this.props.register.fp} <br></br> {this.props.params.data.value} </h2> 
+                                    <h2> Outgoing Parameter: (arg {this.props.params.data.arg}) &nbsp; (fp + {this.props.params.address - this.props.register.fp}) &nbsp; value: {this.props.params.data.value} </h2> 
                                     : 
-                                    <h2> Outgoing Parameter (arg {this.props.params.data.arg})  fp - {Math.abs(this.props.params.address - this.props.register.fp)} <br></br> {this.props.params.data.value} </h2>}
+                                    <h2> Outgoing Parameter: (arg {this.props.params.data.arg}) &nbsp; (fp - {Math.abs(this.props.params.address - this.props.register.fp)}) &nbsp; value: {this.props.params.data.value} </h2>}
                             </Typography>
                         </Container>
                     </Grid>
@@ -61,9 +61,9 @@ class Frame extends React.Component {
                         <Container>
                             <Typography className={this.props.params.address <= this.props.register.fp ? "EmptyOutline" : "Empty"}>
                                 {this.props.params.address - this.props.register.fp > 0 ? 
-                                    <h2> fp + {this.props.params.address - this.props.register.fp} <br></br> {this.props.params.data.value} </h2> 
+                                    <h2> (fp + {this.props.params.address - this.props.register.fp}) &nbsp; value: {this.props.params.data.value} </h2> 
                                     : 
-                                    <h2> fp - {Math.abs(this.props.params.address - this.props.register.fp)} <br></br> {this.props.params.data.value} </h2>}
+                                    <h2> (fp - {Math.abs(this.props.params.address - this.props.register.fp)}) &nbsp; value: {this.props.params.data.value} </h2>}
                             </Typography>
                         </Container>
                     </Grid>
@@ -73,9 +73,9 @@ class Frame extends React.Component {
                         <Container>
                             <Typography className={this.props.params.address <= this.props.register.fp ? "InParameterOutline" : "InParameter"}>
                                 {this.props.params.address - this.props.register.fp > 0 ? 
-                                    <h2> Incoming Parameter (arg {this.props.params.data.arg})  fp + {this.props.params.address - this.props.register.fp} <br></br> {this.props.params.data.value} </h2> 
+                                    <h2> Incoming Parameter: (arg {this.props.params.data.arg}) &nbsp; (fp + {this.props.params.address - this.props.register.fp}) &nbsp; value: {this.props.params.data.value} </h2> 
                                     : 
-                                    <h2> Incoming Parameter (arg {this.props.params.data.arg})  fp - {Math.abs(this.props.params.address - this.props.register.fp)} <br></br> {this.props.params.data.value} </h2>}
+                                    <h2> Incoming Parameter: (arg {this.props.params.data.arg}) &nbsp; (fp - {Math.abs(this.props.params.address - this.props.register.fp)}) &nbsp; value: {this.props.params.data.value} </h2>}
                             </Typography>
                         </Container>
                     </Grid>

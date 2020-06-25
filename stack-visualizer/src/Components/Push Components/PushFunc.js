@@ -147,106 +147,46 @@ class PushFunc extends Component {
         let newReg = [];
         console.log(registers);
         for(const register of registers) {
-            if(register === "R0") {
-                numReg.push(0);
-            }
-            if(register === "R1") {
-                numReg.push(1);
-            }
-            if(register === "R2") {
-                numReg.push(2);
-            }
-            if(register === "R3") {
-                numReg.push(3);
-            }
-            if(register === "R4") {
-                numReg.push(4);
-            }
-            if(register === "R5") {
-                numReg.push(5);
-            }
-            if(register === "R6") {
-                numReg.push(6);
-            }
-            if(register === "R7") {
-                numReg.push(7);
-            }
-            if(register === "R8") {
-                numReg.push(8);
-            }
-            if(register === "R9") {
-                numReg.push(9);
-            }
-            if(register === "R10") {
-                numReg.push(10);
-            }
-            if(register === "fp") {
-                numReg.push(11);
-            }
-            if(register === "12") {
-                numReg.push(12);
-            }
-            if(register === "sp") {
-                numReg.push(13);
-            }
-            if(register === "lr") {
-                numReg.push(14);
-            }
-            if(register === "pc") {
-                numReg.push(15);
+            switch(register) {
+                case "R0": {numReg.push(0); break;}
+                case "R1": {numReg.push(1); break;}
+                case "R2": {numReg.push(2); break;}
+                case "R3": {numReg.push(3); break;}
+                case "R4": {numReg.push(4); break;}
+                case "R5": {numReg.push(5); break;}
+                case "R6": {numReg.push(6); break;}
+                case "R7": {numReg.push(7); break;}
+                case "R8": {numReg.push(8); break;}
+                case "R9": {numReg.push(9); break;}
+                case "R10": {numReg.push(10); break;}
+                case "fp": {numReg.push(11); break;}
+                case "R12": {numReg.push(12); break;}
+                case "sp": {numReg.push(13); break;}
+                case "lr": {numReg.push(14); break;}
+                case "pc": {numReg.push(15); break;}
             }
         }
         console.log(numReg);
         numReg.sort((a,b)=>b-a)
         console.log(numReg);
         for(const num of numReg) {
-            if(num === 0) {
-                newReg.push("R0");
-            }
-            if(num === 1) {
-                newReg.push("R1");
-            }
-            if(num === 2) {
-                newReg.push("R2");
-            }
-            if(num === 3) {
-                newReg.push("R3");
-            }
-            if(num === 4) {
-                newReg.push("R4");
-            }
-            if(num === 5) {
-                newReg.push("R5");
-            }
-            if(num === 6) {
-                newReg.push("R6");
-            }
-            if(num === 7) {
-                newReg.push("R7");
-            }
-            if(num === 8) {
-                newReg.push("R8");
-            }
-            if(num === 9) {
-                newReg.push("R9");
-            }
-            if(num === 10) {
-                newReg.push("R10");
-            }
-            if(num === 11) {
-                newReg.push("fp");
-            }
-            if(num === 12) {
-                newReg.push("R12");
-            }
-            if(num === 13) {
-                newReg.push("sp");
-            }
-            if(num === 14) {
-                newReg.push("lr");
-            }
-            if(num === 15) {
-                newReg.push("pc");
+            switch(num) {
+                case 0: {newReg.push("R0"); break;}
+                case 1: {newReg.push("R1"); break;}
+                case 2: {newReg.push("R2"); break;}
+                case 3: {newReg.push("R3"); break;}
+                case 4: {newReg.push("R4"); break;}
+                case 5: {newReg.push("R5"); break;}
+                case 6: {newReg.push("R6"); break;}
+                case 7: {newReg.push("R7"); break;}
+                case 8: {newReg.push("R8"); break;}
+                case 9: {newReg.push("R9"); break;}
+                case 10: {newReg.push("R10"); break;}
+                case 11: {newReg.push("fp"); break;}
+                case 12: {newReg.push("R12"); break;}
+                case 13: {newReg.push("sp"); break;}
+                case 14: {newReg.push("lr"); break;}
+                case 15: {newReg.push("pc"); break;}
             }
         }
         console.log(newReg);
@@ -318,12 +258,13 @@ class PushFunc extends Component {
                     <h3>Add Local Variables {this.state.numVar > 5 ? <Button disabled>Add<AddIcon></AddIcon></Button> : <Button onClick={this.incVar}>Add<AddIcon></AddIcon></Button>}</h3>
                    
                     {this.state.numVar === 1 ?
-                        <TextField id = "variable1" label = "Enter Local Variable" variant = "outlined" />
+                    <Grid item>
+                        <TextField id = "variable1" label = "Enter Local Variable" variant = "outlined" /></Grid>
                     :
                     this.state.numVar === 2 ? 
                         <Grid container class="Column">
                             <Grid item>
-                                <TextField id = "variable1" label = "Enter Local Variable" variant = "outlined" />
+                                <TextField defaultValue={this.state.variable1} id = "variable1" label = "Enter Local Variable" variant = "outlined" />
                             </Grid>
                             <Grid item>
                                 <TextField id = "variable2" label = "Enter Local Variable" variant = "outlined" />  
@@ -404,7 +345,7 @@ class PushFunc extends Component {
                     this.state.numParIn === 2 ? 
                         <Grid container class="Column">
                             <Grid item>
-                                <TextField id = "parIn1" label = "Enter Incoming Parameter" variant = "outlined" />
+                                <TextField defaultValue={this.state.parIn1} id = "parIn1" label = "Enter Incoming Parameter" variant = "outlined" />
                             </Grid>
                             <Grid item>
                                 <TextField id = "parIn2" label = "Enter Incoming Parameter" variant = "outlined" />  
@@ -486,7 +427,7 @@ class PushFunc extends Component {
                     this.state.numParOut === 2 ? 
                         <Grid container class="Column">
                             <Grid item>
-                                <TextField id = "parOut1" label = "Enter Outgoing Parameter" variant = "outlined" />
+                                <TextField defaultValue={this.state.parOut1} id = "parOut1" label = "Enter Outgoing Parameter" variant = "outlined" />
                             </Grid>
                             <Grid item>
                                 <TextField id = "parOut2" label = "Enter Outgoing Parameter" variant = "outlined" />  

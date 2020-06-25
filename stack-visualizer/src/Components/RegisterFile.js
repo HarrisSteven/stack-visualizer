@@ -31,6 +31,7 @@ class RegisterFile extends React.Component {
                 lr: 1,
                 pc: 0
             },
+            decimal: true,
             operation: "",
             destination: "",
             src1: "",
@@ -65,6 +66,12 @@ class RegisterFile extends React.Component {
         newReg.sp -= 4;
         this.setState({
             register: newReg
+        })
+    }
+
+    toggleHex = () => {
+        this.setState({
+            decimal: !(this.state.decimal)
         })
     }
 
@@ -199,24 +206,44 @@ class RegisterFile extends React.Component {
     }
 
     ldr = (data) => {
-        let arg2 = this.getRegister(data.arg2);
+        let arg2 = data.arg2;
         let arg3 = data.arg3;
+        if(typeof data.arg2 === 'string' || data.arg2 instanceof String) {
+            console.log("getting value");
+            arg2 = this.getRegister(data.arg2);
+        }  
         if(typeof data.arg3 === 'string' || data.arg3 instanceof String) {
             console.log("getting value");
             arg3 = this.getRegister(data.arg3);
         }   
-        let address = arg2 + arg3;
+
+        let address;
+        if(arg3 === null) {
+            address = arg2;
+        }
+        else {
+            address = arg2 + arg3;
+        }
         this.ldrChild({address: address, reg: data.arg1})
     }
 
     str = (data) => {
         let arg1 = this.getRegister(data.arg1);
-        let arg2 = this.getRegister(data.arg2);
+        let arg2 = data.arg2;
         let arg3 = data.arg3;
+        if(typeof data.arg2 === 'string' || data.arg2 instanceof String) {
+            arg2 = this.getRegister(data.arg2);
+        }  
         if(typeof data.arg3 === 'string' || data.arg3 instanceof String) {
             arg3 = this.getRegister(data.arg3);
         }   
-        let address = arg2 + arg3;
+        let address;
+        if(arg3 === null) {
+            address = arg2;
+        }
+        else {
+            address = arg2 + arg3;
+        }
         this.strChild({address: address, value: arg1})
     }
 
@@ -231,7 +258,29 @@ class RegisterFile extends React.Component {
             this.pushChild(data);
         }
         else {
-            this.pushChild(data.arg1);
+            let pushArray = [];
+            if(data.arg1 !== "") {
+                pushArray.push(data.arg1);
+            }
+            if(data.arg2 !== "") {
+                pushArray.push(data.arg2);
+            }
+            if(data.arg3 !== "") {
+                pushArray.push(data.arg3);
+            }
+            if(data.arg4 !== "") {
+                pushArray.push(data.arg4);
+            }
+            if(data.arg5 !== "") {
+                pushArray.push(data.arg5);
+            }
+            if(data.arg6 !== "") {
+                pushArray.push(data.arg6);
+            }
+            pushArray = this.sort(pushArray, true);
+            for(const register of pushArray) {
+                this.pushChild(register);
+            }
         }
     }
 
@@ -244,12 +293,73 @@ class RegisterFile extends React.Component {
     }
     
     pop = (data) => {
-        if(typeof data.arg1 === 'string' || data.arg1 instanceof String) {
-            this.popRegChild(data.arg1);
-        }
-        else {
+        if(!(typeof data.arg1 === 'string' || data.arg1 instanceof String)) {
+            console.log("here");
             this.popChild();
         }
+        else {
+            console.log("POPPING BY REG");
+            let popArray = [];
+            if(data.arg1 !== "") {
+                popArray.push(data.arg1);
+            }
+            if(data.arg2 !== "") {
+                popArray.push(data.arg2);
+            }
+            if(data.arg3 !== "") {
+                popArray.push(data.arg3);
+            }
+            if(data.arg4 !== "") {
+                popArray.push(data.arg4);
+            }
+            if(data.arg5 !== "") {
+                popArray.push(data.arg5);
+            }
+            if(data.arg6 !== "") {
+                popArray.push(data.arg6);
+            }
+            popArray = this.sort(popArray, false);
+            for(const register of popArray) {
+                this.popRegChild(register);
+            }
+        }
+    }
+
+    bitwise = (data, func) => {
+        let arg2 = this.getRegister(data.arg2);
+        let arg3 = data.arg3;
+        if(typeof data.arg3 === 'string' || data.arg3 instanceof String) {
+            arg3 = this.getRegister(data.arg3);
+        }      
+
+        console.log(this.state.register);
+
+        console.log(arg2);
+        console.log(arg3);
+        console.log((arg2 >>> 0).toString(2));
+        console.log((arg3 >>> 0).toString(2));
+        //console.log(arg2);
+        //console.log(arg3);
+        console.log(func);
+        let result;
+        switch(func) {
+            case "AND": {result = arg2&arg3; break}
+            case "ORR": {result = arg2|arg3; break}
+            case "EOR": {result = arg2^arg3; break}
+            case "ASR": {result = arg2>>arg3; break}
+            case "LSR": {result = arg2>>>arg3; break}
+            case "LSL": {result = arg2<<arg3; break}
+        }
+        console.log(result);
+        console.log((result >>> 0).toString(2));
+
+
+        let newReg = this.state.register;
+        this.setRegister(data.arg1, result, newReg);
+
+        this.setState({register: newReg});
+
+        this.removeFramesChild();
     }
 
     setReg = (data) => {
@@ -282,6 +392,63 @@ class RegisterFile extends React.Component {
         console.log(this.state.register);
     }
 
+    sort = (registers, backwards) => {
+        let numReg = [];
+        let newReg = [];
+        console.log(registers);
+        for(const register of registers) {
+            switch(register) {
+                case "R0": {numReg.push(0); break;}
+                case "R1": {numReg.push(1); break;}
+                case "R2": {numReg.push(2); break;}
+                case "R3": {numReg.push(3); break;}
+                case "R4": {numReg.push(4); break;}
+                case "R5": {numReg.push(5); break;}
+                case "R6": {numReg.push(6); break;}
+                case "R7": {numReg.push(7); break;}
+                case "R8": {numReg.push(8); break;}
+                case "R9": {numReg.push(9); break;}
+                case "R10": {numReg.push(10); break;}
+                case "fp": {numReg.push(11); break;}
+                case "R12": {numReg.push(12); break;}
+                case "sp": {numReg.push(13); break;}
+                case "lr": {numReg.push(14); break;}
+                case "pc": {numReg.push(15); break;}
+            }
+        }
+        console.log(numReg);
+        if(backwards) {
+            numReg.sort((a,b)=>b-a);
+        }
+        else {
+            numReg.sort((a,b)=>a-b);
+        }
+
+        console.log(numReg);
+        for(const num of numReg) {
+            switch(num) {
+                case 0: {newReg.push("R0"); break;}
+                case 1: {newReg.push("R1"); break;}
+                case 2: {newReg.push("R2"); break;}
+                case 3: {newReg.push("R3"); break;}
+                case 4: {newReg.push("R4"); break;}
+                case 5: {newReg.push("R5"); break;}
+                case 6: {newReg.push("R6"); break;}
+                case 7: {newReg.push("R7"); break;}
+                case 8: {newReg.push("R8"); break;}
+                case 9: {newReg.push("R9"); break;}
+                case 10: {newReg.push("R10"); break;}
+                case 11: {newReg.push("fp"); break;}
+                case 12: {newReg.push("R12"); break;}
+                case 13: {newReg.push("sp"); break;}
+                case 14: {newReg.push("lr"); break;}
+                case 15: {newReg.push("pc"); break;}
+            }
+        }
+        console.log(newReg);
+        return(newReg);
+    }
+
     render() {
         return (
             <div>
@@ -301,15 +468,23 @@ class RegisterFile extends React.Component {
                                 </h1>
                             </Grid>
 
-                            <Grid item>
-                                <RegisterFileConfig register={this.state.register}/>
+                            <Grid item className="Center">
+                                <Button variant="outlined" color="primary" onClick={this.toggleHex}>{this.state.decimal ? <h3>Hex</h3> : <h3>Dec</h3>}</Button>
+                            </Grid>
+
+                            <Grid item className="RegisterFileContainer">
+                                <Grid container className="RegisterFileContainer">
+                                    <Grid item>
+                                        <RegisterFileConfig register={this.state.register} decimal={this.state.decimal}/>
+                                    </Grid>
+                                </Grid>
                             </Grid>
 
                         </Grid>
                     </Grid>
 
                     <Grid item>
-                        <Tab register={this.state.register} mov={this.mov} add={this.add} sub={this.sub} mult={this.mult} push={this.push} pop={this.pop} ldr={this.ldr} str={this.str} bl={this.bl} setPc={this.setPc} push={this.push} pop={this.pop} pushFunction={this.pushFunction} clear={this.clearStack}/>
+                        <Tab register={this.state.register} mov={this.mov} add={this.add} sub={this.sub} mult={this.mult} push={this.push} pop={this.pop} ldr={this.ldr} str={this.str} bl={this.bl} setPc={this.setPc} push={this.push} pop={this.pop} bitwise={this.bitwise} pushFunction={this.pushFunction} clear={this.clearStack}/>
                     </Grid>
 
                 </Grid>

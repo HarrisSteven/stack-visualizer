@@ -57,7 +57,16 @@ class Stack extends React.Component {
         this.props.setFunction(this.handleFuction);
         this.props.setClear(this.clear);
         this.props.setRemoveFrames(this.removeFrames);
+        this.scrollToBottom();
      }
+
+     scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "auto" });
+      }
+      
+      componentDidUpdate() {
+        this.scrollToBottom();
+      }
 
     decimalToHex = (decimalNumber) => {
         let hexNum = [];
@@ -290,7 +299,9 @@ class Stack extends React.Component {
             frames: curFrames,
             register: newSp,
         })
-        this.props.incSp();
+        if(frame.data.reg !== "sp") {
+            this.props.incSp();
+        }
     }
 
     popRegister = (reg) => {
@@ -362,7 +373,17 @@ class Stack extends React.Component {
         return(
             <div className="Stack">
 
-                {this.state.frames.length === 1 ? <h2>Stack ({this.state.frames.length} frame)</h2> :<h2>Stack ({this.state.frames.length} frames)</h2>}
+                <Grid container spacing={8} className="StackHeader">
+
+                    <Grid item>
+                        {this.state.frames.length === 1 ? <h2>Stack ({this.state.frames.length} frame)</h2> :<h2>Stack ({this.state.frames.length} frames)</h2>} 
+                    </Grid>
+
+                    <Grid item>
+                        <Button size="large" variant="outlined" color="secondary" onClick={this.clear}>Clear</Button>
+                    </Grid>
+
+                </Grid>
 
                 <br></br>
 
@@ -388,7 +409,6 @@ class Stack extends React.Component {
                                         <Grid item>
                                             {this.decimalToHex(frame.address).map(char => char)}
                                         </Grid>
-                                        <br></br>
                                         <Grid item>
                                             sp <ArrowRightAltIcon></ArrowRightAltIcon>
                                         </Grid>
@@ -399,7 +419,6 @@ class Stack extends React.Component {
                                     <Grid item>
                                         {this.decimalToHex(frame.address).map(char => char)}
                                     </Grid>
-                                    <br></br>
                                     <Grid item>
                                         fp <ArrowRightAltIcon></ArrowRightAltIcon>
                                     </Grid>
@@ -412,6 +431,11 @@ class Stack extends React.Component {
                                 <Frame params={frame} register={this.props.register}></Frame>
 
                             </Grid>
+
+                            <div style={{ float:"left", clear: "both" }}
+                                ref={(el) => { this.messagesEnd = el; }}>
+                            </div>
+
                         </div>
                     )   
                 }

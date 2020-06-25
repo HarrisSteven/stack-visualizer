@@ -8,7 +8,10 @@
 }
 
 .Stack {
-  text-align: center;
+  text-align: center;  
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 85vh;
 }
 
 .Frame {
@@ -22,8 +25,18 @@
   width: 70vh;
 }
 
+.StackHeader {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .Container {
   justify-content: center;
+}
+
+.StackPointer {
+  justify-content: flex-start;
 }
 
 .RegisterFile {
@@ -35,6 +48,11 @@
   justify-content: center;
   align-items: center;
   background-color: lightcyan;
+}
+
+.RegisterFileContainer {
+  width: 34vh;
+  justify-content: space-around;
 }
 
 .Column {

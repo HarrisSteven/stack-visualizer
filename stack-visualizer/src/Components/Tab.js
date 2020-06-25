@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Parser from './Compile Components/Parser.js'
 import StackOperations from './StackOperations.js';
-import Commands from './Compile Components/Commands.js';
+import ArmInfo from './ArmInfo.js';
 import './../App.css';
 
 function TabPanel(props) {
@@ -73,9 +73,15 @@ export default function SelectTab(props) {
 
       <TabPanel value={value} index={0}>
         <Grid container className="Row">
+
+            {/* <Grid item>
+              <ArmInfo/>
+            </Grid> */}
+          
             <Grid item>
-                <Parser register={props.register} mov={props.mov} add={props.add} sub={props.sub} mult={props.mult} push={props.push} pop={props.pop} ldr={props.ldr} str={props.str} bl={props.bl} setPc={props.setPc} clear={props.clear}/>
+                <Parser register={props.register} mov={props.mov} add={props.add} sub={props.sub} mult={props.mult} push={props.push} pop={props.pop} bitwise={props.bitwise} ldr={props.ldr} str={props.str} bl={props.bl} setPc={props.setPc} clear={props.clear}/>
             </Grid>
+            
             {/* <Grid item>
                 <Commands/>
             </Grid> */}

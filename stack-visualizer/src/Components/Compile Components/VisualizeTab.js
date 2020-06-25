@@ -16,7 +16,7 @@ class VisualizeTab extends React.Component {
 
                 <div className="ColumnTable">       
                     <h3><pre>{this.props.visualize ? <Timer startTimeInSeconds="0" step={this.props.handleVisualize} speed={this.props.speed} run={this.props.visualize}/>: null}</pre></h3>
-                    {this.props.visualize ? null: <Slider changeSpeed={this.props.changeSpeed}/>}
+                    {this.props.visualize ? null: <Slider changeSpeed={this.props.changeSpeed} speed={this.props.speed}/>}
                 </div>
 
             </div>

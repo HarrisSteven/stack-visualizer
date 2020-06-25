@@ -8,7 +8,7 @@
 
 .Top {
     background-color: lightskyblue; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
@@ -16,7 +16,7 @@
 
 .TopOutline {
     background-color: lightskyblue; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
@@ -24,7 +24,7 @@
 
 .Register {
     background-color: palegoldenrod; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
@@ -32,7 +32,7 @@
 
 .RegisterOutline {
     background-color: palegoldenrod; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
@@ -40,7 +40,7 @@
 
 .Variable {
     background-color: lightblue; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
@@ -48,7 +48,7 @@
 
 .VariableOutline {
     background-color: lightblue; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
@@ -56,7 +56,7 @@
 
 .InParameter {
     background-color: lightcoral; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
@@ -64,7 +64,7 @@
 
 .InParameterOutline {
     background-color: lightcoral; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
@@ -72,7 +72,7 @@
 
 .OutParameter {
     background-color: lightseagreen; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
@@ -80,7 +80,7 @@
 
 .OutParameterOutline {
     background-color: lightseagreen; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
@@ -88,7 +88,7 @@
 
 .Empty {
     background-color: lightslategray; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
@@ -96,7 +96,7 @@
 
 .EmptyOutline {
     background-color: lightslategray; 
-    height: 8vh;
+    height: 5vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
