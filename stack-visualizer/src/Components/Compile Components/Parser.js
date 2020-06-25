@@ -1,8 +1,6 @@
 import React from 'react';
 import TextField from "@material-ui/core/TextField";
-import InputAdornment from '@material-ui/core/InputAdornment';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Highlight from 'react-highlighter';
 import RunOptions from './RunOptions.js';
 import ArmInfo from './../ArmInfo.js';
@@ -213,22 +211,23 @@ class Parser extends React.Component {
 
     getRegister = (reg) => {
         switch(reg) {
-            case "R0": {return(this.props.register.R0); break;}
-            case "R1": {return(this.props.register.R1); break;}
-            case "R2": {return(this.props.register.R2); break;}
-            case "R3": {return(this.props.register.R3); break;}
-            case "R4": {return(this.props.register.R4); break;}
-            case "R5": {return(this.props.register.R5); break;}
-            case "R6": {return(this.props.register.R6); break;}
-            case "R7": {return(this.props.register.R7); break;}
-            case "R8": {return(this.props.register.R8); break;}
-            case "R9": {return(this.props.register.R9); break;}
-            case "R10": {return(this.props.register.R10); break;}
-            case "fp": {return(this.props.register.fp); break;}
-            case "R12": {return(this.props.register.R12); break;}
-            case "sp": {return(this.props.register.sp); break;}
-            case "lr": {return(this.props.register.lr); break;}
-            case "pc": {return(this.props.register.pc); break;}
+            case "R0": {return(this.props.register.R0);}
+            case "R1": {return(this.props.register.R1);}
+            case "R2": {return(this.props.register.R2);}
+            case "R3": {return(this.props.register.R3);}
+            case "R4": {return(this.props.register.R4);}
+            case "R5": {return(this.props.register.R5);}
+            case "R6": {return(this.props.register.R6);}
+            case "R7": {return(this.props.register.R7);}
+            case "R8": {return(this.props.register.R8);}
+            case "R9": {return(this.props.register.R9);}
+            case "R10": {return(this.props.register.R10);}
+            case "fp": {return(this.props.register.fp);}
+            case "R12": {return(this.props.register.R12);}
+            case "sp": {return(this.props.register.sp);}
+            case "lr": {return(this.props.register.lr);}
+            case "pc": {return(this.props.register.pc);}
+            default: {}
         }
     }
 
@@ -410,6 +409,7 @@ class Parser extends React.Component {
                                 break;
                             }
                         }
+                        default: {}
                     }
                 }
             }
@@ -714,12 +714,14 @@ class Parser extends React.Component {
                         line++;
                         break;
                     }
+                    default: {}
                 }
             }
 
+            let newInstructionCount = this.state.instructionCount;
             this.setState({
                 line: line,
-                instructionCount: this.state.instructionCount++
+                instructionCount: newInstructionCount++
             })
             console.log("TOTALINSTRUCTIONS: " + this.state.instructionCount)
             if(this.state.instructionCount > 50000) {
@@ -819,7 +821,7 @@ class Parser extends React.Component {
         if(arg1 === "sp" || arg1 === "SP" || arg1 === "Sp") {
             addData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: true};
         }
-        console.log("ADD: " + "arg1: " + arg1 + " arg2 : " + arg2 + " arg3: " + arg3);
+        //console.log("ADD: " + "arg1: " + arg1 + " arg2 : " + arg2 + " arg3: " + arg3);
         this.props.add(addData);
     }
 

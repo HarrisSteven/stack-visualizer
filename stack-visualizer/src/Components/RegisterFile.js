@@ -1,12 +1,9 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Tab from './Tab.js';
 import Stack from './Stack';
 import RegisterFileConfig from './RegisterFileConfig.js';
-import Parser from './Compile Components/Parser.js';
-import Stepper from './Compile Components/Stepper.js';
 import './../App.css';
 
 class RegisterFile extends React.Component {
@@ -77,22 +74,23 @@ class RegisterFile extends React.Component {
 
     getRegister = (reg) => {
         switch(reg) {
-            case "R0": {return(this.state.register.R0); break;}
-            case "R1": {return(this.state.register.R1); break;}
-            case "R2": {return(this.state.register.R2); break;}
-            case "R3": {return(this.state.register.R3); break;}
-            case "R4": {return(this.state.register.R4); break;}
-            case "R5": {return(this.state.register.R5); break;}
-            case "R6": {return(this.state.register.R6); break;}
-            case "R7": {return(this.state.register.R7); break;}
-            case "R8": {return(this.state.register.R8); break;}
-            case "R9": {return(this.state.register.R9); break;}
-            case "R10": {return(this.state.register.R10); break;}
-            case "fp": {return(this.state.register.fp); break;}
-            case "R12": {return(this.state.register.R12); break;}
-            case "sp": {return(this.state.register.sp); break;}
-            case "lr": {return(this.state.register.lr); break;}
-            case "pc": {return(this.state.register.pc); break;}
+            case "R0": {return(this.state.register.R0);}
+            case "R1": {return(this.state.register.R1);}
+            case "R2": {return(this.state.register.R2);}
+            case "R3": {return(this.state.register.R3);}
+            case "R4": {return(this.state.register.R4);}
+            case "R5": {return(this.state.register.R5);}
+            case "R6": {return(this.state.register.R6);}
+            case "R7": {return(this.state.register.R7);}
+            case "R8": {return(this.state.register.R8);}
+            case "R9": {return(this.state.register.R9);}
+            case "R10": {return(this.state.register.R10);}
+            case "fp": {return(this.state.register.fp);}
+            case "R12": {return(this.state.register.R12);}
+            case "sp": {return(this.state.register.sp);}
+            case "lr": {return(this.state.register.lr);}
+            case "pc": {return(this.state.register.pc);}
+            default: {}
         }
     }
 
@@ -114,6 +112,7 @@ class RegisterFile extends React.Component {
             case "sp": {newReg.sp = data; break;}
             case "lr": {newReg.lr = data; break;}
             case "pc": {newReg.pc = data; break;}
+            default: {}
         }
     }
 
@@ -349,6 +348,7 @@ class RegisterFile extends React.Component {
             case "ASR": {result = arg2>>arg3; break}
             case "LSR": {result = arg2>>>arg3; break}
             case "LSL": {result = arg2<<arg3; break}
+            default: {}
         }
         console.log(result);
         console.log((result >>> 0).toString(2));
@@ -383,7 +383,7 @@ class RegisterFile extends React.Component {
             case "sp": {newReg.sp = data.value; break;}
             case "lr": {newReg.lr = data.value; break;}
             case "pc": {newReg.pc = data.value; break;}
-
+            default: {}
         }
 
         this.setState({
@@ -414,6 +414,7 @@ class RegisterFile extends React.Component {
                 case "sp": {numReg.push(13); break;}
                 case "lr": {numReg.push(14); break;}
                 case "pc": {numReg.push(15); break;}
+                default: {}
             }
         }
         console.log(numReg);
@@ -443,6 +444,7 @@ class RegisterFile extends React.Component {
                 case 13: {newReg.push("sp"); break;}
                 case 14: {newReg.push("lr"); break;}
                 case 15: {newReg.push("pc"); break;}
+                default: {}
             }
         }
         console.log(newReg);
@@ -484,7 +486,7 @@ class RegisterFile extends React.Component {
                     </Grid>
 
                     <Grid item>
-                        <Tab register={this.state.register} mov={this.mov} add={this.add} sub={this.sub} mult={this.mult} push={this.push} pop={this.pop} ldr={this.ldr} str={this.str} bl={this.bl} setPc={this.setPc} push={this.push} pop={this.pop} bitwise={this.bitwise} pushFunction={this.pushFunction} clear={this.clearStack}/>
+                        <Tab register={this.state.register} mov={this.mov} add={this.add} sub={this.sub} mult={this.mult} push={this.push} pop={this.pop} ldr={this.ldr} str={this.str} bl={this.bl} setPc={this.setPc}  bitwise={this.bitwise} pushFunction={this.pushFunction} clear={this.clearStack}/>
                     </Grid>
 
                 </Grid>

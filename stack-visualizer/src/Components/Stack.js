@@ -1,12 +1,8 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import Push from './Push Components/Push.js';
 import Frame from './Frame.js'
-import StackOperations from './StackOperations.js';
 import './../App.css'
 
 class Stack extends React.Component {
@@ -201,6 +197,7 @@ class Stack extends React.Component {
             case "sp": {this.push({address: this.state.register.sp, data: {type: "reg", reg: "sp", value: this.props.register.sp, arg: null}}); break;}
             case "lr": {this.push({address: this.state.register.sp, data: {type: "reg", reg: "lr", value: this.props.register.lr, arg: null}}); break;}
             case "pc": {this.push({address: this.state.register.sp, data: {type: "reg", reg: "pc", value: this.props.register.pc, arg: null}}); break;}
+            default: {}
         }
     }
 
@@ -292,6 +289,7 @@ class Stack extends React.Component {
                 case "sp": {let newReg = this.state.register; newReg.sp = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "sp", value: newReg.sp}); break;}
                 case "lr": {let newReg = this.state.register; newReg.lr = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "lr", value: newReg.lr}); break;}
                 case "pc": {let newReg = this.state.register; newReg.pc = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "pc", value: newReg.pc}); break;}
+                default: {}
             }
         }
 
@@ -331,6 +329,7 @@ class Stack extends React.Component {
             case "sp": {this.props.setReg({reg: "sp", value: frame.data.value}); break;}
             case "lr": {this.props.setReg({reg: "lr", value: frame.data.value}); break;}
             case "pc": {this.props.setReg({reg: "pc", value: frame.data.value}); break;}
+            default: {}
         }
 
         this.setState({

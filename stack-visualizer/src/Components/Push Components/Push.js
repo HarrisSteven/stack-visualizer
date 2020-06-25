@@ -1,7 +1,5 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -20,11 +18,11 @@ export default function Push(props) {
   const [openOutParameter, setOutParameter] = React.useState(false);
   const [openInParameter, setInParameter] = React.useState(false);
   const [openFunction, setFunction] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  //const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  }
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // }
 
   const handleClose = () => {
     setRegister(false);
@@ -32,24 +30,24 @@ export default function Push(props) {
     setOutParameter(false);
     setInParameter(false);
     setFunction(false);
-    setAnchorEl(null);
+    //setAnchorEl(null);
   }
 
   const handleRegister = () => {
     setRegister(true);
   }
 
-  const handleVariable = () => {
-    setVariable(true);
-  }
+  // const handleVariable = () => {
+  //   setVariable(true);
+  // }
 
-  const handleOutParameter = () => {
-    setOutParameter(true);
-  }
+  // const handleOutParameter = () => {
+  //   setOutParameter(true);
+  // }
 
-  const handleInParameter = () => {
-    setInParameter(true);
-  }
+  // const handleInParameter = () => {
+  //   setInParameter(true);
+  // }
 
   const handleFunction = () => {
     setFunction(true);

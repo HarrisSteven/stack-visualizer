@@ -164,6 +164,7 @@ class PushFunc extends Component {
                 case "sp": {numReg.push(13); break;}
                 case "lr": {numReg.push(14); break;}
                 case "pc": {numReg.push(15); break;}
+                default: {}
             }
         }
         console.log(numReg);
@@ -187,6 +188,7 @@ class PushFunc extends Component {
                 case 13: {newReg.push("sp"); break;}
                 case 14: {newReg.push("lr"); break;}
                 case 15: {newReg.push("pc"); break;}
+                default: {}
             }
         }
         console.log(newReg);

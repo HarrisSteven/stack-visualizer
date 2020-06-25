@@ -9,7 +9,6 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Parser from './Compile Components/Parser.js'
 import StackOperations from './StackOperations.js';
-import ArmInfo from './ArmInfo.js';
 import './../App.css';
 
 function TabPanel(props) {
