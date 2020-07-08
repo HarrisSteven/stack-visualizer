@@ -77,11 +77,11 @@ export default function Push(props) {
         <Grid container className="Row" spacing={3}>
           
           <Grid item>
-            <Button onClick={handleRegister} size="large" variant="outlined" color="primary" >Push Register</Button>
+            <Button style = {{fontSize: "1.3vh"}} onClick={handleRegister} size="large" variant="outlined" color="primary" >Push Register</Button>
           </Grid>
               
           <Grid item>
-            <Button onClick={handleFunction} size="large" variant="outlined" color="primary" >Push Function</Button>
+            <Button style = {{fontSize: "1.3vh"}} onClick={handleFunction} size="large" variant="outlined" color="primary" >Push Function</Button>
           </Grid>
 
         </Grid>

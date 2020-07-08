@@ -17,7 +17,7 @@ function App() {
       <br></br>
       <br></br>
 
-      <Grid container className="AppContainer" spacing={10}>
+      <Grid container className="AppContainer">
         <Grid item>
           <RegisterFile/>
         </Grid>

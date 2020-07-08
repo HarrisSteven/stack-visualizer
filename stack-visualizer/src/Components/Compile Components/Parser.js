@@ -1222,13 +1222,14 @@ class Parser extends React.Component {
                         <div className="ArmText">
                             {this.state.visualize || this.state.step ? 
                             <h3>
-                            <pre>
+                            <pre style={{fontSize: "2vh"}}>
                                 <Highlight search={this.state.nextInstruction}>{this.state.debugCode}</Highlight>
                             </pre></h3>
                             :
                             <TextField InputProps={{
                                 // startAdornment: <InputAdornment position="start"><pre>1     <br></br>2<br></br>3<br></br>4<br></br>5<br></br>6<br></br>7<br></br>8<br></br>9<br></br>10<br></br>11<br></br>12<br></br>13<br></br>14<br></br>15<br></br>16<br></br>17<br></br>18<br></br>19<br></br>20<br></br>21<br></br>22<br></br>23<br></br>24<br></br>25<br></br>26<br></br>27<br></br>28<br></br>29<br></br>30<br></br>31<br></br>32<br></br>33<br></br>34<br></br>35<br></br>36<br></br>37<br></br>38<br></br>39<br></br>40<br></br>41<br></br>42<br></br>43<br></br>44<br></br>45<br></br>46<br></br>47<br></br>48<br></br>49<br></br>50</pre></InputAdornment>,  
-                            }} defaultValue={this.state.code} fullWidth="true" id="code" label="Insert ARM Assembly Code" variant="outlined" multiline rows={10} rowsMax={100}></TextField>}
+                                style: {fontSize: "2vh"}
+                            }} defaultValue={this.state.code} fullWidth="true" id="code" label="Insert ARM Assembly Code" variant="outlined" multiline rows={10} rowsMax={70}></TextField>}
                         </div>
 
                         {/* {this.state.error ? <h3>Compile Error: Instruction: {this.state.errorInfo.instruction}, line: {this.state.errorInfo.line}</h3> : null} */}

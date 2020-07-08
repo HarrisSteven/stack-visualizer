@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    width: "40vh",
+    width: "25vw",
   },
 }));
 
@@ -64,9 +64,9 @@ export default function SelectTab(props) {
     <div className={classes.root}>
 
       <AppBar position="static">
-        <Tabs centered value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab label="ARM Text Editor" {...a11yProps(0)} />
-          <Tab label="Stack Visualizer" {...a11yProps(1)} />
+        <Tabs style={{minHeight: "0vh"}} centered value={value} onChange={handleChange} aria-label="simple tabs example">
+          <Tab style = {{fontSize: "1.4vh", minHeight: "0vh"}} label="ARM Text Editor" {...a11yProps(0)} />
+          <Tab style = {{fontSize: "1.4vh", minHeight: "0vh"}} label="Stack Visualizer" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
 
@@ -78,7 +78,7 @@ export default function SelectTab(props) {
             </Grid> */}
           
             <Grid item>
-                <Parser register={props.register} mov={props.mov} add={props.add} sub={props.sub} mult={props.mult} push={props.push} pop={props.pop} bitwise={props.bitwise} ldr={props.ldr} str={props.str} bl={props.bl} setPc={props.setPc} clear={props.clear}/>
+              <Parser register={props.register} mov={props.mov} add={props.add} sub={props.sub} mult={props.mult} push={props.push} pop={props.pop} bitwise={props.bitwise} ldr={props.ldr} str={props.str} bl={props.bl} setPc={props.setPc} clear={props.clear}/>
             </Grid>
             
             {/* <Grid item>

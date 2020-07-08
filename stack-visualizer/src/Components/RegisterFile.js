@@ -454,12 +454,11 @@ class RegisterFile extends React.Component {
     render() {
         return (
             <div>
-                <Grid container className="AppComponents" spacing={10}>
+                <Grid container style = {{justifyContent: "space-between"}} className="AppComponents">
                 
                     <Grid item>
                         <Stack setPush={push => this.pushChild = push} setPop={pop => this.popChild = pop} setPopReg={pop => this.popRegChild = pop} setLdr={ldr => this.ldrChild = ldr} setStr={str => this.strChild = str} setSp={sp => this.handleSpChild = sp} setFunction={func => this.functionChild = func} setClear={clear => this.clearChild = clear} register={this.state.register} setRemoveFrames={frames => this.removeFramesChild = frames} incSp={this.incSp} decSp={this.decSp} setReg={this.setReg} setRegister={this.setRegister}/>
                     </Grid>
-
 
                     <Grid item>
                         <Grid container className="RegisterFile">
@@ -471,7 +470,7 @@ class RegisterFile extends React.Component {
                             </Grid>
 
                             <Grid item className="Center">
-                                <Button variant="outlined" color="primary" onClick={this.toggleHex}>{this.state.decimal ? <h3>Hex</h3> : <h3>Dec</h3>}</Button>
+                                <Button style = {{fontSize: "1.3vh"}} variant="outlined" color="primary" onClick={this.toggleHex}>{this.state.decimal ? <h3>Hex</h3> : <h3>Dec</h3>}</Button>
                             </Grid>
 
                             <Grid item className="RegisterFileContainer">

@@ -6,7 +6,7 @@ class RunTab extends React.Component {
     render() {
         return(
             <div className="RunTab">
-                <Button variant="outlined" color="primary" onClick={this.props.handleRun}>Run</Button>
+                <Button style = {{fontSize: "1.5vh"}} variant="outlined" color="primary" onClick={this.props.handleRun}>Run</Button>
             </div>
         )
     }

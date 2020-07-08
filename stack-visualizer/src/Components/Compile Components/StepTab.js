@@ -6,9 +6,9 @@ class StepTab extends React.Component {
     render() {
         return(
             <div className="RunTab">
-                {this.props.step ? null: <Button variant="outlined" color="primary" onClick={this.props.startStep}>Start</Button>}
-                {this.props.step ? <Button variant="outlined" color="primary" onClick={this.props.handleStep}>Step <ArrowForwardIcon></ArrowForwardIcon></Button>: null} 
-                {this.props.step ? <Button variant="contained" color="primary" onClick={this.props.handleReset}>Terminate</Button>: null}
+                {this.props.step ? null: <Button style = {{fontSize: "1.5vh"}} variant="outlined" color="primary" onClick={this.props.startStep}>Start</Button>}
+                {this.props.step ? <Button style = {{fontSize: "1.5vh"}} variant="outlined" color="primary" onClick={this.props.handleStep}>Step <ArrowForwardIcon></ArrowForwardIcon></Button>: null} 
+                {this.props.step ? <Button style = {{fontSize: "1.5vh"}} variant="contained" color="primary" onClick={this.props.handleReset}>Terminate</Button>: null}
             </div>
         )
     }

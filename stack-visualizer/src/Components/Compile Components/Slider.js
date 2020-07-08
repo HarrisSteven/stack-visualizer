@@ -6,7 +6,7 @@ import Slider from '@material-ui/core/Slider';
 
 const useStyles = makeStyles({
   root: {
-    width: 300,
+    width: "13vw",
   },
 });
 
@@ -24,7 +24,7 @@ export default function ContinuousSlider(props) {
       
       <Grid container spacing={2}>
         <Grid item>
-            <Typography id="continuous-slider" gutterBottom>
+            <Typography style = {{fontSize: "1.5vh"}} id="continuous-slider" gutterBottom>
                 Instructions / sec
             </Typography>
         </Grid>

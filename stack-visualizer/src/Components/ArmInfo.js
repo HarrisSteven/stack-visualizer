@@ -6,6 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import InfoIcon from '@material-ui/icons/Info';
+import './../App.css';
 
 export default function ArmInfo() {
   const [open, setOpen] = React.useState(false);
@@ -30,7 +31,7 @@ export default function ArmInfo() {
 
   return (
     <div>
-      <Button onClick={handleClickOpen()}><InfoIcon></InfoIcon></Button>
+      <Button onClick={handleClickOpen()}><InfoIcon style={{fontSize: "2vh"}}></InfoIcon></Button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -40,7 +41,7 @@ export default function ArmInfo() {
         //fullWidth={true}
         maxWidth={true}
       >
-        <DialogTitle id="scroll-dialog-title">ARM Comiler Info</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">ARM Compiler Info</DialogTitle>
         <DialogContent dividers={true}>
           <DialogContentText
             id="scroll-dialog-description"

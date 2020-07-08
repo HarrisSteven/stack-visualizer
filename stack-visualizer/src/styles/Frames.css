@@ -4,100 +4,129 @@
 
 .StackItem {
     width: 70vh;
+    font-size: 4vh;
   }
+
+.Text {
+    font-size: 2vh;
+}
 
 .Top {
     background-color: lightskyblue; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .TopOutline {
     background-color: lightskyblue; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .Register {
     background-color: palegoldenrod; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .RegisterOutline {
     background-color: palegoldenrod; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .Variable {
     background-color: lightblue; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .VariableOutline {
     background-color: lightblue; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .InParameter {
     background-color: lightcoral; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .InParameterOutline {
     background-color: lightcoral; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .OutParameter {
     background-color: lightseagreen; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .OutParameterOutline {
     background-color: lightseagreen; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .Empty {
     background-color: lightslategray; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: black;
     padding: 0.5vh;
+    font-size: 3vh;
 }
 
 .EmptyOutline {
     background-color: lightslategray; 
     height: 5vh;
+    width: 65vh;
     outline-style: solid;
     outline-color: gold;
     padding: 0.5vh;
+    font-size: 3vh;
 }

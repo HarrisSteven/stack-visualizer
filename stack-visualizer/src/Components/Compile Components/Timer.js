@@ -41,7 +41,7 @@ class Timer extends React.Component {
     render() {
       return (
         <div>
-          <h3><pre>   Instructions Executed: {this.state.instructions}</pre></h3>
+          <h3><pre style = {{fontSize: "2vh"}}>   Instructions Executed: {this.state.instructions}</pre></h3>
         </div>
       );
     }

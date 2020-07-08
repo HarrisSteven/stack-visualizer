@@ -17,10 +17,10 @@ class StackOperations extends React.Component {
                     <Grid item>
                     <Grid container spacing={6} className="Row">
                     <Grid item>
-                        <Button size="large" variant="outlined" color="secondary" onClick={this.props.pop}>Pop</Button>
+                        <Button style = {{fontSize: "1.3vh"}} size="large" variant="outlined" color="secondary" onClick={this.props.pop}>Pop</Button>
                     </Grid>
                     <Grid item>
-                        <Button size="large" variant="outlined" color="secondary" onClick={this.props.clear}>Clear</Button>
+                        <Button style = {{fontSize: "1.3vh"}} size="large" variant="outlined" color="secondary" onClick={this.props.clear}>Clear</Button>
                     </Grid>
                     </Grid>
                     </Grid>

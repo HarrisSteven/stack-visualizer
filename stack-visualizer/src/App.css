@@ -1,10 +1,16 @@
 .App {
   text-align: center;
+  font-size: 0.7vw;
 }
 
 .AppComponents {
   align-items: flex-start;
   flex-direction: row;
+  justify-content: space-between;
+  margin-left: 5vh;
+  margin-right: 5vh;  
+  margin-top: 1vh;
+  margin-bottom: 1vh;
 }
 
 .Stack {
@@ -12,6 +18,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   height: 85vh;
+  font-size: 0.7vw;
 }
 
 .Frame {
@@ -21,9 +28,9 @@
   outline-color: black;
 }
 
-.StackItem {
-  width: 70vh;
-}
+/* .StackItem {
+  width: 70vh; 
+} */
 
 .StackHeader {
   flex-direction: row;
@@ -33,6 +40,11 @@
 
 .Container {
   justify-content: center;
+  font-size: 1.4vh;
+}
+
+.Text {
+  font-size: 0.7vh;
 }
 
 .StackPointer {
@@ -48,10 +60,12 @@
   justify-content: center;
   align-items: center;
   background-color: lightcyan;
+  font-size: 0.6vw;
 }
 
 .RegisterFileContainer {
-  width: 34vh;
+  width: 38vh;
+  height: 50vh;
   justify-content: space-around;
 }
 
@@ -65,6 +79,7 @@
   align-items: center;
   outline-style: solid;
   outline-color: darkblue;
+  height: 20vh;
 }
 
 .Row {
@@ -76,7 +91,7 @@
 }
 
 .ArmText {
-  width: 35vh;
+  width: 45vh;
 }
 
 .CommandContainer {
@@ -99,7 +114,7 @@
 }
 
 .AppContainer {
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .RunTab {
@@ -108,9 +123,9 @@
 
 .RowTable {
   display: table;
-  width: 50%; /*Optional*/
-  table-layout: fixed; /*Optional*/
-  border-spacing: 10px; /*Optional*/
+  width: 50%; 
+  table-layout: fixed; 
+  border-spacing: 10px; 
 }
 .ColumnTable {
   display: table-cell;

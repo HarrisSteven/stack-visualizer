@@ -10,13 +10,13 @@ class VisualizeTab extends React.Component {
             <div className="RowTable">
 
                 <div className="ColumnTable">
-                    {this.props.visualize ? null: <Button variant="contained" color="primary" onClick={this.props.startVisualize}>Start</Button>}
-                    {this.props.visualize ? <Button variant="contained" color="primary" onClick={this.props.handleReset}>Terminate</Button>: null}
+                    {this.props.visualize ? null: <Button style = {{fontSize: "1.5vh"}} variant="contained" color="primary" onClick={this.props.startVisualize}>Start</Button>}
+                    {this.props.visualize ? <Button style = {{fontSize: "1.5vh"}} variant="contained" color="primary" onClick={this.props.handleReset}>Terminate</Button>: null}
                 </div>
 
                 <div className="ColumnTable">       
-                    <h3><pre>{this.props.visualize ? <Timer startTimeInSeconds="0" step={this.props.handleVisualize} speed={this.props.speed} run={this.props.visualize}/>: null}</pre></h3>
-                    {this.props.visualize ? null: <Slider changeSpeed={this.props.changeSpeed} speed={this.props.speed}/>}
+                    <h3><pre>{this.props.visualize ? <Timer style = {{fontSize: "1.5vh"}} startTimeInSeconds="0" step={this.props.handleVisualize} speed={this.props.speed} run={this.props.visualize}/>: null}</pre></h3>
+                    {this.props.visualize ? null: <Slider style = {{fontSize: "1.5vh"}} changeSpeed={this.props.changeSpeed} speed={this.props.speed}/>}
                 </div>
 
             </div>

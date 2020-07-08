@@ -379,7 +379,7 @@ class Stack extends React.Component {
                     </Grid>
 
                     <Grid item>
-                        <Button size="large" variant="outlined" color="secondary" onClick={this.clear}>Clear</Button>
+                        <Button style = {{fontSize: "1.7vh"}} variant="outlined" color="secondary" onClick={this.clear}>Clear</Button>
                     </Grid>
 
                 </Grid>
@@ -396,10 +396,10 @@ class Stack extends React.Component {
                                             {this.decimalToHex(frame.address).map(char => char)}
                                         </Grid>
                                         <Grid item>
-                                            fp <ArrowRightAltIcon></ArrowRightAltIcon>
+                                            fp <ArrowRightAltIcon style = {{fontSize: "2vh"}}></ArrowRightAltIcon>
                                         </Grid>
                                         <Grid item>
-                                            sp <ArrowRightAltIcon></ArrowRightAltIcon>
+                                            sp <ArrowRightAltIcon style = {{fontSize: "2vh"}}></ArrowRightAltIcon>
                                         </Grid>
                                     </div>
                                 :    
@@ -409,7 +409,7 @@ class Stack extends React.Component {
                                             {this.decimalToHex(frame.address).map(char => char)}
                                         </Grid>
                                         <Grid item>
-                                            sp <ArrowRightAltIcon></ArrowRightAltIcon>
+                                            sp <ArrowRightAltIcon style = {{fontSize: "2vh"}}></ArrowRightAltIcon>
                                         </Grid>
                                     </div>
                                 :      
@@ -419,14 +419,14 @@ class Stack extends React.Component {
                                         {this.decimalToHex(frame.address).map(char => char)}
                                     </Grid>
                                     <Grid item>
-                                        fp <ArrowRightAltIcon></ArrowRightAltIcon>
+                                        fp <ArrowRightAltIcon style = {{fontSize: "2vh"}}></ArrowRightAltIcon>
                                     </Grid>
                                 </div>
                                 : 
-                                <Grid item>
+                                <Grid>
                                     {this.decimalToHex(frame.address).map(char => char)}
                                 </Grid>}
-
+                                
                                 <Frame params={frame} register={this.props.register}></Frame>
 
                             </Grid>
