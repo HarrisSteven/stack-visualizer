@@ -96,37 +96,37 @@ class PushReg extends Component {
 
                 <Grid item>
                     <ButtonGroup color="primary" aria-label="outlined primary button group">
-                        <Button onClick={this.pushR0} size="large">R0</Button>
-                        <Button onClick={this.pushR1} size="large">R1</Button>
-                        <Button onClick={this.pushR2} size="large">R2</Button>
-                        <Button onClick={this.pushR3} size="large">R3</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR0} size="large">R0</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR1} size="large">R1</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR2} size="large">R2</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR3} size="large">R3</Button>
                     </ButtonGroup>
                 </Grid>
 
                 <Grid item>
                     <ButtonGroup color="primary" aria-label="outlined primary button group">
-                        <Button onClick={this.pushR4} size="large">R4</Button>
-                        <Button onClick={this.pushR5} size="large">R5</Button>
-                        <Button onClick={this.pushR6} size="large">R6</Button>
-                        <Button onClick={this.pushR7} size="large">R7</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR4} size="large">R4</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR5} size="large">R5</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR6} size="large">R6</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR7} size="large">R7</Button>
                     </ButtonGroup>
                 </Grid>
 
                 <Grid item>
                     <ButtonGroup color="primary" aria-label="outlined primary button group">                        
-                        <Button onClick={this.pushR8} size="large">R8</Button>
-                        <Button onClick={this.pushR9} size="large">R9</Button>
-                        <Button onClick={this.pushR10} size="large">R10</Button>
-                        <Button onClick={this.pushFp} size="large">fp</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR8} size="large">R8</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR9} size="large">R9</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR10} size="large">R10</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushFp} size="large">fp</Button>
                     </ButtonGroup>
                 </Grid> 
-
+ 
                 <Grid item>
                     <ButtonGroup color="primary" aria-label="outlined primary button group">                        
-                        <Button onClick={this.pushR12} size="large">R12</Button>
-                        <Button onClick={this.pushSp} size="large">sp</Button>
-                        <Button onClick={this.pushLr} size="large">lr</Button>
-                        <Button onClick={this.pushPc} size="large">pc</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushR12} size="large">R12</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushSp} size="large">sp</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushLr} size="large">lr</Button>
+                        <Button style = {{fontSize: "1.5vh", width: "4vw"}} onClick={this.pushPc} size="large">pc</Button>
                     </ButtonGroup>
                 </Grid>
 

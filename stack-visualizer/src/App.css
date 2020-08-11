@@ -64,8 +64,8 @@
 }
 
 .RegisterFileContainer {
-  width: 38vh;
-  height: 50vh;
+  width: 35vh;
+  height: 47vh;
   justify-content: space-around;
 }
 
@@ -80,6 +80,7 @@
   outline-style: solid;
   outline-color: darkblue;
   height: 20vh;
+  min-width: 50vh;
 }
 
 .Row {
@@ -127,8 +128,17 @@
   table-layout: fixed; 
   border-spacing: 10px; 
 }
+
 .ColumnTable {
   display: table-cell;
+}
+
+.Hidden {
+  opacity: 0;
+}
+
+.Hidden:hover {
+   opacity: 1;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -146,10 +156,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {

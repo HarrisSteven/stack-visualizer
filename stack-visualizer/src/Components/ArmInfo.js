@@ -79,8 +79,7 @@ export default function ArmInfo() {
             'BLE <LabelName> \n' + 
             'BL <Register> \n' + 
             'To add a label use \'<LabelName>: <Instruction>\' \n \n \n' +
-            'Sample Code \n \n' + 
-            'FACTORIAL \n' +
+            'Sample Factorial Code \n \n' + 
             'MOV R0, #5 \n' +
             'BL fact \n' +
             'B finish \n' +

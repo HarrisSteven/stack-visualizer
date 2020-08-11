@@ -8,7 +8,6 @@ import './../App.css'
 class Stack extends React.Component {
     constructor(props) {
         super(props);
-        this.pushByReg = this.pushByReg.bind(this);
         this.state = {
             frames: [{
                 address: 4096, 
@@ -53,16 +52,16 @@ class Stack extends React.Component {
         this.props.setFunction(this.handleFuction);
         this.props.setClear(this.clear);
         this.props.setRemoveFrames(this.removeFrames);
-        this.scrollToBottom();
+        //this.scrollToBottom();
      }
 
-     scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({ behavior: "auto" });
-      }
+    // scrollToBottom = () => {
+    //     this.messagesEnd.scrollIntoView({ behavior: "auto" });
+    // }
       
-      componentDidUpdate() {
-        this.scrollToBottom();
-      }
+    // componentDidUpdate() {
+    //     this.scrollToBottom();
+    // }
 
     decimalToHex = (decimalNumber) => {
         let hexNum = [];
@@ -92,6 +91,7 @@ class Stack extends React.Component {
     }
 
     setFrames = (sp) => {
+        // If the sp is moved down, fill space with empty frames
         let lowAddress = this.state.frames[this.state.frames.length - 1].address;
         console.log("low address: " + lowAddress);
         while(sp < lowAddress) {
@@ -372,14 +372,18 @@ class Stack extends React.Component {
         return(
             <div className="Stack">
 
-                <Grid container spacing={8} className="StackHeader">
+                <Grid container className="StackHeader">
 
                     <Grid item>
                         {this.state.frames.length === 1 ? <h2>Stack ({this.state.frames.length} frame)</h2> :<h2>Stack ({this.state.frames.length} frames)</h2>} 
                     </Grid>
 
                     <Grid item>
-                        <Button style = {{fontSize: "1.7vh"}} variant="outlined" color="secondary" onClick={this.clear}>Clear</Button>
+                        <pre>     </pre>
+                    </Grid>
+
+                    <Grid item>
+                        <Button style = {{fontSize: "1.7vh", width: "8vh", height: "4vh"}} variant="outlined" color="secondary" onClick={this.clear}>Clear</Button>
                     </Grid>
 
                 </Grid>

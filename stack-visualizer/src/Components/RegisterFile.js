@@ -40,7 +40,6 @@ class RegisterFile extends React.Component {
         this.setReg = this.setReg.bind(this);
         this.push = this.push.bind(this);
         this.pop = this.pop.bind(this);
-        //this.getRegister = this.getRegister.bind(this);
 
     }
 
@@ -293,11 +292,9 @@ class RegisterFile extends React.Component {
     
     pop = (data) => {
         if(!(typeof data.arg1 === 'string' || data.arg1 instanceof String)) {
-            console.log("here");
             this.popChild();
         }
         else {
-            console.log("POPPING BY REG");
             let popArray = [];
             if(data.arg1 !== "") {
                 popArray.push(data.arg1);
@@ -337,8 +334,6 @@ class RegisterFile extends React.Component {
         console.log(arg3);
         console.log((arg2 >>> 0).toString(2));
         console.log((arg3 >>> 0).toString(2));
-        //console.log(arg2);
-        //console.log(arg3);
         console.log(func);
         let result;
         switch(func) {
@@ -470,7 +465,7 @@ class RegisterFile extends React.Component {
                             </Grid>
 
                             <Grid item className="Center">
-                                <Button style = {{fontSize: "1.3vh"}} variant="outlined" color="primary" onClick={this.toggleHex}>{this.state.decimal ? <h3>Hex</h3> : <h3>Dec</h3>}</Button>
+                                <Button style = {{fontSize: "1.3vh", width: "10vh", height: "4vh"}} variant="outlined" color="primary" onClick={this.toggleHex}>{this.state.decimal ? <h3>Hex</h3> : <h3>Dec</h3>}</Button>
                             </Grid>
 
                             <Grid item className="RegisterFileContainer">

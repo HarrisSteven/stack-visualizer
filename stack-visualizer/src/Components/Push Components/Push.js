@@ -18,11 +18,6 @@ export default function Push(props) {
   const [openOutParameter, setOutParameter] = React.useState(false);
   const [openInParameter, setInParameter] = React.useState(false);
   const [openFunction, setFunction] = React.useState(false);
-  //const [anchorEl, setAnchorEl] = React.useState(null);
-
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // }
 
   const handleClose = () => {
     setRegister(false);
@@ -37,51 +32,22 @@ export default function Push(props) {
     setRegister(true);
   }
 
-  // const handleVariable = () => {
-  //   setVariable(true);
-  // }
-
-  // const handleOutParameter = () => {
-  //   setOutParameter(true);
-  // }
-
-  // const handleInParameter = () => {
-  //   setInParameter(true);
-  // }
-
   const handleFunction = () => {
     setFunction(true);
   }
 
   return (
     <div>
-      {/* <Button aria-controls="push-menu" aria-haspopup="true" size="large" variant="outlined" color="primary" onClick={handleClick}>
-        Push
-      </Button> */}
-      {/* <Menu
-        id="push-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleRegister}>Register</MenuItem>
-        <MenuItem onClick={handleVariable}>Local Variable</MenuItem>
-        <MenuItem onClick={handleOutParameter}>Outgoing Parameter</MenuItem>
-        <MenuItem onClick={handleInParameter}>Incoming Parameter</MenuItem>
-        <MenuItem onClick={handleFunction}>Function</MenuItem>
-      </Menu> */}
-
-
+  
       <Grid item>
         <Grid container className="Row" spacing={3}>
           
           <Grid item>
-            <Button style = {{fontSize: "1.3vh"}} onClick={handleRegister} size="large" variant="outlined" color="primary" >Push Register</Button>
+            <Button style = {{fontSize: "1.3vh", width: "16vh", height: "5vh"}} onClick={handleRegister} size="large" variant="outlined" color="primary" >Push Register</Button>
           </Grid>
               
           <Grid item>
-            <Button style = {{fontSize: "1.3vh"}} onClick={handleFunction} size="large" variant="outlined" color="primary" >Push Function</Button>
+            <Button style = {{fontSize: "1.3vh", width: "16vh", height: "5vh"}} onClick={handleFunction} size="large" variant="outlined" color="primary" >Push Function</Button>
           </Grid>
 
         </Grid>

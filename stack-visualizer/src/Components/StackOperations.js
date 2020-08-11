@@ -10,19 +10,27 @@ class StackOperations extends React.Component {
             <div>
                 <br></br>
 
-                <Grid container className="ColumnCenter" spacing={6}>
+                <Grid container className="ColumnCenter">
                     <Grid item>
                         <Push pushReg={this.props.pushReg} pushFunc = {this.props.pushFunc}/>
                     </Grid>
+
                     <Grid item>
-                    <Grid container spacing={6} className="Row">
+                        <pre>      </pre>
+                    </Grid>
+
                     <Grid item>
-                        <Button style = {{fontSize: "1.3vh"}} size="large" variant="outlined" color="secondary" onClick={this.props.pop}>Pop</Button>
-                    </Grid>
-                    <Grid item>
-                        <Button style = {{fontSize: "1.3vh"}} size="large" variant="outlined" color="secondary" onClick={this.props.clear}>Clear</Button>
-                    </Grid>
-                    </Grid>
+                        <Grid container className="Row">
+                            <Grid item>
+                                <Button style = {{fontSize: "1.3vh", width: "16vh", height: "5vh"}} size="large" variant="outlined" color="secondary" onClick={this.props.pop}>Pop</Button>
+                            </Grid>
+                            <Grid item>
+                                <pre>      </pre>
+                            </Grid>
+                            <Grid item>
+                                <Button style = {{fontSize: "1.3vh", width: "16vh", height: "5vh"}} size="large" variant="outlined" color="secondary" onClick={this.props.clear}>Clear</Button>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </div>

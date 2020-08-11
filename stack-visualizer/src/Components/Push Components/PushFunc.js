@@ -168,6 +168,7 @@ class PushFunc extends Component {
             }
         }
         console.log(numReg);
+        // Sort registers in reverse order
         numReg.sort((a,b)=>b-a)
         console.log(numReg);
         for(const num of numReg) {

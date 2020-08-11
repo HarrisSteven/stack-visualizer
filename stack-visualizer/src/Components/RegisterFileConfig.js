@@ -75,7 +75,7 @@ class RegisterFileConfig extends React.Component {
         return (
             <Grid item>
 
-                <Grid container spacing={6} className="Row">
+                <Grid container className="Row">
 
                     <Grid item>
                         <Grid container className="Column">
@@ -97,6 +97,10 @@ class RegisterFileConfig extends React.Component {
                                 <h2>R7: {this.props.decimal ? this.props.register.R7: this.decimalToHex(this.props.register.R7)}</h2> 
                             </Grid>
                         </Grid>
+                    </Grid>
+                    
+                    <Grid item>
+                        <pre>      </pre>
                     </Grid>
                     
                     <Grid item>
