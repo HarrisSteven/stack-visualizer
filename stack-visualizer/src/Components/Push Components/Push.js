@@ -39,25 +39,25 @@ export default function Push(props) {
   return (
     <div>
   
-      <Grid item>
-        <Grid container className="Row" spacing={3}>
-          
-          <Grid item>
-            <Button style = {{fontSize: "1.3vh", width: "16vh", height: "5vh"}} onClick={handleRegister} size="large" variant="outlined" color="primary" >Push Register</Button>
-          </Grid>
-              
-          <Grid item>
-            <Button style = {{fontSize: "1.3vh", width: "16vh", height: "5vh"}} onClick={handleFunction} size="large" variant="outlined" color="primary" >Push Function</Button>
-          </Grid>
-
+      <Grid container className="Row">
+        
+        <Grid item>
+          <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "8vw", minHeight: "6vh", width: "8vw", height: "6vh"}} onClick={handleFunction} size="large" variant="contained" color="primary" >Push Function</Button>
         </Grid>
+
+        <Grid item>
+          <pre>      </pre>
+        </Grid>
+            
+        <Grid item>
+          <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "8vw", minHeight: "6vh", width: "8vw", height: "6vh"}} onClick={handleRegister} size="large" variant="contained" color="primary" >Push Register</Button>
+        </Grid>
+
       </Grid>
 
 
-
-
       <Dialog
-        fullWidth={true}
+        fullWidth={false}
         open={openRegister}
         onClose={handleClose}
         aria-labelledby="upload-dialog-title"

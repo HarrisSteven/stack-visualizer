@@ -8,31 +8,30 @@ class StackOperations extends React.Component {
     render() {
         return(
             <div>
-                <br></br>
 
-                <Grid container className="ColumnCenter">
+                <Grid container className="PushFunctions">
                     <Grid item>
                         <Push pushReg={this.props.pushReg} pushFunc = {this.props.pushFunc}/>
                     </Grid>
 
-                    <Grid item>
-                        <pre>      </pre>
-                    </Grid>
 
                     <Grid item>
                         <Grid container className="Row">
                             <Grid item>
-                                <Button style = {{fontSize: "1.3vh", width: "16vh", height: "5vh"}} size="large" variant="outlined" color="secondary" onClick={this.props.pop}>Pop</Button>
+                                <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "8vw", minHeight: "6vh", width: "8vw", height: "6vh"}} size="large" variant="contained" color="secondary" onClick={this.props.pop}>Pop</Button>
                             </Grid>
+
                             <Grid item>
                                 <pre>      </pre>
                             </Grid>
+
                             <Grid item>
-                                <Button style = {{fontSize: "1.3vh", width: "16vh", height: "5vh"}} size="large" variant="outlined" color="secondary" onClick={this.props.clear}>Clear</Button>
+                                <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "8vw", minHeight: "6vh", width: "8vw", height: "6vh"}} size="large" variant="contained" color="secondary" onClick={this.props.clear}>Clear</Button>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
+
             </div>
         )
     }

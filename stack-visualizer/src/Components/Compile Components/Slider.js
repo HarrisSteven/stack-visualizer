@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import './../../App.css';
 
 const useStyles = makeStyles({
   root: {
@@ -22,18 +23,22 @@ export default function ContinuousSlider(props) {
   return (
     <div className={classes.root}>
       
-      <Grid container spacing={2}>
+      <Grid container className="VisualizeSlider">
+
         <Grid item>
-            <Typography style = {{fontSize: "1.5vh"}} id="continuous-slider" gutterBottom>
+            <Typography style = {{fontSize: "1.5vh"}}>
                 Instructions / sec
             </Typography>
         </Grid>
-        <Grid item xs>
+
+        <Grid item>
+          <pre>  </pre>
+        </Grid>
+
+        <Grid item xs style = {{fontSize: "1vh"}}>
           <Slider min={1} step={1} max={6} defaultValue={props.speed} valueLabelDisplay="on" value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
         </Grid>
-        <Grid item>
-          
-        </Grid>
+      
       </Grid>
     </div>
   );

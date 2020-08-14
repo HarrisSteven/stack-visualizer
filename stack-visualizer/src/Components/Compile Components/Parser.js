@@ -1,9 +1,7 @@
 import React from 'react';
 import TextField from "@material-ui/core/TextField";
-import Grid from '@material-ui/core/Grid';
 import Highlight from 'react-highlighter';
 import RunOptions from './RunOptions.js';
-import ArmInfo from './../ArmInfo.js';
 import InputAdornment from '@material-ui/core/InputAdornment';
 // import Button from '@material-ui/core/Button';
 // import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -19,14 +17,13 @@ class Parser extends React.Component {
             status: 0,
             step: false,
             visualize: false,
-            speed: 3,
+            speed: 4,
             lines: [], 
             debugCode: "",
             nextInstruction: "",
             compile: false,
             error: false,
             errorInfo: [],
-            instructionCount: 0,
             numLines: 0,
             breakpoints: []
         }
@@ -61,7 +58,7 @@ class Parser extends React.Component {
     }
 
     listedLinesCalc = (numLines) => {
-        let lineArray = ["1  \n","2\n","3\n","4\n","5\n","6\n","7\n","8\n","9\n","10\n"];
+        let lineArray = [" 1  \n"," 2\n"," 3\n"," 4\n"," 5\n"," 6\n"," 7\n"," 8\n"," 9\n","10\n"];
         for(let i = 11; i < numLines+2; i++) {
             if(i <= 100) {
                 lineArray.push(i + "\n");
@@ -159,7 +156,6 @@ class Parser extends React.Component {
             visualize: false,
             visualDisplay: false,
             nextInstruction: "",
-            instructionCount: 0,
         })
         //this.props.clear();
     }
@@ -242,7 +238,12 @@ class Parser extends React.Component {
                     debugCode += (i+1) + ". " + curLine + "\n";
                 }
                 else {
-                    debugCode += (i+1) + " " + curLine + "\n";
+                    if(i+1 < 10) {
+                        debugCode += (i+1) + "  " + curLine + "\n";
+                    }
+                    else {
+                        debugCode += (i+1) + " " + curLine + "\n";
+                    }
                 }
             }
         }
@@ -251,29 +252,21 @@ class Parser extends React.Component {
             for(let i = 0; i < lines.length; i++) {
                 let curLine = lines[i];
                 if(this.state.nextInstruction === "" && i === 0 && !passFirst) {
-                    if(i+1 < 10) {
-                        nextInstruction = " " + (i+1) + ". " + curLine + "\n";
-                        debugCode += " " + (i+1) + ". " + curLine + "\n";
-                        addStart = true;
-                    }
-                    else {
-                        nextInstruction = (i+1) + ". " + curLine + "\n";
-                        debugCode += (i+1) + ". " + curLine + "\n";
-                        addStart = true;
-                    }
+                    nextInstruction = (i+1) + ". " + curLine + "\n";
+                    debugCode += (i+1) + ". " + curLine + "\n";
+                    addStart = true;
                 }
                 else if(i === lineNum + 1 && !addStart) {
-                    if(i+1 < 10) {
-                        nextInstruction = " " + (i+1) + ". " + curLine + "\n";
-                        debugCode += " " + (i+1) + ". " + curLine + "\n";
-                    }
-                    else {
-                        nextInstruction = (i+1) + ". " + curLine + "\n";
-                        debugCode += (i+1) + ". " + curLine + "\n";
-                    }
+                    nextInstruction = (i+1) + ". " + curLine + "\n";
+                    debugCode += (i+1) + ". " + curLine + "\n";
                 }
                 else {
-                    debugCode += (i+1) + " " + curLine + "\n";
+                    if(i+1 < 10) {
+                        debugCode += (i+1) + "  " + curLine + "\n";
+                    }
+                    else {
+                        debugCode += (i+1) + " " + curLine + "\n";
+                    }
                 }
             }
         }
@@ -520,6 +513,7 @@ class Parser extends React.Component {
         let type = "";
         let status = 0;
         let newInstructions = [];
+        let instructionCount = 0;
         console.log("Step State: " + step);
 
         if(step) {
@@ -559,7 +553,7 @@ class Parser extends React.Component {
                 //     this.pointCurInstruction(line-1);  
                 //     return;
                 // }
-
+                type = this.correctInstCase(type);
                 switch(type) {
                     case "ADD": {
                         this.add(instructions.slice(begin, i))
@@ -819,17 +813,21 @@ class Parser extends React.Component {
                         line++;
                         break;
                     }
-                    default: {}
+                    default: {
+                        if(type !== "") {
+                            alert("Instruction '" + type +  "' not recognized")
+                            line++;
+                        }
+                    }
                 }
             }
 
-            let newInstructionCount = this.state.instructionCount;
             this.setState({
                 line: line,
-                instructionCount: ++newInstructionCount
             })
-            console.log("TOTALINSTRUCTIONS: " + this.state.instructionCount)
-            if(this.state.instructionCount > 50000) {
+            instructionCount++;
+            console.log("TOTALINSTRUCTIONS: " + instructionCount)
+            if(instructionCount > 8000) {
                 this.handleReset();
                 alert("Infinite loop or running took too long");
                 break;
@@ -884,10 +882,9 @@ class Parser extends React.Component {
                 arg2 = parseInt(arg2.substring(1, arg2.length));
             }
         }
-        console.log(arg2);
 
-        arg1 = this.correctCase(arg1);
-        arg2 = this.correctCase(arg2);
+        arg1 = this.correctRegCase(arg1);
+        arg2 = this.correctRegCase(arg2);
 
         let movData = {arg1: arg1, arg2: arg2, handleSp: false};
 
@@ -925,9 +922,9 @@ class Parser extends React.Component {
             }
         }
 
-        arg1 = this.correctCase(arg1);
-        arg2 = this.correctCase(arg2);
-        arg3 = this.correctCase(arg3);
+        arg1 = this.correctRegCase(arg1);
+        arg2 = this.correctRegCase(arg2);
+        arg3 = this.correctRegCase(arg3);
 
         let addData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
 
@@ -967,9 +964,9 @@ class Parser extends React.Component {
         }
         console.log(arg3);
 
-        arg1 = this.correctCase(arg1);
-        arg2 = this.correctCase(arg2);
-        arg3 = this.correctCase(arg3);
+        arg1 = this.correctRegCase(arg1);
+        arg2 = this.correctRegCase(arg2);
+        arg3 = this.correctRegCase(arg3);
 
         let subData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
 
@@ -1009,9 +1006,9 @@ class Parser extends React.Component {
             }
         }
 
-        arg1 = this.correctCase(arg1);
-        arg2 = this.correctCase(arg2);
-        arg3 = this.correctCase(arg3);
+        arg1 = this.correctRegCase(arg1);
+        arg2 = this.correctRegCase(arg2);
+        arg3 = this.correctRegCase(arg3);
 
         let multData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
 
@@ -1042,10 +1039,10 @@ class Parser extends React.Component {
             }
         }
         else {
-            arg2 = this.getRegister(this.correctCase(arg2));
+            arg2 = this.getRegister(this.correctRegCase(arg2));
         }
 
-        arg1 = this.getRegister(this.correctCase(arg1));
+        arg1 = this.getRegister(this.correctRegCase(arg1));
 
         console.log("CMP: arg1: " + arg1 + " arg2: " + arg2);
         
@@ -1149,15 +1146,15 @@ class Parser extends React.Component {
                 arg6 = arg6.replace("}", "");
             }
         }
-        arg1 = this.correctCase(arg1);
-        arg2 = this.correctCase(arg2);
-        arg3 = this.correctCase(arg3);
-        arg4 = this.correctCase(arg4);
-        arg5 = this.correctCase(arg5);
-        arg6 = this.correctCase(arg6);
+        arg1 = this.correctRegCase(arg1);
+        arg2 = this.correctRegCase(arg2);
+        arg3 = this.correctRegCase(arg3);
+        arg4 = this.correctRegCase(arg4);
+        arg5 = this.correctRegCase(arg5);
+        arg6 = this.correctRegCase(arg6);
         if(arg1.includes("-")) {
-            let start = this.getNumberByRegister(this.correctCase(arg1.substring(0, arg1.indexOf("-"))));
-            let end = this.getNumberByRegister(this.correctCase(arg1.substring(arg1.indexOf("-") + 1, arg1.length)));
+            let start = this.getNumberByRegister(this.correctRegCase(arg1.substring(0, arg1.indexOf("-"))));
+            let end = this.getNumberByRegister(this.correctRegCase(arg1.substring(arg1.indexOf("-") + 1, arg1.length)));
             let count = 1
             for(let i = start; i <= end; i++) {
                 switch(count) {
@@ -1177,13 +1174,43 @@ class Parser extends React.Component {
         this.props.push(pushData);
     }
 
-    correctCase = (reg) => {
+    correctInstCase = (inst) => {
+        let upper = inst.toString().toUpperCase();
+        switch(upper) {
+            case "AND": return "AND";
+            case "ORR": return "ORR";
+            case "EOR": return "EOR";
+            case "ASR": return "ASR";
+            case "LSR": return "LSR";
+            case "LSL": return "LSL";
+            case "MOV": return "MOV";
+            case "ADD": return "ADD";
+            case "SUB": return "SUB";
+            case "MUL": return "MUL";
+            case "PUSH": return "push";
+            case "POP": return "pop";
+            case "LDR": return "LDR";
+            case "STR": return "STR";
+            case "CMP": return "CMP";
+            case "B": return "B";
+            case "BEQ": return "BEQ";
+            case "BNE": return "BNE";
+            case "BGT": return "BGT";
+            case "BLT": return "BLT";
+            case "BGE": return "BGE";
+            case "BLE": return "BLE";
+            case "BL": return "BL";
+            default: {return inst}
+        }
+    }
+
+    correctRegCase = (reg) => {
         let lower = reg.toString().toLowerCase();
         switch(lower) {
             case "r0": return "R0";
             case "r1": return "R1";
             case "r2": return "R2";
-            case "r3": return "R3"
+            case "r3": return "R3";
             case "r4": return "R4";
             case "r5": return "R5";
             case "r6": return "R6";
@@ -1196,7 +1223,7 @@ class Parser extends React.Component {
             case "sp": return "sp";
             case "lr": return "lr";
             case "pc": return "pc";
-            default:{return reg}
+            default:{return reg;}
         }
     }
 
@@ -1283,15 +1310,15 @@ class Parser extends React.Component {
                 arg6 = arg6.replace("}", "");
             }
         }
-        arg1 = this.correctCase(arg1);
-        arg2 = this.correctCase(arg2);
-        arg3 = this.correctCase(arg3);
-        arg4 = this.correctCase(arg4);
-        arg5 = this.correctCase(arg5);
-        arg6 = this.correctCase(arg6);
+        arg1 = this.correctRegCase(arg1);
+        arg2 = this.correctRegCase(arg2);
+        arg3 = this.correctRegCase(arg3);
+        arg4 = this.correctRegCase(arg4);
+        arg5 = this.correctRegCase(arg5);
+        arg6 = this.correctRegCase(arg6);
         if(arg1.includes("-")) {
-            let start = this.getNumberByRegister(this.correctCase(arg1.substring(0, arg1.indexOf("-"))));
-            let end = this.getNumberByRegister(this.correctCase(arg1.substring(arg1.indexOf("-") + 1, arg1.length)));
+            let start = this.getNumberByRegister(this.correctRegCase(arg1.substring(0, arg1.indexOf("-"))));
+            let end = this.getNumberByRegister(this.correctRegCase(arg1.substring(arg1.indexOf("-") + 1, arg1.length)));
             let count = 1
             for(let i = start; i <= end; i++) {
                 switch(count) {
@@ -1359,8 +1386,8 @@ class Parser extends React.Component {
         if(offset === "") {
             offset = null;
         }
-        arg1 = this.correctCase(arg1);
-        arg2 = this.correctCase(arg2);
+        arg1 = this.correctRegCase(arg1);
+        arg2 = this.correctRegCase(arg2);
         let ldrData = {arg1: arg1, arg2: arg2, arg3: offset};
         this.props.ldr(ldrData);    
     }
@@ -1411,8 +1438,8 @@ class Parser extends React.Component {
         if(offset === "") {
             offset = null;
         }
-        arg1 = this.correctCase(arg1);
-        arg2 = this.correctCase(arg2);
+        arg1 = this.correctRegCase(arg1);
+        arg2 = this.correctRegCase(arg2);
         let strData = {arg1: arg1, arg2: arg2, arg3: offset};
         this.props.str(strData);        
     }
@@ -1443,58 +1470,48 @@ class Parser extends React.Component {
                 arg3 = parseInt(arg3.substring(1, arg3.length));
             }
         }
-        arg1 = this.correctCase(arg1);
-        arg2 = this.correctCase(arg2);
-        arg3 = this.correctCase(arg3);
+        arg1 = this.correctRegCase(arg1);
+        arg2 = this.correctRegCase(arg2);
+        arg3 = this.correctRegCase(arg3);
         let bitData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
         this.props.bitwise(bitData, func);
     }
 
     render() {
         return (
-            <Grid container spacing={2} className="Debug">
+            <div>
+                <form noValidate autoComplete = "off" onChange = {this.handleChange}>
+                    <div className="ArmText">
+                        {this.state.visualize || this.state.step ? 
+                        <h3>
+                        <pre style={{fontSize: "1vw"}}>
+                            <Highlight search={this.state.nextInstruction}>{this.state.debugCode}</Highlight>
+                        </pre></h3>
+                        :
+                        <TextField InputProps={{
+                            startAdornment: <InputAdornment position="start"><pre style={{fontSize: "1.1vw"}}>{this.listedLinesCalc(this.state.numLines).map(line=>
+                            <div>
+                                {line === " 1  \n" ? <div>{"\n"}</div> : null}
+                                {/* {this.state.breakpoints.includes(parseInt(line)) ? 
+                                    <Button onClick={() => this.addBreakpoint(line, false)} id={line} style={{height: "1vh"}}><FiberManualRecordIcon style={{fontSize: "1.5vh"}}></FiberManualRecordIcon></Button>:
+                                    <Button className="Hidden" onClick={() => this.addBreakpoint(line, true)} id={line} style={{height: "1vh"}}><FiberManualRecordOutlinedIcon style={{fontSize: "1.5vh"}}></FiberManualRecordOutlinedIcon></Button>} */}
+                                {line}
+                            </div>)} </pre></InputAdornment>, 
 
-                <Grid item>
-                    {this.state.step || this.state.visualize ? null: <ArmInfo/>}
-                </Grid>
+                            style: {fontSize: "1.2vw", boxShadow: "0 0 0 0", borderRadius: "0", padding: "0.7vw"}
+                        }} defaultValue={this.state.code} fullWidth="true" id="code" variant="outlined" multiline rows={10} rowsMax={101}></TextField>}
+                    </div>
 
-                <Grid item>
+                    {/* {this.state.error ? <h3>Compile Error: Instruction: {this.state.errorInfo.instruction}, line: {this.state.errorInfo.line}</h3> : null} */}
+                </form>
 
-                    <form noValidate autoComplete = "off" onChange = {this.handleChange}>
-                        <div className="ArmText">
-                            {this.state.visualize || this.state.step ? 
-                            <h3>
-                            <pre style={{fontSize: "1.5vh"}}>
-                                <Highlight search={this.state.nextInstruction}>{this.state.debugCode}</Highlight>
-                            </pre></h3>
-                            :
-                            <TextField InputProps={{
-                                startAdornment: <InputAdornment position="start"><pre style={{fontSize: "1.5vh"}}>{this.listedLinesCalc(this.state.numLines).map(line=>
-                                <div>
-                                    {line === "1  \n" ? <div>{"\n"}</div> : null}
-                                    {/* {this.state.breakpoints.includes(parseInt(line)) ? 
-                                        <Button onClick={() => this.addBreakpoint(line, false)} id={line} style={{height: "1vh"}}><FiberManualRecordIcon style={{fontSize: "1.5vh"}}></FiberManualRecordIcon></Button>:
-                                        <Button className="Hidden" onClick={() => this.addBreakpoint(line, true)} id={line} style={{height: "1vh"}}><FiberManualRecordOutlinedIcon style={{fontSize: "1.5vh"}}></FiberManualRecordOutlinedIcon></Button>} */}
-                                    {line}
-                                </div>)} </pre></InputAdornment>, 
+            {/* <Button onClick={this.handleCompile}>Check for Errors</Button>
+            {this.state.compile ? this.state.errorInfo.map(error =>
+                <h4>Do not recognize: '{error.instruction}' on line: {error.line}</h4>): null}
+            {this.state.compile ? this.state.errorInfo.length === 0 ? <h4>No errors</h4>: null: null} */}
 
-                                style: {fontSize: "1.7vh"}
-                            }} defaultValue={this.state.code} fullWidth="true" id="code" label="Insert ARM Assembly Code" variant="outlined" multiline rows={10} rowsMax={101}></TextField>}
-                        </div>
-
-                        {/* {this.state.error ? <h3>Compile Error: Instruction: {this.state.errorInfo.instruction}, line: {this.state.errorInfo.line}</h3> : null} */}
-                    </form>
-
-                </Grid>
-                {/* <Button onClick={this.handleCompile}>Check for Errors</Button>
-                {this.state.compile ? this.state.errorInfo.map(error =>
-                    <h4>Do not recognize: '{error.instruction}' on line: {error.line}</h4>): null}
-                {this.state.compile ? this.state.errorInfo.length === 0 ? <h4>No errors</h4>: null: null} */}
-
-                <RunOptions handleContinue={this.handleContinue} handleRun={this.handleRun} visualize={this.state.visualize} startVisualize={this.startVisualize} handleReset={this.handleReset} handleVisualize={this.handleVisualize} speed={this.state.speed} changeSpeed={this.changeSpeed} handleStep={this.handleStep} startStep={this.startStep} step={this.state.step}/>
-
-            </Grid>
-    
+            <RunOptions handleContinue={this.handleContinue} handleRun={this.handleRun} visualize={this.state.visualize} startVisualize={this.startVisualize} handleReset={this.handleReset} handleVisualize={this.handleVisualize} speed={this.state.speed} changeSpeed={this.changeSpeed} handleStep={this.handleStep} startStep={this.startStep} step={this.state.step}/>
+        </div>
         )
     }
 }

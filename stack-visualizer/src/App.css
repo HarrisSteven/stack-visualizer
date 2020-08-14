@@ -1,50 +1,60 @@
-.App {
-  text-align: center;
-  font-size: 0.7vw;
-}
-
 .AppComponents {
   align-items: flex-start;
   flex-direction: row;
-  justify-content: space-between;
-  margin-left: 5vh;
-  margin-right: 5vh;  
+  justify-content: space-around; 
   margin-top: 1vh;
-  margin-bottom: 1vh;
 }
 
 .Stack {
-  text-align: center;  
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 85vh;
-  font-size: 0.7vw;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 92vh;
+  width: 40vw;
 }
 
-.Frame {
-  background-color: palegoldenrod; 
-  height: 10vh;
-  outline-style: solid;
-  outline-color: black;
+.StackAddress {
+  flex-direction: column;
+  align-items: flex-end;
 }
 
-/* .StackItem {
-  width: 70vh; 
-} */
-
-.StackHeader {
+.StackHeaderContainer {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  font-size: 0.9vw;
+  border-radius: 2vh;
+  background-color: lightpink;
 }
 
-.Container {
-  justify-content: center;
-  font-size: 1.4vh;
+.StackHeaderItem {
+  height: 8vh;
+  width: 40vw;
 }
 
-.Text {
-  font-size: 0.7vh;
+.ControlHeader {
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.7vw;
+  border-top-left-radius: 2vh;
+  border-top-right-radius: 2vh;
+  background-color: lightpink;
+}
+
+.StackFrames {
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 0.7vw;
+  flex-direction: row;
+  margin-bottom: 0.3vh;
+}
+
+.Scroll {
+  padding-top: 1vh;
+  height: 82vh;
+  width: 40vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .StackPointer {
@@ -53,19 +63,16 @@
 
 .RegisterFile {
   flex-direction: column;
-  outline-style: solid;
-  outline-color: darkblue;
-  padding-left: 4vh;
-  padding-right: 4vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
   justify-content: center;
   align-items: center;
-  background-color: lightcyan;
+  background-color: lightskyblue;
   font-size: 0.6vw;
+  border-radius: 2vh;
 }
 
 .RegisterFileContainer {
-  width: 35vh;
-  height: 47vh;
   justify-content: space-around;
 }
 
@@ -73,14 +80,25 @@
   flex-direction: column;
 }
 
-.ColumnCenter {
+.RegisterDecColumn {
   flex-direction: column;
-  justify-content: center;
+  padding-top: 2vh;
+  padding-left: 2vh;
+}
+
+.RegisterHexColumn {
+  flex-direction: column;
+  padding-top: 2vh;
+}
+
+.PushFunctions {
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
-  outline-style: solid;
-  outline-color: darkblue;
-  height: 20vh;
-  min-width: 50vh;
+  height: 30vh;
+  border-bottom-right-radius: 1vh;
+  border-bottom-left-radius: 1vh;
+  background-color: lightpink;  
 }
 
 .Row {
@@ -91,8 +109,13 @@
   justify-content: center;
 }
 
+.RegHeading {
+  justify-content: center;
+  font-size: 0.7vw;
+}
+
 .ArmText {
-  width: 45vh;
+  width: 25vw;
 }
 
 .CommandContainer {
@@ -100,37 +123,47 @@
   flex-direction: row;
 }
 
-.Command {
-  width: 6vh;
-  height: 6vh;
-  padding: 1vh;
+.RunTab {
   justify-content: center;
   align-items: center;
-  border-style: solid;
-  border-color: darkblue;
+  background-color: lightpink;
+  border-bottom-left-radius: 1vh;
+  border-bottom-right-radius: 1vh;
+  height: 10vh;
 }
 
-.Debug {
+.VisualizeTab {
   flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: lightpink;
+  border-bottom-left-radius: 1vh;
+  border-bottom-right-radius: 1vh;
+  height: 10vh;
 }
 
-.AppContainer {
-  justify-content: space-between;
+.VisualizeSlider {
+  flex-direction: row;
+  justify-content: space-evenly ;
+  align-items: center;
 }
 
-.RunTab {
-  text-align: center;
+.StepTab {
+  background-color: lightpink;
+  border-bottom-left-radius: 1vh;
+  border-bottom-right-radius: 1vh;  
+  height: 10vh;
 }
 
-.RowTable {
-  display: table;
-  width: 50%; 
-  table-layout: fixed; 
-  border-spacing: 10px; 
+.StepStartButton {
+  align-items: flex-end;
+  justify-content: center;
 }
 
-.ColumnTable {
-  display: table-cell;
+.StepButtons {
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
 }
 
 .Hidden {
@@ -141,28 +174,13 @@
    opacity: 1;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.RegFileFont {
+  font-size: 0.7vw;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.ArmInfo {
+  flex-direction: row;
+  font-size: 0.5vw;
+  text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

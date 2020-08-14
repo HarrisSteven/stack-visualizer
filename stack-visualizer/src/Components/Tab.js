@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Parser from './Compile Components/Parser.js'
 import StackOperations from './StackOperations.js';
@@ -23,9 +21,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
+        children
       )}
     </div>
   );
@@ -63,27 +59,20 @@ export default function SelectTab(props) {
   return (
     <div className={classes.root}>
 
-      <AppBar position="static">
-        <Tabs style={{minHeight: "0vh"}} centered value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab style = {{fontSize: "1.4vh", minHeight: "0vh"}} label="ARM Text Editor" {...a11yProps(0)} />
-          <Tab style = {{fontSize: "1.4vh", minHeight: "0vh"}} label="Stack Visualizer" {...a11yProps(1)} />
+      <AppBar style={{boxShadow: "0 0 0 0"}} position="static">
+        <Tabs TabIndicatorProps={{style: {height: "0.2vh"}}} style={{minHeight: "3.5vh", height: "3.5vh"}} centered value={value} onChange={handleChange} aria-label="simple tabs example">
+          <Tab style = {{fontSize: "0.7vw", height: "3.5vh", minHeight: "3.5vh", minWidth: "12vw", width: "12vw"}} label="ARM Text Editor" {...a11yProps(0)} />
+          <Tab style = {{fontSize: "0.7vw", height: "3.5vh", minHeight: "3.5vh", minWidth: "12vw", width: "12vw"}} label="Stack Visualizer" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
 
       <TabPanel value={value} index={0}>
         <Grid container className="Row">
-
-            {/* <Grid item>
-              <ArmInfo/>
-            </Grid> */}
           
             <Grid item>
               <Parser register={props.register} mov={props.mov} add={props.add} sub={props.sub} mult={props.mult} push={props.push} pop={props.pop} bitwise={props.bitwise} ldr={props.ldr} str={props.str} bl={props.bl} setPc={props.setPc} clear={props.clear}/>
             </Grid>
             
-            {/* <Grid item>
-                <Commands/>
-            </Grid> */}
         </Grid>
       </TabPanel>
 

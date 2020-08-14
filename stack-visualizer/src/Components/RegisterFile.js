@@ -128,6 +128,10 @@ class RegisterFile extends React.Component {
         if(typeof data.arg2 === 'string' || data.arg2 instanceof String) {
             arg2 = this.getRegister(data.arg2);
         }
+        if(arg2 > 2147483647 || arg2 < -2147483648) {
+            alert("Number exceeds 32 bits");
+            return;
+        }
         let newReg = this.state.register;
         this.setRegister(data.arg1, arg2, newReg);
        
@@ -155,6 +159,10 @@ class RegisterFile extends React.Component {
         console.log(arg3);
 
         let sum = arg2+arg3;
+        if(sum > 2147483647 || sum < -2147483648) {
+            alert("Number exceeds 32 bits");
+            return;
+        }
         let newReg = this.state.register;
         this.setRegister(data.arg1, sum, newReg);
 
@@ -174,6 +182,10 @@ class RegisterFile extends React.Component {
         }   
 
         let difference = arg2-arg3;
+        if(difference > 2147483647 || difference < -2147483648) {
+            alert("Number exceeds 32 bits");
+            return;
+        }
         let newReg = this.state.register;
         this.setRegister(data.arg1, difference, newReg);
 
@@ -192,6 +204,10 @@ class RegisterFile extends React.Component {
             arg3 = this.getRegister(data.arg3);
         }   
         let product = arg2*arg3;
+        if(product > 2147483647 || product < -2147483648) {
+            alert("Number exceeds 32 bits");
+            return;
+        }
         let newReg = this.state.register;
         this.setRegister(data.arg1, product, newReg);
 
@@ -449,7 +465,7 @@ class RegisterFile extends React.Component {
     render() {
         return (
             <div>
-                <Grid container style = {{justifyContent: "space-between"}} className="AppComponents">
+                <Grid container className="AppComponents">
                 
                     <Grid item>
                         <Stack setPush={push => this.pushChild = push} setPop={pop => this.popChild = pop} setPopReg={pop => this.popRegChild = pop} setLdr={ldr => this.ldrChild = ldr} setStr={str => this.strChild = str} setSp={sp => this.handleSpChild = sp} setFunction={func => this.functionChild = func} setClear={clear => this.clearChild = clear} register={this.state.register} setRemoveFrames={frames => this.removeFramesChild = frames} incSp={this.incSp} decSp={this.decSp} setReg={this.setReg} setRegister={this.setRegister}/>
@@ -458,14 +474,14 @@ class RegisterFile extends React.Component {
                     <Grid item>
                         <Grid container className="RegisterFile">
 
-                            <Grid item className="Center">
+                            <Grid item className="RegHeading">
                                 <h1>
                                     Register File
                                 </h1>
                             </Grid>
 
                             <Grid item className="Center">
-                                <Button style = {{fontSize: "1.3vh", width: "10vh", height: "4vh"}} variant="outlined" color="primary" onClick={this.toggleHex}>{this.state.decimal ? <h3>Hex</h3> : <h3>Dec</h3>}</Button>
+                                <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "7vw", minHeight: "6vh", width: "7vw", height: "6vh"}} variant="contained" color="primary" onClick={this.toggleHex}>{this.state.decimal ? <h3>Hex</h3> : <h3>Dec</h3>}</Button>
                             </Grid>
 
                             <Grid item className="RegisterFileContainer">
@@ -480,7 +496,14 @@ class RegisterFile extends React.Component {
                     </Grid>
 
                     <Grid item>
-                        <Tab register={this.state.register} mov={this.mov} add={this.add} sub={this.sub} mult={this.mult} push={this.push} pop={this.pop} ldr={this.ldr} str={this.str} bl={this.bl} setPc={this.setPc}  bitwise={this.bitwise} pushFunction={this.pushFunction} clear={this.clearStack}/>
+                        <Grid container className="ControlHeader">
+                            <Grid item>
+                                <h1>Control</h1>
+                            </Grid>
+                            <Grid item>
+                                <Tab register={this.state.register} mov={this.mov} add={this.add} sub={this.sub} mult={this.mult} push={this.push} pop={this.pop} ldr={this.ldr} str={this.str} bl={this.bl} setPc={this.setPc}  bitwise={this.bitwise} pushFunction={this.pushFunction} clear={this.clearStack}/>
+                            </Grid>
+                        </Grid>
                     </Grid>
 
                 </Grid>

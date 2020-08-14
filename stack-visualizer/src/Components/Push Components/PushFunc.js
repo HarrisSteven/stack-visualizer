@@ -504,7 +504,9 @@ class PushFunc extends Component {
                         </Grid>}
 
                     <br></br>
-                    <Button onClick={this.pushFunc}>Push</Button>
+                    <br></br>
+
+                    <Button variant="contained" color="primary" onClick={this.pushFunc}>Push</Button>
                 </form>
             </div>
         )

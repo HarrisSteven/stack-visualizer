@@ -1,132 +1,104 @@
-.Container {
-    justify-content: center;
-  }
-
 .StackItem {
-    width: 70vh;
-    font-size: 4vh;
+    width: 34vw;
+    text-align: center;
   }
 
 .Text {
-    font-size: 2vh;
+    font-size: 1vw;
 }
 
 .Top {
     background-color: lightskyblue; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: black;
-    padding: 0.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    border-radius: 1.5vh;
+    box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .TopOutline {
     background-color: lightskyblue; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: gold;
-    padding: 0.5vh;
+    box-shadow: 0 0 0.1vh 0.3vh gold;
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
 }
 
 .Register {
-    background-color: palegoldenrod; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: black;
-    padding: 0.5vh;
+    background-color: lightpink; 
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .RegisterOutline {
-    background-color: palegoldenrod; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: gold;
-    padding: 0.5vh;
+    background-color: lightpink; 
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    box-shadow: 0 0 0.1vh 0.3vh gold;
 }
 
 .Variable {
     background-color: lightblue; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: black;
-    padding: 0.5vh;
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .VariableOutline {
     background-color: lightblue; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: gold;
-    padding: 0.5vh;
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    box-shadow: 0 0 0.1vh 0.3vh gold;
 }
 
 .InParameter {
     background-color: lightcoral; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: black;
-    padding: 0.5vh;
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .InParameterOutline {
     background-color: lightcoral; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: gold;
-    padding: 0.5vh;
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    box-shadow: 0 0 0.1vh 0.3vh gold;
 }
 
 .OutParameter {
-    background-color: lightseagreen; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: black;
-    padding: 0.5vh;
+    background-color: palegoldenrod; 
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .OutParameterOutline {
-    background-color: lightseagreen; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: gold;
-    padding: 0.5vh;
+    background-color: palegoldenrod; 
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    box-shadow: 0 0 0.1vh 0.3vh gold;
 }
 
 .Empty {
     background-color: lightslategray; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: black;
-    padding: 0.5vh;
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .EmptyOutline {
     background-color: lightslategray; 
-    height: 5vh;
-    width: 65vh;
-    outline-style: solid;
-    outline-color: gold;
-    padding: 0.5vh;
+    border-radius: 1.5vh;
+    padding: 0.2vh;
     font-size: 3vh;
+    box-shadow: 0 0 0.1vh 0.3vh gold;
 }

@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import RunTab from './RunTab.js';
 import StepTab from './StepTab.js';
 import VisualizeTab from './VisualizeTab.js';
@@ -22,9 +20,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
+        children
       )}
     </div>
   );
@@ -47,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    width: "40vh",
+    width: "25vw",
   },
 }));
 
@@ -61,11 +57,11 @@ export default function RunOptions(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Tabs style={{minHeight: "0vh"}} centered value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab style = {{fontSize: "1.3vh", minHeight: "0vh"}} label="Run" {...a11yProps(0)} />
-          <Tab style = {{fontSize: "1.3vh", minHeight: "0vh"}} label="Visualize" {...a11yProps(1)} />
-          <Tab style = {{fontSize: "1.3vh", minHeight: "0vh"}} label="Step" {...a11yProps(2)} />
+      <AppBar style={{boxShadow: "0 0 0 0"}} position="static">
+        <Tabs TabIndicatorProps={{style: {height: "0.3vh"}}} style={{minHeight: "3.8vh", height: "3.8vh"}} centered value={value} onChange={handleChange} aria-label="simple tabs example">
+          <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Run" {...a11yProps(0)} />
+          <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Visualize" {...a11yProps(1)} />
+          <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Step" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>

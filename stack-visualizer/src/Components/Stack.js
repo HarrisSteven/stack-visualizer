@@ -263,7 +263,7 @@ class Stack extends React.Component {
 
     pop = () => {
         if(this.state.frames.length < 2) {
-            alert("Cannot pop an empty stack");
+            alert("Attempted to pop from an empty stack");
             return;
         }
 
@@ -309,6 +309,10 @@ class Stack extends React.Component {
         console.log("reg: " + reg);
 
         let curFrames = this.state.frames;
+        if(curFrames.length < 2) {
+            alert("Attempted to pop from an empty stack");
+            return;
+        }
         let frame = curFrames.pop();
 
         console.log("DATA: " + frame.data.value);
@@ -370,79 +374,80 @@ class Stack extends React.Component {
 
     render() {
         return(
-            <div className="Stack">
+            <Grid container className="Stack">
+                <Grid item className="StackHeaderItem">
+                    <Grid container className="StackHeaderContainer">
 
-                <Grid container className="StackHeader">
+                        <Grid item>
+                            {this.state.frames.length === 1 ? <h2>Stack ({this.state.frames.length} frame)</h2> :<h2>Stack ({this.state.frames.length} frames)</h2>} 
+                        </Grid>
 
-                    <Grid item>
-                        {this.state.frames.length === 1 ? <h2>Stack ({this.state.frames.length} frame)</h2> :<h2>Stack ({this.state.frames.length} frames)</h2>} 
+                        <Grid item>
+                            <pre>     </pre>
+                        </Grid>
+
+                        <Grid item>
+                            <Button style = {{fontSize: "0.9vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "4vw", minHeight: "4vh", width: "4vw", height: "4vh"}} variant="contained" color="secondary" onClick={this.clear}>Clear</Button>
+                        </Grid>
+
                     </Grid>
-
-                    <Grid item>
-                        <pre>     </pre>
-                    </Grid>
-
-                    <Grid item>
-                        <Button style = {{fontSize: "1.7vh", width: "8vh", height: "4vh"}} variant="outlined" color="secondary" onClick={this.clear}>Clear</Button>
-                    </Grid>
-
                 </Grid>
 
-                <br></br>
-
+                <Grid item>
+                <Grid conatiner className="Scroll">
                 {
                     this.state.frames.map(frame =>
-                        <div>
-                            <Grid container className="Container"> 
+                        <Grid container className="StackFrames"> 
                                 {(this.props.register.sp === frame.address && this.props.register.fp === frame.address) ? 
-                                    <div>
                                         <Grid item>
                                             {this.decimalToHex(frame.address).map(char => char)}
+                                            <Grid container className="StackAddress">
+                                                <Grid item>
+                                                    fp <ArrowRightAltIcon style = {{fontSize: "1vw"}}></ArrowRightAltIcon>
+                                                </Grid>
+                                                <Grid>
+                                                    sp <ArrowRightAltIcon style = {{fontSize: "1vw"}}></ArrowRightAltIcon>
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item>
-                                            fp <ArrowRightAltIcon style = {{fontSize: "2vh"}}></ArrowRightAltIcon>
-                                        </Grid>
-                                        <Grid item>
-                                            sp <ArrowRightAltIcon style = {{fontSize: "2vh"}}></ArrowRightAltIcon>
-                                        </Grid>
-                                    </div>
                                 :    
                                 this.props.register.sp === frame.address ?
-                                    <div>
                                         <Grid item>
-                                            {this.decimalToHex(frame.address).map(char => char)}
+                                            <Grid container className="StackAddress">
+                                                <Grid item>
+                                                    {this.decimalToHex(frame.address).map(char => char)}
+                                                </Grid>
+                                                <Grid item>
+                                                    sp <ArrowRightAltIcon style = {{fontSize: "1vw"}}></ArrowRightAltIcon>
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item>
-                                            sp <ArrowRightAltIcon style = {{fontSize: "2vh"}}></ArrowRightAltIcon>
-                                        </Grid>
-                                    </div>
                                 :      
                                 this.props.register.fp === frame.address ?
-                                <div>
                                     <Grid item>
-                                        {this.decimalToHex(frame.address).map(char => char)}
+                                        <Grid container className="StackAddress">
+                                            <Grid item>
+                                                {this.decimalToHex(frame.address).map(char => char)}
+                                            </Grid>
+                                            <Grid item>
+                                                fp <ArrowRightAltIcon style = {{fontSize: "1vw"}}></ArrowRightAltIcon>
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item>
-                                        fp <ArrowRightAltIcon style = {{fontSize: "2vh"}}></ArrowRightAltIcon>
-                                    </Grid>
-                                </div>
                                 : 
-                                <Grid>
+                                <Grid item>
                                     {this.decimalToHex(frame.address).map(char => char)}
                                 </Grid>}
-                                
-                                <Frame params={frame} register={this.props.register}></Frame>
 
+                            <Grid item>
+                                <Frame params={frame} register={this.props.register}></Frame>
                             </Grid>
 
-                            <div style={{ float:"left", clear: "both" }}
-                                ref={(el) => { this.messagesEnd = el; }}>
-                            </div>
-
-                        </div>
+                        </Grid>
                     )   
                 }
-            </div>
+                </Grid></Grid>
+            </Grid>
         )
     }
 }
