@@ -1505,11 +1505,6 @@ class Parser extends React.Component {
                     {/* {this.state.error ? <h3>Compile Error: Instruction: {this.state.errorInfo.instruction}, line: {this.state.errorInfo.line}</h3> : null} */}
                 </form>
 
-            {/* <Button onClick={this.handleCompile}>Check for Errors</Button>
-            {this.state.compile ? this.state.errorInfo.map(error =>
-                <h4>Do not recognize: '{error.instruction}' on line: {error.line}</h4>): null}
-            {this.state.compile ? this.state.errorInfo.length === 0 ? <h4>No errors</h4>: null: null} */}
-
             <RunOptions handleContinue={this.handleContinue} handleRun={this.handleRun} visualize={this.state.visualize} startVisualize={this.startVisualize} handleReset={this.handleReset} handleVisualize={this.handleVisualize} speed={this.state.speed} changeSpeed={this.changeSpeed} handleStep={this.handleStep} startStep={this.startStep} step={this.state.step}/>
         </div>
         )
