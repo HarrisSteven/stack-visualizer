@@ -149,8 +149,8 @@ class Stack extends React.Component {
         for(const variable of data.vars) {
             this.pushByVar(variable);
         }
-        for(const outParam of data.outParams) {
-            this.pushByOutParam(outParam);
+        for(let i = 0; i < data.outParams.length; i++) {
+            this.pushByOutParam(data.outParams[data.outParams.length - 1 - i]);
         }
 
         let newFp = this.state.register;
@@ -276,7 +276,8 @@ class Stack extends React.Component {
             switch(frame.data.reg) {
                 case "R0": {let newReg = this.state.register; newReg.R0 = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "R0", value: newReg.R0}); break;}
                 case "R1": {let newReg = this.state.register; newReg.R1 = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "R1", value: newReg.R1}); break;}
-                case "R2": {let newReg = this.state.register; newReg.R3 = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "R3", value: newReg.R3}); break;}
+                case "R2": {let newReg = this.state.register; newReg.R2 = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "R2", value: newReg.R2}); break;}
+                case "R3": {let newReg = this.state.register; newReg.R3 = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "R3", value: newReg.R3}); break;}
                 case "R4": {let newReg = this.state.register; newReg.R4 = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "R4", value: newReg.R4}); break;}
                 case "R5": {let newReg = this.state.register; newReg.R5 = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "R5", value: newReg.R5}); break;}
                 case "R6": {let newReg = this.state.register; newReg.R6 = frame.data.value; this.setState({register: newReg}); this.props.setReg({reg: "R6", value: newReg.R6}); break;}
@@ -320,7 +321,8 @@ class Stack extends React.Component {
         switch(reg) {
             case "R0": {this.props.setReg({reg: "R0", value: frame.data.value}); break;}
             case "R1": {this.props.setReg({reg: "R1", value: frame.data.value}); break;}
-            case "R2": {this.props.setReg({reg: "R3", value: frame.data.value}); break;}
+            case "R2": {this.props.setReg({reg: "R2", value: frame.data.value}); break;}
+            case "R3": {this.props.setReg({reg: "R3", value: frame.data.value}); break;}
             case "R4": {this.props.setReg({reg: "R4", value: frame.data.value}); break;}
             case "R5": {this.props.setReg({reg: "R5", value: frame.data.value}); break;}
             case "R6": {this.props.setReg({reg: "R6", value: frame.data.value}); break;}
@@ -378,16 +380,12 @@ class Stack extends React.Component {
                 <Grid item className="StackHeaderItem">
                     <Grid container className="StackHeaderContainer">
 
-                        <Grid item>
-                            {this.state.frames.length === 1 ? <h2>Stack ({this.state.frames.length} frame)</h2> :<h2>Stack ({this.state.frames.length} frames)</h2>} 
+                        <Grid item style={{paddingRight: "4vw"}}>
+                            {this.state.frames.length === 1 ? <h2>Stack ({this.state.frames.length} address)</h2> :<h2>Stack ({this.state.frames.length} addresses)</h2>} 
                         </Grid>
 
                         <Grid item>
-                            <pre>     </pre>
-                        </Grid>
-
-                        <Grid item>
-                            <Button style = {{fontSize: "0.9vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "4vw", minHeight: "4vh", width: "4vw", height: "4vh"}} variant="contained" color="secondary" onClick={this.clear}>Clear</Button>
+                            <Button style = {{fontSize: "0.9vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "4vw", minHeight: "2vw", width: "4vw", height: "2vw"}} variant="contained" color="secondary" onClick={this.clear}>Clear</Button>
                         </Grid>
 
                     </Grid>

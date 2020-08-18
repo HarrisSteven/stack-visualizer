@@ -10,62 +10,55 @@
 .Top {
     background-color: lightskyblue; 
     padding: 0.2vh;
-    font-size: 3vh;
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .TopOutline {
     background-color: lightskyblue; 
     box-shadow: 0 0 0.1vh 0.3vh gold;
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
-    font-size: 3vh;
 }
 
 .Register {
     background-color: lightpink; 
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
-    font-size: 3vh;
     box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .RegisterOutline {
     background-color: lightpink; 
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
-    font-size: 3vh;
     box-shadow: 0 0 0.1vh 0.3vh gold;
 }
 
 .Variable {
     background-color: lightblue; 
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
-    font-size: 3vh;
     box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .VariableOutline {
     background-color: lightblue; 
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
-    font-size: 3vh;
     box-shadow: 0 0 0.1vh 0.3vh gold;
 }
 
 .InParameter {
     background-color: lightcoral; 
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
-    font-size: 3vh;
     box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .InParameterOutline {
     background-color: lightcoral; 
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
     font-size: 3vh;
     box-shadow: 0 0 0.1vh 0.3vh gold;
@@ -73,32 +66,28 @@
 
 .OutParameter {
     background-color: palegoldenrod; 
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
-    font-size: 3vh;
     box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .OutParameterOutline {
     background-color: palegoldenrod; 
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
-    font-size: 3vh;
     box-shadow: 0 0 0.1vh 0.3vh gold;
 }
 
 .Empty {
     background-color: lightslategray; 
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
-    font-size: 3vh;
     box-shadow: 0 0 0.1vh 0.3vh black;
 }
 
 .EmptyOutline {
     background-color: lightslategray; 
-    border-radius: 1.5vh;
+    border-radius: 0.5vw;
     padding: 0.2vh;
-    font-size: 3vh;
     box-shadow: 0 0 0.1vh 0.3vh gold;
 }

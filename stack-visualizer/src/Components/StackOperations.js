@@ -10,26 +10,24 @@ class StackOperations extends React.Component {
             <div>
 
                 <Grid container className="PushFunctions">
-                    <Grid item>
+
+                    <Grid item className="PushButtons">
                         <Push pushReg={this.props.pushReg} pushFunc = {this.props.pushFunc}/>
                     </Grid>
 
 
                     <Grid item>
                         <Grid container className="Row">
-                            <Grid item>
-                                <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "8vw", minHeight: "6vh", width: "8vw", height: "6vh"}} size="large" variant="contained" color="secondary" onClick={this.props.pop}>Pop</Button>
+                            <Grid item style={{marginRight: "2vw"}}>
+                                <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "9vw", minHeight: "3vw", width: "9vw", height: "3vw"}} size="large" variant="contained" color="secondary" onClick={this.props.pop}>Pop</Button>
                             </Grid>
 
                             <Grid item>
-                                <pre>      </pre>
-                            </Grid>
-
-                            <Grid item>
-                                <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "8vw", minHeight: "6vh", width: "8vw", height: "6vh"}} size="large" variant="contained" color="secondary" onClick={this.props.clear}>Clear</Button>
+                                <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "9vw", minHeight: "3vw", width: "9vw", height: "3vw"}} size="large" variant="contained" color="secondary" onClick={this.props.clear}>Clear</Button>
                             </Grid>
                         </Grid>
                     </Grid>
+
                 </Grid>
 
             </div>

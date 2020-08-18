@@ -1,7 +1,7 @@
 .AppComponents {
   align-items: flex-start;
   flex-direction: row;
-  justify-content: space-around; 
+  justify-content: space-between; 
   margin-top: 1vh;
 }
 
@@ -23,8 +23,8 @@
   justify-content: center;
   align-items: center;
   font-size: 0.9vw;
-  border-radius: 2vh;
-  background-color: lightpink;
+  border-radius: 1vw;
+  background-color: lightskyblue;
 }
 
 .StackHeaderItem {
@@ -36,8 +36,8 @@
   flex-direction: column;
   align-items: center;
   font-size: 0.7vw;
-  border-top-left-radius: 2vh;
-  border-top-right-radius: 2vh;
+  border-top-left-radius: 1vw;
+  border-top-right-radius: 1vw;
   background-color: lightpink;
 }
 
@@ -67,13 +67,14 @@
   padding-right: 2vw;
   justify-content: center;
   align-items: center;
-  background-color: lightskyblue;
+  background-color: powderblue;
   font-size: 0.6vw;
-  border-radius: 2vh;
+  border-radius: 1vw;
 }
 
 .RegisterFileContainer {
   justify-content: space-around;
+  width: 18vw;
 }
 
 .Column {
@@ -95,10 +96,15 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 30vh;
-  border-bottom-right-radius: 1vh;
-  border-bottom-left-radius: 1vh;
+  border-bottom-right-radius: 0.5vw;
+  border-bottom-left-radius: 0.5vw;
   background-color: lightpink;  
+  padding: 1vw;
+  width: 100vw;
+}
+
+.PushButtons {
+  padding-bottom: 2vh;
 }
 
 .Row {
@@ -127,9 +133,10 @@
   justify-content: center;
   align-items: center;
   background-color: lightpink;
-  border-bottom-left-radius: 1vh;
-  border-bottom-right-radius: 1vh;
-  height: 10vh;
+  border-bottom-left-radius: 0.5vw;
+  border-bottom-right-radius: 0.5vw;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
 }
 
 .VisualizeTab {
@@ -137,9 +144,10 @@
   justify-content: space-evenly;
   align-items: center;
   background-color: lightpink;
-  border-bottom-left-radius: 1vh;
-  border-bottom-right-radius: 1vh;
-  height: 10vh;
+  border-bottom-left-radius: 0.5vw;
+  border-bottom-right-radius: 0.5vw;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
 }
 
 .VisualizeSlider {
@@ -150,9 +158,10 @@
 
 .StepTab {
   background-color: lightpink;
-  border-bottom-left-radius: 1vh;
-  border-bottom-right-radius: 1vh;  
-  height: 10vh;
+  border-bottom-left-radius: 0.5vw;
+  border-bottom-right-radius: 0.5vw;  
+  padding-top: 2vh;
+  padding-bottom: 2vh;
 }
 
 .StepStartButton {
@@ -179,8 +188,35 @@
 }
 
 .ArmInfo {
-  flex-direction: row;
-  font-size: 0.5vw;
+  margin-top: 1vh;
+  flex-direction: column;
   text-align: center;
 }
 
+.GenCode {
+  margin-top: 1vh;
+  margin-left: 6vw;
+}
+
+.Links {
+  background-color: lightgray;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 0.5vw;
+}
+
+.RightPanel {
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  height: 94vh;
+  width: 40vw;
+}
+
+.AboutLinks {
+  position: relative;
+  justify-content: flex-end;
+}

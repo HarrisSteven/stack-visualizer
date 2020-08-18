@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from "@material-ui/core/TextField";
 import Highlight from 'react-highlighter';
 import RunOptions from './RunOptions.js';
+import SampleCode from './SampleCode.js';
 import InputAdornment from '@material-ui/core/InputAdornment';
 // import Button from '@material-ui/core/Button';
 // import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -25,7 +26,7 @@ class Parser extends React.Component {
             error: false,
             errorInfo: [],
             numLines: 0,
-            breakpoints: []
+            breakpoints: [],
         }
     }
 
@@ -67,6 +68,22 @@ class Parser extends React.Component {
         return lineArray;
     }
 
+    genCode = (code) => {
+        let sampleCode = code;
+        this.setState({
+            code: sampleCode
+        })
+        let count = 0;
+        for(let i = 0; i < code.length; i++) {
+            if(code.substring(i, i+1) === '\n') {
+                count++;
+            }
+        }
+        this.setState({
+            numLines: count,
+        })
+    }
+
     // addBreakpoint = (line, change) => {
     //     let newBreakpoints = this.state.breakpoints;
     //     line = parseInt(line);
@@ -88,6 +105,7 @@ class Parser extends React.Component {
     // }
 
     startStep = ()  => {
+        this.props.clear()
         this.setState({
             step: true
         })
@@ -120,6 +138,7 @@ class Parser extends React.Component {
     }
 
     startVisualize = () => {
+        this.props.clear()
         this.setState({
             visualize: true
         })
@@ -1499,13 +1518,14 @@ class Parser extends React.Component {
                             </div>)} </pre></InputAdornment>, 
 
                             style: {fontSize: "1.2vw", boxShadow: "0 0 0 0", borderRadius: "0", padding: "0.7vw"}
-                        }} defaultValue={this.state.code} fullWidth="true" id="code" variant="outlined" multiline rows={10} rowsMax={101}></TextField>}
+                        }} value={this.state.code} fullWidth="true" id="code" variant="outlined" multiline rows={10} rowsMax={101}></TextField>}
                     </div>
 
                     {/* {this.state.error ? <h3>Compile Error: Instruction: {this.state.errorInfo.instruction}, line: {this.state.errorInfo.line}</h3> : null} */}
                 </form>
 
             <RunOptions handleContinue={this.handleContinue} handleRun={this.handleRun} visualize={this.state.visualize} startVisualize={this.startVisualize} handleReset={this.handleReset} handleVisualize={this.handleVisualize} speed={this.state.speed} changeSpeed={this.changeSpeed} handleStep={this.handleStep} startStep={this.startStep} step={this.state.step}/>
+            {this.state.visualize || this.state.step ? null : <SampleCode genCode={(code, num) => this.genCode(code, num)}/>}
         </div>
         )
     }

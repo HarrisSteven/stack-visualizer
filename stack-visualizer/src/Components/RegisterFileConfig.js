@@ -3,30 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import './../App.css';
 
 class RegisterFileConfig extends React.Component {
-    constructor(props) {
-        super();
-        // this.state = {
-        //     register: {
-        //         r0: props.register.r0,
-        //         r1: props.register.r1,
-        //         r2: props.register.r2,
-        //         r3: props.register.r3,
-        //         r4: props.register.r4,
-        //         r5: props.register.r5,
-        //         r6: props.register.r6,
-        //         r7: props.register.r7,
-        //         r8: props.register.r8,
-        //         r9: props.register.r9,
-        //         r10: props.register.r10,
-        //         fp: props.register.fp,
-        //         r12: props.register.r12,
-        //         sp: props.register.sp,
-        //         lr: props.register.lr,
-        //         pc: props.register.pc
-        //     }
-        // }
-    }
-
     decimalToHex = (number) => {
         if (number < 0) {
             number = 0xFFFFFFFF + number + 1;
@@ -77,7 +53,7 @@ class RegisterFileConfig extends React.Component {
             <Grid item>
 
                 <Grid container className="Row">
-                    <Grid item>
+                    <Grid item style={{paddingRight: "1.5vw"}}>
                         <Grid container className={this.props.decimal ? "RegisterDecColumn": "RegisterHexColumn"}>
                             <Grid item className="RegFileFont">
                                 <h2>R0: {this.props.decimal ? this.props.register.R0: this.decimalToHex(this.props.register.R0)}</h2> 
@@ -97,10 +73,6 @@ class RegisterFileConfig extends React.Component {
                                 <h2>R7: {this.props.decimal ? this.props.register.R7: this.decimalToHex(this.props.register.R7)}</h2> 
                             </Grid>
                         </Grid>
-                    </Grid>
-                    
-                    <Grid item>
-                        <pre>      </pre>
                     </Grid>
                     
                     <Grid item>

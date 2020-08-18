@@ -41,16 +41,12 @@ export default function Push(props) {
   
       <Grid container className="Row">
         
-        <Grid item>
-          <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "8vw", minHeight: "6vh", width: "8vw", height: "6vh"}} onClick={handleFunction} size="large" variant="contained" color="primary" >Push Function</Button>
-        </Grid>
-
-        <Grid item>
-          <pre>      </pre>
+        <Grid item style={{paddingRight: "2vw"}}>
+          <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "9vw", minHeight: "3vw", width: "9vw", height: "3vw"}} onClick={handleFunction} size="large" variant="contained" color="primary" >Push Function</Button>
         </Grid>
             
         <Grid item>
-          <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "1vh", minWidth: "8vw", minHeight: "6vh", width: "8vw", height: "6vh"}} onClick={handleRegister} size="large" variant="contained" color="primary" >Push Register</Button>
+          <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "9vw", minHeight: "3vw", width: "9vw", height: "3vw"}} onClick={handleRegister} size="large" variant="contained" color="primary" >Push Register</Button>
         </Grid>
 
       </Grid>

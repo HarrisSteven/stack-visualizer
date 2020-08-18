@@ -60,18 +60,18 @@ export default function RunOptions(props) {
       <AppBar style={{boxShadow: "0 0 0 0"}} position="static">
         <Tabs TabIndicatorProps={{style: {height: "0.3vh"}}} style={{minHeight: "3.8vh", height: "3.8vh"}} centered value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Run" {...a11yProps(0)} />
-          <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Visualize" {...a11yProps(1)} />
-          <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Step" {...a11yProps(2)} />
+          <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Step" {...a11yProps(1)} />
+          <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Visualize" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <RunTab handleRun={props.handleRun} step={props.step} handleStep={props.handleStep} handleContinue={props.handleContinue}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <VisualizeTab visualize={props.visualize} startVisualize={props.startVisualize} handleReset={props.handleReset} handleVisualize={props.handleVisualize} speed={props.speed} changeSpeed={props.changeSpeed}/>
+        <StepTab handleStep={props.handleStep} startStep={props.startStep} step={props.step} handleReset={props.handleReset}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <StepTab handleStep={props.handleStep} startStep={props.startStep} step={props.step} handleReset={props.handleReset}/>
+        <VisualizeTab visualize={props.visualize} startVisualize={props.startVisualize} handleReset={props.handleReset} handleVisualize={props.handleVisualize} speed={props.speed} changeSpeed={props.changeSpeed}/>
       </TabPanel>
     </div>
   );
