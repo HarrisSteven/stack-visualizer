@@ -10,7 +10,7 @@ class StepTab extends React.Component {
             <Grid container className="StepTab">
                 <Grid container className="StepStartButton">
                     <Grid item>
-                        {this.props.step ? null: <Button style = {{fontSize: "0.9vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "4vw", minHeight: "2vw", width: "4vw", height: "2vw"}} variant="contained" color="primary" onClick={this.props.startStep}>Start</Button>}
+                        {this.props.step || this.props.visualize ? null: <Button style = {{fontSize: "0.9vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "4vw", minHeight: "2vw", width: "4vw", height: "2vw"}} variant="contained" color="primary" onClick={this.props.startStep}>Start</Button>}
                     </Grid>
                 </Grid>
 

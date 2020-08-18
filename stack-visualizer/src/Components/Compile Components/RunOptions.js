@@ -58,20 +58,20 @@ export default function RunOptions(props) {
   return (
     <div className={classes.root}>
       <AppBar style={{boxShadow: "0 0 0 0"}} position="static">
-        <Tabs TabIndicatorProps={{style: {height: "0.3vh"}}} style={{minHeight: "3.8vh", height: "3.8vh"}} centered value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Run" {...a11yProps(0)} />
-          <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Step" {...a11yProps(1)} />
-          <Tab style = {{fontSize: "0.7vw", height: "3.8vh", minHeight: "3.8vh", minWidth: "7vw", width: "7vw"}} label="Visualize" {...a11yProps(2)} />
+        <Tabs TabIndicatorProps={{style: {height: "0.1vw"}}} style={{minHeight: "2vw", height: "2vw"}} centered value={value} onChange={handleChange} aria-label="simple tabs example">
+          <Tab style = {{fontSize: "0.7vw", height: "2vw", minHeight: "2vw", minWidth: "7vw", width: "7vw"}} label="Run" {...a11yProps(0)} />
+          <Tab style = {{fontSize: "0.7vw", height: "2vw", minHeight: "2vw", minWidth: "7vw", width: "7vw"}} label="Step" {...a11yProps(1)} />
+          <Tab style = {{fontSize: "0.7vw", height: "2vw", minHeight: "2vw", minWidth: "7vw", width: "7vw"}} label="Visualize" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <RunTab handleRun={props.handleRun} step={props.step} handleStep={props.handleStep} handleContinue={props.handleContinue}/>
+        <RunTab handleRun={props.handleRun} visualize={props.visualize} step={props.step} handleStep={props.handleStep} handleContinue={props.handleContinue}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <StepTab handleStep={props.handleStep} startStep={props.startStep} step={props.step} handleReset={props.handleReset}/>
+        <StepTab handleStep={props.handleStep} startStep={props.startStep} step={props.step} visualize={props.visualize} handleReset={props.handleReset}/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <VisualizeTab visualize={props.visualize} startVisualize={props.startVisualize} handleReset={props.handleReset} handleVisualize={props.handleVisualize} speed={props.speed} changeSpeed={props.changeSpeed}/>
+        <VisualizeTab visualize={props.visualize} step={props.step} startVisualize={props.startVisualize} handleReset={props.handleReset} handleVisualize={props.handleVisualize} speed={props.speed} changeSpeed={props.changeSpeed}/>
       </TabPanel>
     </div>
   );

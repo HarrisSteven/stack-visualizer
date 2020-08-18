@@ -7,9 +7,6 @@
 
 .Stack {
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 92vh;
   width: 40vw;
 }
 
@@ -28,7 +25,6 @@
 }
 
 .StackHeaderItem {
-  height: 8vh;
   width: 40vw;
 }
 
@@ -50,6 +46,7 @@
 }
 
 .Scroll {
+  margin-top: 1vh;
   padding-top: 1vh;
   height: 82vh;
   width: 40vw;
@@ -68,28 +65,11 @@
   justify-content: center;
   align-items: center;
   background-color: powderblue;
-  font-size: 0.6vw;
   border-radius: 1vw;
-}
-
-.RegisterFileContainer {
-  justify-content: space-around;
-  width: 18vw;
 }
 
 .Column {
   flex-direction: column;
-}
-
-.RegisterDecColumn {
-  flex-direction: column;
-  padding-top: 2vh;
-  padding-left: 2vh;
-}
-
-.RegisterHexColumn {
-  flex-direction: column;
-  padding-top: 2vh;
 }
 
 .PushFunctions {
@@ -135,8 +115,8 @@
   background-color: lightpink;
   border-bottom-left-radius: 0.5vw;
   border-bottom-right-radius: 0.5vw;
-  padding-top: 2vh;
-  padding-bottom: 2vh;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
 }
 
 .VisualizeTab {
@@ -146,8 +126,8 @@
   background-color: lightpink;
   border-bottom-left-radius: 0.5vw;
   border-bottom-right-radius: 0.5vw;
-  padding-top: 2vh;
-  padding-bottom: 2vh;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
 }
 
 .VisualizeSlider {
@@ -160,8 +140,8 @@
   background-color: lightpink;
   border-bottom-left-radius: 0.5vw;
   border-bottom-right-radius: 0.5vw;  
-  padding-top: 2vh;
-  padding-bottom: 2vh;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
 }
 
 .StepStartButton {
@@ -188,7 +168,6 @@
 }
 
 .ArmInfo {
-  margin-top: 1vh;
   flex-direction: column;
   text-align: center;
 }
@@ -212,11 +191,39 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  height: 94vh;
+  height: calc(99vh - 2.5vw);
   width: 40vw;
 }
 
 .AboutLinks {
   position: relative;
-  justify-content: flex-end;
+}
+
+.AboutTextHeader {
+  font-size: 1.5vw;
+  background-color: lightskyblue;
+  justify-content: center;
+}
+
+.AboutTextBody {
+  font-size: 1vw;
+  border-radius: 1vw;
+  background-color: lightskyblue;
+  justify-content: center;
+}
+
+.SupportedInstructionsHeader {
+  font-size: 1.5vw;
+  background-color: lightskyblue;
+  justify-content: center;
+  margin-bottom: 5vh;
+}
+
+.SupportedInstructionsBody {
+  font-size: 1.5vw;
+  border-radius: 1vw;
+  background-color: lightskyblue;
+  justify-content: center;
+  text-align: start;
+  margin-top: "5vh";
 }

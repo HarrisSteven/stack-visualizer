@@ -60,9 +60,9 @@ export default function SelectTab(props) {
     <div className={classes.root}>
 
       <AppBar style={{boxShadow: "0 0 0 0"}} position="static">
-        <Tabs TabIndicatorProps={{style: {height: "0.2vh"}}} style={{minHeight: "3.5vh", height: "3.5vh"}} centered value={value} onChange={handleChange} aria-label="simple tabs example">
-          <Tab style = {{fontSize: "0.7vw", height: "3.5vh", minHeight: "3.5vh", minWidth: "12vw", width: "12vw"}} label="ARM Text Editor" {...a11yProps(0)} />
-          <Tab style = {{fontSize: "0.7vw", height: "3.5vh", minHeight: "3.5vh", minWidth: "12vw", width: "12vw"}} label="Stack Visualizer" {...a11yProps(1)} />
+        <Tabs TabIndicatorProps={{style: {height: "0.1vw"}}} style={{minHeight: "2vw", height: "2vw"}} centered value={value} onChange={handleChange} aria-label="simple tabs example">
+          <Tab style = {{fontSize: "0.7vw", height: "2vw", minHeight: "2vw", minWidth: "12vw", width: "12vw"}} label="ARM Text Editor" {...a11yProps(0)} />
+          <Tab style = {{fontSize: "0.7vw", height: "2vw", minHeight: "2vw", minWidth: "12vw", width: "12vw"}} label="Stack Visualizer" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
 

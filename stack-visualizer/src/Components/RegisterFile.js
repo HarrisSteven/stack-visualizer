@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Tab from './Tab.js';
+import ControlTab from './ControlTab.js';
 import Stack from './Stack';
 import RegisterFileConfig from './RegisterFileConfig.js';
 import Links from './Links.js';
@@ -474,7 +474,7 @@ class RegisterFile extends React.Component {
                                 <h1>Control</h1>
                             </Grid>
                             <Grid item>
-                                <Tab register={this.state.register} mov={this.mov} add={this.add} sub={this.sub} mult={this.mult} push={this.push} pop={this.pop} ldr={this.ldr} str={this.str} bl={this.bl} setPc={this.setPc}  bitwise={this.bitwise} pushFunction={this.pushFunction} clear={this.clearStack}/>
+                                <ControlTab register={this.state.register} mov={this.mov} add={this.add} sub={this.sub} mult={this.mult} push={this.push} pop={this.pop} ldr={this.ldr} str={this.str} bl={this.bl} setPc={this.setPc}  bitwise={this.bitwise} pushFunction={this.pushFunction} clear={this.clearStack}/>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -485,7 +485,7 @@ class RegisterFile extends React.Component {
 
                     <Grid item>
                         <Grid container className="RightPanel">
-                            <Grid item style={{marginRight: "2vw"}}>
+                            <Grid item style={{marginRight: "2vw", width: "22vw"}}>
                                 <Grid container className="RegisterFile">
 
                                     <Grid item className="RegHeading">
@@ -494,16 +494,12 @@ class RegisterFile extends React.Component {
                                         </h1>
                                     </Grid>
 
-                                    <Grid item className="Center">
+                                    <Grid item>
                                         <Button style = {{fontSize: "0.7vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "7vw", minHeight: "3vw", width: "7vw", height: "3vw"}} variant="contained" color="primary" onClick={this.toggleHex}>{this.state.decimal ? <h3>Hex</h3> : <h3>Dec</h3>}</Button>
                                     </Grid>
 
-                                    <Grid item className="RegisterFileContainer">
-                                        <Grid container className="RegisterFileContainer">
-                                            <Grid item>
-                                                <RegisterFileConfig register={this.state.register} decimal={this.state.decimal}/>
-                                            </Grid>
-                                        </Grid>
+                                    <Grid item>
+                                        <RegisterFileConfig register={this.state.register} decimal={this.state.decimal}/>
                                     </Grid>
 
                                 </Grid>

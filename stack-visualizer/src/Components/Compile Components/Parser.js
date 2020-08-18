@@ -10,7 +10,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import './../../App.css';
 
 class Parser extends React.Component {
-    constructor(props) {
+    constructor() {
         super();
         this.state = {
             code: "",
@@ -22,9 +22,6 @@ class Parser extends React.Component {
             lines: [], 
             debugCode: "",
             nextInstruction: "",
-            compile: false,
-            error: false,
-            errorInfo: [],
             numLines: 0,
             breakpoints: [],
         }
@@ -148,32 +145,15 @@ class Parser extends React.Component {
         this.pointCurInstruction();
     }
 
-    handleCompile = () => {
-        this.setState({
-            compile: true
-        })
-        this.checkErrors();
-    }
-
     handleReset = () => {
         console.log("RESETTING");
-        let errorInfo;
-        if(this.state.compile) {
-            errorInfo = this.state.errorInfo;
-        }
-        else {
-            errorInfo = [];
-        }
         this.setState({
             line: 0,
             status: 0,
             step: false,
-            speed: 3,
+            speed: 4,
             lines: [],
-            error: false,
-            errorInfo: errorInfo,
             visualize: false,
-            visualDisplay: false,
             nextInstruction: "",
         })
         //this.props.clear();
@@ -184,25 +164,6 @@ class Parser extends React.Component {
             speed: newSpeed
         })
     }
-
-    // checkErrors = () => {
-    //     let lines = this.getLines();
-    //     let instructionData = this.getInstructions(lines).instructions;
-    //     let newInfo = this.state.errorInfo;
-
-    //     for(const instruction of instructionData) {
-    //         if(instruction.instruction !== null) {
-    //             let type = instruction.instruction;
-    //             if(type !== "MOV" && type !== "ADD" && type !== "SUB" && type !== "MUL" && type !== "LDR" && type !== "STR" && type !== "push" && type !== "pop" && type !== "B" && type !== "BNE" && type !== "BEQ" && type !== "BGT" && type !== "BLT" && type !== "BGE" && type !== "BLE" && type !== "CMP" && type !== "BX" && type !== "BL") {
-    //                 newInfo.push({instruction: type, line: instruction.line+1});
-    //             }
-    //         }
-    //     }
-    //     this.setState({
-    //         error: true,
-    //         errorInfo: newInfo
-    //     })
-    // }
 
     pointCurInstruction = (curLine) => {
         console.log(curLine);
@@ -549,7 +510,7 @@ class Parser extends React.Component {
         }
         console.log(instructions);
 
-        for(let i = 0; i < instructions.length; i++) {
+rLoop:  for(let i = 0; i < instructions.length; i++) {
             let elem = instructions[i];
             console.log(elem);
 
@@ -834,8 +795,9 @@ class Parser extends React.Component {
                     }
                     default: {
                         if(type !== "") {
+                            this.handleReset();
                             alert("Instruction '" + type +  "' not recognized")
-                            line++;
+                            break rLoop;
                         }
                     }
                 }
@@ -1517,11 +1479,9 @@ class Parser extends React.Component {
                                 {line}
                             </div>)} </pre></InputAdornment>, 
 
-                            style: {fontSize: "1.2vw", boxShadow: "0 0 0 0", borderRadius: "0", padding: "0.7vw"}
+                            style: {fontSize: "1.1vw", boxShadow: "0 0 0 0", borderRadius: "0", padding: "0.5vw", margin: "0"}
                         }} value={this.state.code} fullWidth="true" id="code" variant="outlined" multiline rows={10} rowsMax={101}></TextField>}
                     </div>
-
-                    {/* {this.state.error ? <h3>Compile Error: Instruction: {this.state.errorInfo.instruction}, line: {this.state.errorInfo.line}</h3> : null} */}
                 </form>
 
             <RunOptions handleContinue={this.handleContinue} handleRun={this.handleRun} visualize={this.state.visualize} startVisualize={this.startVisualize} handleReset={this.handleReset} handleVisualize={this.handleVisualize} speed={this.state.speed} changeSpeed={this.changeSpeed} handleStep={this.handleStep} startStep={this.startStep} step={this.state.step}/>

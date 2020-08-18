@@ -391,7 +391,6 @@ class Stack extends React.Component {
                     </Grid>
                 </Grid>
 
-                <Grid item>
                 <Grid conatiner className="Scroll">
                 {
                     this.state.frames.map(frame =>
@@ -444,7 +443,7 @@ class Stack extends React.Component {
                         </Grid>
                     )   
                 }
-                </Grid></Grid>
+                </Grid>
             </Grid>
         )
     }
