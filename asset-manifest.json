@@ -1,26 +1,24 @@
 {
   "files": {
-    "main.css": "/stack-visualizer/static/css/main.96a1c795.chunk.css",
-    "main.js": "/stack-visualizer/static/js/main.c47ea807.chunk.js",
-    "main.js.map": "/stack-visualizer/static/js/main.c47ea807.chunk.js.map",
+    "main.css": "/stack-visualizer/static/css/main.f0efa05d.chunk.css",
+    "main.js": "/stack-visualizer/static/js/main.1cb54a62.chunk.js",
+    "main.js.map": "/stack-visualizer/static/js/main.1cb54a62.chunk.js.map",
     "runtime-main.js": "/stack-visualizer/static/js/runtime-main.72e39f0a.js",
     "runtime-main.js.map": "/stack-visualizer/static/js/runtime-main.72e39f0a.js.map",
-    "static/js/2.243d26e0.chunk.js": "/stack-visualizer/static/js/2.243d26e0.chunk.js",
-    "static/js/2.243d26e0.chunk.js.map": "/stack-visualizer/static/js/2.243d26e0.chunk.js.map",
+    "static/js/2.12b22c30.chunk.js": "/stack-visualizer/static/js/2.12b22c30.chunk.js",
+    "static/js/2.12b22c30.chunk.js.map": "/stack-visualizer/static/js/2.12b22c30.chunk.js.map",
     "index.html": "/stack-visualizer/index.html",
-    "precache-manifest.5478729c46b897debcf3f6de8deb700e.js": "/stack-visualizer/precache-manifest.5478729c46b897debcf3f6de8deb700e.js",
+    "precache-manifest.ed9267793506125eacc62bd1a507a264.js": "/stack-visualizer/precache-manifest.ed9267793506125eacc62bd1a507a264.js",
     "service-worker.js": "/stack-visualizer/service-worker.js",
-    "static/css/main.96a1c795.chunk.css.map": "/stack-visualizer/static/css/main.96a1c795.chunk.css.map",
-    "static/js/2.243d26e0.chunk.js.LICENSE.txt": "/stack-visualizer/static/js/2.243d26e0.chunk.js.LICENSE.txt",
+    "static/css/main.f0efa05d.chunk.css.map": "/stack-visualizer/static/css/main.f0efa05d.chunk.css.map",
+    "static/js/2.12b22c30.chunk.js.LICENSE.txt": "/stack-visualizer/static/js/2.12b22c30.chunk.js.LICENSE.txt",
     "static/media/FunctionTool.png": "/stack-visualizer/static/media/FunctionTool.a6b038de.png",
-    "static/media/StepTool.png": "/stack-visualizer/static/media/StepTool.8d5065f5.png",
-    "static/media/SupportedInstructions.png": "/stack-visualizer/static/media/SupportedInstructions.a1edcaeb.png",
-    "static/media/yt_logo_rgb_light.png": "/stack-visualizer/static/media/yt_logo_rgb_light.07b8560a.png"
+    "static/media/StepTool.png": "/stack-visualizer/static/media/StepTool.8d5065f5.png"
   },
   "entrypoints": [
     "static/js/runtime-main.72e39f0a.js",
-    "static/js/2.243d26e0.chunk.js",
-    "static/css/main.96a1c795.chunk.css",
-    "static/js/main.c47ea807.chunk.js"
+    "static/js/2.12b22c30.chunk.js",
+    "static/css/main.f0efa05d.chunk.css",
+    "static/js/main.1cb54a62.chunk.js"
   ]
 }
