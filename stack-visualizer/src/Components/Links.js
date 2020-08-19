@@ -1,6 +1,6 @@
 import React from 'react'
 import GhLogo from './../Images/GitHub-Mark/PNG/GitHub-Mark-64px.png';
-// import YtLogo from './../Images/youtube_full_color_light_logo/digital_and_tv/yt_logo_rgb_light.png';
+import YtLogo from './../Images/youtube_full_color_icon/social/1024px/red/youtube_social_icon_red.png';
 // import LiLogo from './../Images/LinkedIn-Logos/LI-In-Bug.png';
 import Grid from '@material-ui/core/Grid';
 
@@ -22,11 +22,11 @@ class Links extends React.Component {
                         </a>
                     </Grid> */}
 
-                    {/* <Grid item style={{paddingTop: "1vw", paddingBottom: "1vw"}}>
-                        <a href= "https://youtu.be/vrj8FusFwwI">
-                            <img style={{height: "2vw", width: "9vw"}} alt="YouTube" src={YtLogo}/>
+                    <Grid item style={{paddingTop: "1vw", paddingBottom: "1vw"}}>
+                        <a href= "https://youtu.be/gmO4WAYQtkk">
+                            <img style={{height: "2vw", width: "2.84vw"}} alt="YouTube" src={YtLogo}/>
                         </a>
-                    </Grid> */}
+                    </Grid>
                 </Grid>
 
             </div>

@@ -26,7 +26,7 @@ class Frame extends React.Component {
                     <Grid item className="StackItem">
                         <Grid item className="Text">
                             <Typography className={this.props.params.address <= this.props.register.fp ? "RegisterOutline" : "Register"}>
-                                <h2 className="Text">Register: {this.props.params.data.reg} = {this.props.params.data.value} </h2>
+                                <h2 className="Text">Register: from {this.props.params.data.reg} &nbsp; value: {this.props.params.data.value} </h2>
                             </Typography>
                         </Grid>
                     </Grid>

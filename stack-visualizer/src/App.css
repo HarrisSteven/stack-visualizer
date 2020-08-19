@@ -203,25 +203,30 @@
   font-size: 1.5vw;
   background-color: lightskyblue;
   justify-content: center;
+  border-top-right-radius: 1vw;
+  border-top-left-radius: 1vw;
 }
 
 .AboutTextBody {
   font-size: 1vw;
-  border-radius: 1vw;
   background-color: lightskyblue;
   justify-content: center;
+  border-bottom-left-radius: 1vw;
+  border-bottom-right-radius: 1vw;
 }
 
 .SupportedInstructionsHeader {
   font-size: 1.5vw;
   background-color: lightskyblue;
   justify-content: center;
-  margin-bottom: 5vh;
+  border-top-right-radius: 1vw;
+  border-top-left-radius: 1vw;
 }
 
 .SupportedInstructionsBody {
   font-size: 1.5vw;
-  border-radius: 1vw;
+  border-bottom-left-radius: 1vw;
+  border-bottom-right-radius: 1vw;
   background-color: lightskyblue;
   justify-content: center;
   text-align: start;

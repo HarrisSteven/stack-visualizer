@@ -12,7 +12,7 @@ class VisualizeTab extends React.Component {
 
                 <Grid item>
                     {this.props.visualize || this.props.step ? null: <Button style = {{fontSize: "0.9vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "4vw", minHeight: "2vw", width: "4vw", height: "2vw"}} variant="contained" color="primary" onClick={this.props.startVisualize}>Start</Button>}
-                    {this.props.visualize ? <Button style = {{fontSize: "0.9vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "6vw", minHeight: "2vw", width: "6vw", height: "2vw"}} variant="contained" color="primary" onClick={this.props.handleReset}>Terminate</Button>: null}
+                    {this.props.visualize ? <Button style = {{fontSize: "0.9vw", boxShadow: "0 0 0 0", borderRadius: "0.5vw", minWidth: "7vw", minHeight: "2vw", width: "7vw", height: "2vw"}} variant="contained" color="primary" onClick={this.props.handleReset}>Terminate</Button>: null}
                 </Grid>
 
                 <Grid item style={{position: "absolute"}}>       
