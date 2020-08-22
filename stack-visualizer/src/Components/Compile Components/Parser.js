@@ -44,7 +44,7 @@ class Parser extends React.Component {
     }
 
     hexToInt = (hex) => {
-        console.log("HEXNUM: " + hex);
+        // console.log("HEXNUM: " + hex);
         while(hex.length < 8) {
             hex = "0" + hex;
         }
@@ -85,7 +85,7 @@ class Parser extends React.Component {
     // addBreakpoint = (line, change) => {
     //     let newBreakpoints = this.state.breakpoints;
     //     line = parseInt(line);
-    //     console.log(line);
+    //    console.log(line);
     //     if(change) {
     //         newBreakpoints.push(line);
     //     }
@@ -99,7 +99,7 @@ class Parser extends React.Component {
     //     this.setState({
     //         breakpoints: newBreakpoints
     //     })
-    //     console.log(newBreakpoints);
+    //    console.log(newBreakpoints);
     // }
 
     startStep = ()  => {
@@ -147,7 +147,7 @@ class Parser extends React.Component {
     }
 
     handleReset = () => {
-        console.log("RESETTING");
+        // console.log("RESETTING");
         this.setState({
             line: 0,
             status: 0,
@@ -167,7 +167,7 @@ class Parser extends React.Component {
     }
 
     pointCurInstruction = (curLine) => {
-        console.log(curLine);
+        // console.log(curLine);
         let lineNum;
         let passFirst = false;  // If we want to jump to a line to highlight with a breakpoint, skip highlighting the first line
         if (typeof curLine !== 'undefined') {
@@ -177,7 +177,7 @@ class Parser extends React.Component {
         else {
             lineNum = this.state.line;
         }
-        console.log(lineNum);
+        // console.log(lineNum);
         let debugCode = "";
         let nextInstruction = "";
         let addStart = false;
@@ -197,8 +197,8 @@ class Parser extends React.Component {
                 }
             }
         }
-        console.log(branchData[0]);
-        console.log(instructionData.labels);
+        // console.log(branchData[0]);
+        // console.log(instructionData.labels);
 
         // If the instruction is a branch, we must highlight where it will branch to
         let instruction = branchData[0].instruction;
@@ -211,7 +211,7 @@ class Parser extends React.Component {
             else {
                 line = this.branch(branchData, instructionData.labels);
             }
-            console.log(line);
+            // console.log(line);
             for(let i = 0; i < lines.length; i++) {
                 let curLine = lines[i];
                 if(i === line) {
@@ -258,7 +258,7 @@ class Parser extends React.Component {
             debugCode += "1. " + lines[0] + "\n";
         }        
 
-        console.log(nextInstruction);
+        // console.log(nextInstruction);
         
         this.setState({
             debugCode: debugCode,
@@ -297,7 +297,7 @@ class Parser extends React.Component {
     getLines = () => {
         let lines = [];
         let code = this.state.code;
-        console.log(this.state.code);
+        // console.log(this.state.code);
         let begin = 0;
 
         for(let i = 0; i < code.length; i++) {
@@ -316,7 +316,7 @@ class Parser extends React.Component {
             }
         }
 
-        console.log(lines);
+        // console.log(lines);
         let newLines = this.state.lines;
         newLines = lines;
         this.setState({
@@ -481,8 +481,8 @@ class Parser extends React.Component {
             }
         }
 
-        console.log(labels);
-        console.log(instructions);
+        // console.log(labels);
+        // console.log(instructions);
 
         let returnData = {instructions: instructions, instructionLines: instructionLines, labels: labels};
         return(returnData);
@@ -495,11 +495,11 @@ class Parser extends React.Component {
         let status = 0;
         let newInstructions = [];
         let instructionCount = 0;
-        console.log("Step State: " + step);
+        // console.log("Step State: " + step);
 
         if(step) {
             let curLine = this.state.line;
-            console.log("line: " + curLine);
+            // console.log("line: " + curLine);
             for(let i = 0; i < instructions.length; i++) {
                 let elem = instructions[i];
                 if(elem.line === curLine) {
@@ -509,16 +509,16 @@ class Parser extends React.Component {
             instructions = newInstructions;
             line = curLine;
         }
-        console.log(instructions);
+        // console.log(instructions);
 
 rLoop:  for(let i = 0; i < instructions.length; i++) {
             let elem = instructions[i];
-            console.log(elem);
+            // console.log(elem);
 
             if((elem.line !== line) || (i === instructions.length - 1)) {
                 if(i === instructions.length - 1) {
                     i++;
-                    console.log("Incrementing i");
+                    // console.log("Incrementing i");
                 }
         
                 // When stepping/visualizing, if there is a label on a line by itself, move to the next line
@@ -579,15 +579,15 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                         break;
                     }
                     case "B": {
-                        console.log("Branch");
+                        // console.log("Branch");
                         line = this.branch(instructions.slice(begin, i), labels);
                         if(!step) {
                             i = instructionLines[line];
                         }
                         begin = i;
                         this.props.setPc(line+3);
-                        console.log(line);
-                        console.log(i);
+                        // console.log(line);
+                        // console.log(i);
                         break;
                     }
                     case "CMP": {
@@ -596,7 +596,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                         this.setState({
                             status: status
                         })
-                        console.log("Status: " + status);
+                        // console.log("Status: " + status);
                         begin = i;
                         line++;
                         break;
@@ -605,15 +605,15 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                         if(step) {
                             status = this.state.status
                         }
-                        console.log("status: " + status);
+                        // console.log("status: " + status);
                         if(status === 1) {
-                            console.log("BGT Branching");
+                            // console.log("BGT Branching");
                             line = this.branch(instructions.slice(begin, i), labels);
                             if(!step) {
                                 i = instructionLines[line];
                             }
-                            console.log(line);
-                            console.log(i);
+                            // console.log(line);
+                            // console.log(i);
                             begin = i;
                             this.props.setPc(line+3);
                         }
@@ -808,8 +808,8 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                 line: line,
             })
             instructionCount++;
-            console.log("TOTALINSTRUCTIONS: " + instructionCount)
-            if(instructionCount > 8000) {
+            // console.log("TOTALINSTRUCTIONS: " + instructionCount)
+            if(instructionCount > 100000) {
                 this.handleReset();
                 alert("Infinite loop or running took too long");
                 break;
@@ -821,11 +821,11 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
 
             // When running, if there is a label on a line by itself, meaning the next instruction is a label/instruction, move to the next line
             if(elem.label !== null && !(i === instructions.length) && !(this.state.step) && !(this.state.visualize) && i+1 < instructions.length && instructions[i+1].arg1 === null) {
-                console.log("SETTING TYPE TO NULL");
+                // console.log("SETTING TYPE TO NULL");
                 type = "";
             }
             if(elem.instruction !== null) {
-                console.log("SETTING TYPE TO: " + elem.instruction);
+                // console.log("SETTING TYPE TO: " + elem.instruction);
                 type = elem.instruction;
             }
 
@@ -845,7 +845,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         if(this.state.compile) {
             return;
         }
-        console.log("move");
+        // console.log("move");
         let arg1 = "";
         let arg2 = "";
         for(const elem of data) {
@@ -873,7 +873,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         if(arg1 === "sp") {
             movData = {arg1: arg1, arg2: arg2, handleSp: true};
         }
-        console.log(movData);
+        // console.log(movData);
         this.props.mov(movData);
     }
 
@@ -913,7 +913,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         if(arg1 === "sp") {
             addData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: true};
         }
-        //console.log("ADD: " + "arg1: " + arg1 + " arg2 : " + arg2 + " arg3: " + arg3);
+        // console.log("ADD: " + "arg1: " + arg1 + " arg2 : " + arg2 + " arg3: " + arg3);
         this.props.add(addData);
     }
 
@@ -921,7 +921,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         if(this.state.compile) {
             return;
         }
-        console.log("sub");
+        // console.log("sub");
         let arg1 = "";
         let arg2 = "";
         let arg3 = "";
@@ -944,7 +944,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                 arg3 = parseInt(arg3.substring(1, arg3.length));
             }
         }
-        console.log(arg3);
+        // console.log(arg3);
 
         arg1 = this.correctRegCase(arg1);
         arg2 = this.correctRegCase(arg2);
@@ -955,7 +955,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         if(arg1 === "sp") {
             subData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: true};
         }        
-        console.log(subData);
+        // console.log(subData);
         this.props.sub(subData);
 
     }
@@ -964,7 +964,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         if(this.state.compile) {
             return;
         }
-        console.log("mul");
+        // console.log("mul");
         let arg1 = "";
         let arg2 = "";
         let arg3 = "";
@@ -1026,7 +1026,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
 
         arg1 = this.getRegister(this.correctRegCase(arg1));
 
-        console.log("CMP: arg1: " + arg1 + " arg2: " + arg2);
+        // console.log("CMP: arg1: " + arg1 + " arg2: " + arg2);
         
         let newStatus = 0;
         if(arg1 > arg2) {
@@ -1052,8 +1052,8 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                 name = data[j].arg1;
             }
         }
-        console.log(name);
-        console.log(labels);
+        // console.log(name);
+        // console.log(labels);
 
         if(isNaN(name)) {
             for(const label of labels) {
@@ -1099,7 +1099,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         let arg4 = "";
         let arg5 = "";
         let arg6 = "";
-        console.log(data);
+        // console.log(data);
 
         for(const elem of data) {
             if(typeof elem.arg1 === 'string' || data.arg1 instanceof String) {
@@ -1263,7 +1263,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         let arg4 = "";
         let arg5 = "";
         let arg6 = "";
-        console.log(data);
+        // console.log(data);
 
         for(const elem of data) {
             if(typeof elem.arg1 === 'string' || data.arg1 instanceof String) {
@@ -1325,7 +1325,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         if(this.state.compile) {
             return;
         }
-        console.log("load");
+        // console.log("load");
         let arg1 = "";
         let arg2 = "";
         let offset = "";
@@ -1470,7 +1470,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                     </pre></h3>
                     :
                     <TextField InputProps={{
-                        startAdornment: <InputAdornment style={{marginRight: "1vw", marginTop: "0", marginLeft: "0", marginBottom: "0"}} position="start"><pre style={{fontSize: "1.6vh"}}>{this.listedLinesCalc(this.state.numLines).map(line=>
+                        startAdornment: <InputAdornment style={{marginRight: "1vw", marginTop: "0", marginLeft: "0", marginBottom: "0"}} position="start"><pre style={{fontSize: "1vw"}}>{this.listedLinesCalc(this.state.numLines).map(line=>
                         <div>
                             {line === " 1  \n" ? <div>{"\n"}</div> : null}
                             {/* {this.state.breakpoints.includes(parseInt(line)) ? 
@@ -1479,7 +1479,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                             {line}
                         </div>)} </pre></InputAdornment>, 
 
-                        style: {fontSize: "1.6vh", boxShadow: "0 0 0 0", borderRadius: "0", padding: "0.5vw"}
+                        style: {fontSize: "1vw", boxShadow: "0 0 0 0", borderRadius: "0", padding: "0.5vw"}
                     }} value={this.state.code} margin="none" padding="0" fullWidth="true" id="code" variant="outlined" multiline rows={10} rowsMax={101}></TextField>}
                 </form>
 

@@ -147,21 +147,21 @@ class RegisterFile extends React.Component {
         }
 
         this.removeFramesChild();
-        console.log(this.state.register);
+        // console.log(this.state.register);
     }
 
     add = (data) => {
-        console.log(data);
+        // console.log(data);
         let arg2 = this.getRegister(data.arg2);
         let arg3 = data.arg3;
         if(typeof data.arg3 === 'string' || data.arg3 instanceof String) {
             arg3 = this.getRegister(data.arg3);
         }      
 
-        console.log(this.state.register);
+        // console.log(this.state.register);
 
-        console.log(arg2);
-        console.log(arg3);
+        // console.log(arg2);
+        // console.log(arg3);
 
         let sum = arg2+arg3;
         if(isNaN(sum)) {
@@ -240,11 +240,11 @@ class RegisterFile extends React.Component {
         let arg2 = data.arg2;
         let arg3 = data.arg3;
         if(typeof data.arg2 === 'string' || data.arg2 instanceof String) {
-            console.log("getting value");
+            // console.log("getting value");
             arg2 = this.getRegister(data.arg2);
         }  
         if(typeof data.arg3 === 'string' || data.arg3 instanceof String) {
-            console.log("getting value");
+            // console.log("getting value");
             arg3 = this.getRegister(data.arg3);
         }   
 
@@ -361,13 +361,13 @@ class RegisterFile extends React.Component {
             arg3 = this.getRegister(data.arg3);
         }      
 
-        console.log(this.state.register);
+        // console.log(this.state.register);
 
-        console.log(arg2);
-        console.log(arg3);
-        console.log((arg2 >>> 0).toString(2));
-        console.log((arg3 >>> 0).toString(2));
-        console.log(func);
+        // console.log(arg2);
+        // console.log(arg3);
+        // console.log((arg2 >>> 0).toString(2));
+        // console.log((arg3 >>> 0).toString(2));
+        // console.log(func);
         let result;
         switch(func) {
             case "AND": {result = arg2&arg3; break}
@@ -378,8 +378,8 @@ class RegisterFile extends React.Component {
             case "LSL": {result = arg2<<arg3; break}
             default: {}
         }
-        console.log(result);
-        console.log((result >>> 0).toString(2));
+        // console.log(result);
+        // console.log((result >>> 0).toString(2));
 
 
         let newReg = this.state.register;
@@ -392,7 +392,7 @@ class RegisterFile extends React.Component {
 
     setReg = (data) => {
         let newReg = this.state.register;
-        console.log(data);
+        // console.log(data);
         
         switch(data.reg) {
             case "R0": {newReg.R0 = data.value; break;}
@@ -417,13 +417,13 @@ class RegisterFile extends React.Component {
         this.setState({
             register: newReg
         })
-        console.log(this.state.register);
+        // console.log(this.state.register);
     }
 
     sort = (registers, backwards) => {
         let numReg = [];
         let newReg = [];
-        console.log(registers);
+        // console.log(registers);
         for(const register of registers) {
             switch(register) {
                 case "R0": {numReg.push(0); break;}
@@ -445,7 +445,7 @@ class RegisterFile extends React.Component {
                 default: {}
             }
         }
-        console.log(numReg);
+        // console.log(numReg);
         if(backwards) {
             numReg.sort((a,b)=>b-a);
         }
@@ -453,7 +453,7 @@ class RegisterFile extends React.Component {
             numReg.sort((a,b)=>a-b);
         }
 
-        console.log(numReg);
+        // console.log(numReg);
         for(const num of numReg) {
             switch(num) {
                 case 0: {newReg.push("R0"); break;}
@@ -475,7 +475,7 @@ class RegisterFile extends React.Component {
                 default: {}
             }
         }
-        console.log(newReg);
+        // console.log(newReg);
         return(newReg);
     }
 

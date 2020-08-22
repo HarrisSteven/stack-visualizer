@@ -93,7 +93,7 @@ class Stack extends React.Component {
     setFrames = (sp) => {
         // If the sp is moved down, fill space with empty frames
         let lowAddress = this.state.frames[this.state.frames.length - 1].address;
-        console.log("low address: " + lowAddress);
+        // console.log("low address: " + lowAddress);
         while(sp < lowAddress) {
             lowAddress -= 4;
             this.pushEmpty(lowAddress);
@@ -104,8 +104,8 @@ class Stack extends React.Component {
         let newFrames = this.state.frames;
         for(const frame of newFrames) {
             if(frame.address === data.address) {
-                console.log(frame);
-                console.log(frame.data.value);
+                // console.log(frame);
+                // console.log(frame.data.value);
                 this.props.setReg({reg: data.reg, value: frame.data.value});
             }
         }
@@ -172,7 +172,7 @@ class Stack extends React.Component {
     }
 
     pushByReg = (reg) => {
-        console.log(reg);
+        // console.log(reg);
         let newSp = this.state.register;
         newSp.sp -= 4;
 
@@ -258,7 +258,7 @@ class Stack extends React.Component {
             frames: newFrames,
         }) 
         this.props.decSp();
-        console.log(this.state.frames);
+        // console.log(this.state.frames);
     }
 
     pop = () => {
@@ -307,7 +307,7 @@ class Stack extends React.Component {
         let newSp = this.state.register;
         newSp.sp += 4;
 
-        console.log("reg: " + reg);
+        // console.log("reg: " + reg);
 
         let curFrames = this.state.frames;
         if(curFrames.length < 2) {
@@ -316,7 +316,7 @@ class Stack extends React.Component {
         }
         let frame = curFrames.pop();
 
-        console.log("DATA: " + frame.data.value);
+        // console.log("DATA: " + frame.data.value);
 
         switch(reg) {
             case "R0": {this.props.setReg({reg: "R0", value: frame.data.value}); break;}
