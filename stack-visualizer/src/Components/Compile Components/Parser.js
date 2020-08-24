@@ -537,42 +537,58 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                 type = this.correctInstCase(type);
                 switch(type) {
                     case "ADD": {
-                        this.add(instructions.slice(begin, i))
+                        let error = this.add(instructions.slice(begin, i));
+                        if(!error) {
+                            this.handleReset();
+                            return;
+                        }
                         this.props.setPc(line+3);
                         begin = i;
                         line++;
                         break;
                     }
                     case "SUB": {
-                        this.sub(instructions.slice(begin, i))
+                        let error = this.sub(instructions.slice(begin, i));
+                        if(!error) {
+                            this.handleReset();
+                            return;
+                        }
                         this.props.setPc(line+3);
                         begin = i;
                         line++;
                         break;
                     }
                     case "MUL": {
-                        this.mul(instructions.slice(begin, i))
+                        let error = this.mul(instructions.slice(begin, i));
+                        if(!error) {
+                            this.handleReset();
+                            return;
+                        }
                         this.props.setPc(line+3);
                         begin = i;
                         line++;
                         break;
                     }
                     case "MOV": {
-                        this.mov(instructions.slice(begin, i))
+                        let error = this.mov(instructions.slice(begin, i));
+                        if(!error) {
+                            this.handleReset();
+                            return;
+                        }
                         this.props.setPc(line+3);
                         begin = i;
                         line++;
                         break;
                     }
                     case "LDR": {
-                        this.ldr(instructions.slice(begin, i))
+                        this.ldr(instructions.slice(begin, i));
                         this.props.setPc(line+3);
                         begin = i;
                         line++;
                         break;
                     }
                     case "STR": {
-                        this.str(instructions.slice(begin, i))
+                        this.str(instructions.slice(begin, i));
                         this.props.setPc(line+3);
                         begin = i;
                         line++;
@@ -626,7 +642,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                     }
                     case "BLT": {
                         if(step) {
-                            status = this.state.status
+                            status = this.state.status;
                         }
                         if(status === -1) {
                             line = this.branch(instructions.slice(begin, i), labels);
@@ -645,7 +661,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                     }
                     case "BEQ": {
                         if(step) {
-                            status = this.state.status
+                            status = this.state.status;
                         }
                         if(status === 0) {
                             line = this.branch(instructions.slice(begin, i), labels);                      
@@ -664,7 +680,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                     }
                     case "BNE": {
                         if(step) {
-                            status = this.state.status
+                            status = this.state.status;
                         }
                         if(!(status === 0)) {
                             line = this.branch(instructions.slice(begin, i), labels);                   
@@ -683,7 +699,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                     }
                     case "BGE": {
                         if(step) {
-                            status = this.state.status
+                            status = this.state.status;
                         }
                         if(!(status === -1)) {
                             line = this.branch(instructions.slice(begin, i), labels);                     
@@ -702,7 +718,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                     }
                     case "BLE": {
                         if(step) {
-                            status = this.state.status
+                            status = this.state.status;
                         }
                         if(!(status === 1)) {
                             line = this.branch(instructions.slice(begin, i), labels);                   
@@ -721,7 +737,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                     }
                     case "BL": {
                         this.bl(line+2);
-                        line = this.branch(instructions.slice(begin, i), labels);                 
+                        line = this.branch(instructions.slice(begin, i), labels);  
                         this.props.setPc(line+3);
                         if(!step) {
                             i = instructionLines[line];
@@ -797,7 +813,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                     default: {
                         if(type !== "") {
                             this.handleReset();
-                            alert("Instruction '" + type +  "' not recognized")
+                            alert("Instruction '" + type +  "' not recognized");
                             break rLoop;
                         }
                     }
@@ -810,7 +826,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
             instructionCount++;
             // console.log("TOTALINSTRUCTIONS: " + instructionCount)
             if(instructionCount > 100000) {
-                this.handleReset();
+                this.handleReset(); 
                 alert("Infinite loop or running took too long");
                 break;
             }
@@ -842,9 +858,6 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
     }
 
     mov = (data) => {
-        if(this.state.compile) {
-            return;
-        }
         // console.log("move");
         let arg1 = "";
         let arg2 = "";
@@ -867,6 +880,10 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
 
         arg1 = this.correctRegCase(arg1);
         arg2 = this.correctRegCase(arg2);
+        let validNum = this.checkNumber(arg2);
+        if(!validNum) {
+            return false;
+        }
 
         let movData = {arg1: arg1, arg2: arg2, handleSp: false};
 
@@ -875,12 +892,10 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         }
         // console.log(movData);
         this.props.mov(movData);
+        return true;
     }
 
     add = (data) => {
-        if(this.state.compile) {
-            return;
-        }
         let arg1 = "";
         let arg2 = "";
         let arg3 = "";
@@ -907,6 +922,11 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         arg1 = this.correctRegCase(arg1);
         arg2 = this.correctRegCase(arg2);
         arg3 = this.correctRegCase(arg3);
+        let validNum1 = this.checkNumber(arg2);
+        let validNum2 = this.checkNumber(arg3);
+        if(!validNum1 || !validNum2) {
+            return false;
+        }
 
         let addData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
 
@@ -915,12 +935,10 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         }
         // console.log("ADD: " + "arg1: " + arg1 + " arg2 : " + arg2 + " arg3: " + arg3);
         this.props.add(addData);
+        return true;
     }
 
     sub = (data) => {
-        if(this.state.compile) {
-            return;
-        }
         // console.log("sub");
         let arg1 = "";
         let arg2 = "";
@@ -949,6 +967,11 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         arg1 = this.correctRegCase(arg1);
         arg2 = this.correctRegCase(arg2);
         arg3 = this.correctRegCase(arg3);
+        let validNum1 = this.checkNumber(arg2);
+        let validNum2 = this.checkNumber(arg3);
+        if(!validNum1 || !validNum2) {
+            return false;
+        }
 
         let subData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
 
@@ -957,13 +980,10 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         }        
         // console.log(subData);
         this.props.sub(subData);
-
+        return true;
     }
 
     mul = (data) => {
-        if(this.state.compile) {
-            return;
-        }
         // console.log("mul");
         let arg1 = "";
         let arg2 = "";
@@ -991,6 +1011,11 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         arg1 = this.correctRegCase(arg1);
         arg2 = this.correctRegCase(arg2);
         arg3 = this.correctRegCase(arg3);
+        let validNum1 = this.checkNumber(arg2);
+        let validNum2 = this.checkNumber(arg3);
+        if(!validNum1 || !validNum2) {
+            return false;
+        }
 
         let multData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: false};
 
@@ -998,6 +1023,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
             multData = {arg1: arg1, arg2: arg2, arg3: arg3, handleSp: true};
         }     
         this.props.mult(multData);
+        return true;
     }
 
     cmp = (data) => {
@@ -1079,9 +1105,6 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
     }
 
     bl = (line) => {
-        if(this.state.compile) {
-            return;
-        }
         this.props.bl(line);
     }
     
@@ -1090,9 +1113,6 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
     }
 
     push = (data) => {
-        if(this.state.compile) {
-            return;
-        }
         let arg1 = "";
         let arg2 = "";
         let arg3 = "";
@@ -1154,6 +1174,23 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
         let pushData = {arg1: arg1, arg2: arg2, arg3: arg3, arg4: arg4, arg5: arg5, arg6: arg6};
 
         this.props.push(pushData);
+    }
+
+    checkNumber = (num) => {
+        if(this.getNumberByRegister(num) !== -1) {
+            return true;
+        }
+        else if(isNaN(num)) {
+            alert("Invalid Number");
+            return false;
+        }
+        else if(num > 2147483647 || num < -2147483648) {
+            alert("Number exceeds 32 bits");
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     correctInstCase = (inst) => {
@@ -1227,7 +1264,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
             case "sp": return 13;
             case "lr": return 14;
             case "pc": return 15;
-            default:{}
+            default:{return -1;}
         }
     }
 
@@ -1254,9 +1291,6 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
     }
 
     pop = (data) => {
-        if(this.state.compile) {
-            return;
-        }
         let arg1 = "";
         let arg2 = "";
         let arg3 = "";
@@ -1322,9 +1356,6 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
     }
 
     ldr = (data) => {
-        if(this.state.compile) {
-            return;
-        }
         // console.log("load");
         let arg1 = "";
         let arg2 = "";
@@ -1375,9 +1406,6 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
     }
 
     str = (data) => {
-        if(this.state.compile) {
-            return;
-        }
         let arg1 = "";
         let arg2 = "";
         let offset = "";
@@ -1427,9 +1455,6 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
     }
 
     bitwise = (data, func) => {
-        if(this.state.compile) {
-            return;
-        }
         let arg1 = "";
         let arg2 = "";
         let arg3 = "";

@@ -129,14 +129,7 @@ class RegisterFile extends React.Component {
         if(typeof data.arg2 === 'string' || data.arg2 instanceof String) {
             arg2 = this.getRegister(data.arg2);
         }
-        if(isNaN(arg2)) {
-            alert("Invalid Number")
-            return;
-        }
-        if(arg2 > 2147483647 || arg2 < -2147483648) {
-            alert("Number exceeds 32 bits");
-            return;
-        }
+        
         let newReg = this.state.register;
         this.setRegister(data.arg1, arg2, newReg);
        
@@ -164,14 +157,7 @@ class RegisterFile extends React.Component {
         // console.log(arg3);
 
         let sum = arg2+arg3;
-        if(isNaN(sum)) {
-            alert("Invalid Number")
-            return;
-        }
-        if(sum > 2147483647 || sum < -2147483648) {
-            alert("Number exceeds 32 bits");
-            return;
-        }
+        
         let newReg = this.state.register;
         this.setRegister(data.arg1, sum, newReg);
 
@@ -191,14 +177,7 @@ class RegisterFile extends React.Component {
         }   
 
         let difference = arg2-arg3;
-        if(isNaN(difference)) {
-            alert("Invalid Number")
-            return;
-        }
-        if(difference > 2147483647 || difference < -2147483648) {
-            alert("Number exceeds 32 bits");
-            return;
-        }
+        
         let newReg = this.state.register;
         this.setRegister(data.arg1, difference, newReg);
 
@@ -217,14 +196,7 @@ class RegisterFile extends React.Component {
             arg3 = this.getRegister(data.arg3);
         }   
         let product = arg2*arg3;
-        if(isNaN(product)) {
-            alert("Invalid Number")
-            return;
-        }
-        if(product > 2147483647 || product < -2147483648) {
-            alert("Number exceeds 32 bits");
-            return;
-        }
+        
         let newReg = this.state.register;
         this.setRegister(data.arg1, product, newReg);
 
