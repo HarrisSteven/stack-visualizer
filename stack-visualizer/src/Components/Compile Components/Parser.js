@@ -1495,7 +1495,7 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                     </pre></h3>
                     :
                     <TextField InputProps={{
-                        startAdornment: <InputAdornment style={{marginRight: "1vw", marginTop: "0", marginLeft: "0", marginBottom: "0"}} position="start"><pre style={{fontSize: "1vw"}}>{this.listedLinesCalc(this.state.numLines).map(line=>
+                        startAdornment: <InputAdornment style={{marginRight: "1vw"}} position="start"><pre style={{fontSize: "1vw"}}>{this.listedLinesCalc(this.state.numLines).map(line=>
                         <div>
                             {line === " 1  \n" ? <div>{"\n"}</div> : null}
                             {/* {this.state.breakpoints.includes(parseInt(line)) ? 
@@ -1504,8 +1504,8 @@ rLoop:  for(let i = 0; i < instructions.length; i++) {
                             {line}
                         </div>)} </pre></InputAdornment>, 
 
-                        style: {fontSize: "1vw", boxShadow: "0 0 0 0", borderRadius: "0", padding: "0.5vw"}
-                    }} value={this.state.code} margin="none" padding="0" fullWidth="true" id="code" variant="outlined" multiline rows={10} rowsMax={101}></TextField>}
+                        style: {fontSize: "1.1vw", boxShadow: "0 0 0 0", borderRadius: "0", padding: "0.5vw"}
+                    }} value={this.state.code} margin="none" padding="0" fullWidth={true} id="code" variant="outlined" multiline rows={10} rowsMax={101}></TextField>}
                 </form>
 
             <RunOptions handleContinue={this.handleContinue} handleRun={this.handleRun} visualize={this.state.visualize} startVisualize={this.startVisualize} handleReset={this.handleReset} handleVisualize={this.handleVisualize} speed={this.state.speed} changeSpeed={this.changeSpeed} handleStep={this.handleStep} startStep={this.startStep} step={this.state.step}/>

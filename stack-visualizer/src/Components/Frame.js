@@ -5,20 +5,7 @@ import './../App.css';
 import './../styles/Frames.css';
 
 class Frame extends React.Component {
-    constructor(props) {
-        super();
-        this.state = {
-            address: props.params.address,
-            data: {
-                type: props.params.data.type,
-                reg: props.params.data.reg,
-                value: props.params.data.value,
-                arg: props.params.data.arg,
-                pos: props.params.data.pos,
-            },
-        }
-    }
-
+    
     render() {
         return(
             <div>

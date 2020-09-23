@@ -17,7 +17,7 @@ class Links extends React.Component {
                     </Grid>
 
                     {/* <Grid item style={{padding: "1vw"}}>
-                        <a href= "https://www.linkedin.com/in/steven-harris-37b2511a0/">
+                        <a href= "https://www.linkedin.com/in/steven-harris-cs/">
                             <img style={{height: "2vw", width: "2vw"}} alt="Linkedin" src={LiLogo}/>
                         </a>
                     </Grid> */}
