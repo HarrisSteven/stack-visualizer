@@ -15,7 +15,7 @@
     "react-highlight-words": "^0.16.0",
     "react-highlighter": "^0.4.3",
     "react-responsive": "^8.1.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "predeploy": "npm run build",
